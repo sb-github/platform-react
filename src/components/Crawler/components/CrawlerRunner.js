@@ -29,7 +29,7 @@ class CrawlerRunner extends Component {
               />
               <InputGroup.Addon>
                 <a href='#' onClick={this.handleClick}>
-                  <Glyphicon glyph="glyphicon glyphicon-search"/>
+                  <Glyphicon glyph="glyphicon glyphicon-play"/>
                 </a>
               </InputGroup.Addon>
             </InputGroup>

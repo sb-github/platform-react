@@ -1,24 +1,28 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
-import CrawlerRunner from "./components/CrawlerRunner";
-import ListCrawlers from "./components/ListCrawlers";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { runCrawler, fetchResultCrawler } from "./crawlerActions";
+import { fetchNewSkill } from "../WordTree/treeActions";
+import Crawler from "./Crawler";
 
-class Crawler extends Component {
-  static propTypes = {
-    crawlers: PropTypes.array.isRequired,
-    runCrawler: PropTypes.PropTypes.func.isRequired
+const mapStateToProps = state => {
+  const { crawlers, tree } = state;
+
+  return {
+    crawlers,
+    tree
   };
+};
 
-  render() {
-    return (
-      <div>
-        <br />
-        <CrawlerRunner runCrawler={this.props.runCrawler}/>
-        <ListCrawlers crawlers={this.props.crawlers}/>
-      </div>
-    );
-  }
-}
+const mapDispatchToProps = dispatch => {
+  return {
+    runCrawler: bindActionCreators(runCrawler, dispatch),
+    fetchNewSkill: bindActionCreators(fetchNewSkill, dispatch),
+    fetchResultCrawler: bindActionCreators(fetchResultCrawler, dispatch)
+  };
+};
 
-export default Crawler;
-
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Crawler);

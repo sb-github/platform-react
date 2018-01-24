@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {fetchWords} from "../wordActions";
+import {fetchWords} from "../../WordTree/treeActions";
 import { Table, Row, Col, Button } from 'react-bootstrap';
-import store from "../../../store";
+import store from "../../../store/index";
 
 class ListCrawlers extends Component {
   static propTypes = {
-    crawlers: PropTypes.array.isRequired
+    crawlers: PropTypes.array.isRequired,
+    fetchResultCrawler: PropTypes.func.isRequired
   };
 
   render() {
 
     const { crawlers } = this.props;
-    //console.log(crawlers);
     const crawlersList = crawlers.map(crawler => <tr>
       <td>{crawler.id}</td>
       <td>{crawler.searchCondition}</td>
@@ -53,7 +53,9 @@ class ListCrawlers extends Component {
   }
 
   handleResult = id_crawler => {
-    store.dispatch(fetchWords(id_crawler));
+    const {fetchResultCrawler} = this.props;
+
+    fetchResultCrawler(id_crawler);
   };
 }
 

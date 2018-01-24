@@ -1,5 +1,5 @@
 import {RUN_CRAWLER, RECEIVE_ALL_CRAWLERS, RECEIVE_NEW_CRAWLER} from "./actionTypes";
-import {EXTRACTOR_API} from "../../api.config";
+import {CRAWLER_INFO_API, EXTRACTOR_API, RUN_CRAWLER_API} from "../../api.config";
 
 /*export const mergeCrawler = idCrawler => {
   return {
@@ -29,7 +29,7 @@ export const receiveNewCrawler = crawler => {
 
 export const fetchCrawlers = () => {
   return dispatch => {
-    const rote = EXTRACTOR_API + 'crawler/';
+    const rote = EXTRACTOR_API + CRAWLER_INFO_API;
 
     return fetch(rote)
       .then(res => res.json())
@@ -39,11 +39,11 @@ export const fetchCrawlers = () => {
 
 export const runCrawler = word => {
   return dispatch => {
-    const route = EXTRACTOR_API + 'crawler/run?searchcondition=' + word;
+    const route = EXTRACTOR_API + RUN_CRAWLER_API + '?searchcondition=' + word;
 
     return fetch(route)
-      .then(res => res.json());
-      //.then(data => dispatch(addNewAnswer(id_quest, data)));
+      .then(res => res.json())
+      .then(data => console.log(data));
   };
 };
 

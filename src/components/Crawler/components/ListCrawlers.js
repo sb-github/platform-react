@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Table, Glyphicon, Row, Col, InputGroup, FormGroup, FormControl, Button } from 'react-bootstrap';
+import {fetchWords} from "../wordActions";
+import { Table, Row, Col, Button } from 'react-bootstrap';
+import store from "../../../store";
 
 class ListCrawlers extends Component {
   static propTypes = {
@@ -10,22 +12,27 @@ class ListCrawlers extends Component {
   render() {
 
     const { crawlers } = this.props;
-
+    //console.log(crawlers);
     const crawlersList = crawlers.map(crawler => <tr>
       <td>{crawler.id}</td>
-      <td>{crawler.word}</td>
-      <td>{crawler.date}</td>
+      <td>{crawler.searchCondition}</td>
+      <td>{crawler.createdDate}</td>
       <td>{crawler.status}</td>
       <td>
-        <Button>
+        <Button onClick={() => this.handleResult(crawler.id)}>
           View
+        </Button>
+      </td>
+      <td>
+        <Button>
+          Merge
         </Button>
       </td>
     </tr>);
 
     return (
       <Row>
-        <Col xs={5}>
+        <Col xs={8}>
        <Table responsive>
          <thead>
            <tr>
@@ -45,10 +52,8 @@ class ListCrawlers extends Component {
     );
   }
 
-  handleClick = () => {
-    const {runCrawler} = this.props;
-
-    runCrawler(this.state.text);
+  handleResult = id_crawler => {
+    store.dispatch(fetchWords(id_crawler));
   };
 }
 

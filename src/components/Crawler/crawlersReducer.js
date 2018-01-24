@@ -8,7 +8,7 @@ const crawlersReducer = (state = [], action) => {
       return action.crawlers;
 
     case RECEIVE_NEW_CRAWLER:
-      return Object.assign({ }, state, action.crawler)
+      return Object.assign({ }, state, action.crawler);
 
     default:
       return state;

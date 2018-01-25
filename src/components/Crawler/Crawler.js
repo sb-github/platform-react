@@ -6,24 +6,27 @@ import WordTree from "../WordTree/WordTree";
 
 class Crawler extends Component {
   static propTypes = {
-    crawlers: PropTypes.array.isRequired,
+    crawlersInfo: PropTypes.object.isRequired,
     tree: PropTypes.array.isRequired,
     runCrawler: PropTypes.func.isRequired,
     fetchNewSkill: PropTypes.func.isRequired,
-    fetchResultCrawler: PropTypes.func.isRequired
+    fetchResultCrawler: PropTypes.func.isRequired,
+    fetchCrawlers: PropTypes.func.isRequired
   };
 
   render() {
-    const {tree, crawlers, runCrawler,
-      fetchNewSkill, fetchResultCrawler} = this.props;
+    const {tree, crawlersInfo, runCrawler,
+      fetchNewSkill, fetchResultCrawler, fetchCrawlers} = this.props;
 
     return (
       <div>
         <br />
         <CrawlerRunner runCrawler={runCrawler}/>
         <ListCrawlers
-          crawlers={crawlers}
+          crawlers={crawlersInfo.crawlers}
+          page={crawlersInfo.page}
           fetchResultCrawler={fetchResultCrawler}
+          fetchCrawlers={fetchCrawlers}
         />
         <WordTree nodes={tree} addNewSkill={fetchNewSkill}/>
       </div>

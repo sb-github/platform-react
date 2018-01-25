@@ -1,15 +1,15 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { runCrawler, fetchResultCrawler } from "./crawlerActions";
+import { runCrawler, fetchResultCrawler, fetchCrawlers } from "./crawlerActions";
 import { fetchNewSkill } from "../WordTree/treeActions";
 import Crawler from "./Crawler";
 
 const mapStateToProps = state => {
-  const { crawlers, tree } = state;
+  const { crawlersInfo, tree } = state;
 
   return {
-    crawlers,
+    crawlersInfo,
     tree
   };
 };
@@ -18,7 +18,8 @@ const mapDispatchToProps = dispatch => {
   return {
     runCrawler: bindActionCreators(runCrawler, dispatch),
     fetchNewSkill: bindActionCreators(fetchNewSkill, dispatch),
-    fetchResultCrawler: bindActionCreators(fetchResultCrawler, dispatch)
+    fetchResultCrawler: bindActionCreators(fetchResultCrawler, dispatch),
+    fetchCrawlers: bindActionCreators(fetchCrawlers, dispatch)
   };
 };
 

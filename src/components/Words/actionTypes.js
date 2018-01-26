@@ -1,0 +1,4 @@
+export const FETCH_ALL_WORDS = 'FETCH_ALL_WORDS';
+export const CREATE_SKILL = 'CREATE_SKILL';
+export const RECEIVE_ALL_WORDS = 'RECEIVE_ALL_WORDS';
+export const DELETE_WORD = 'DELETE_WORD';

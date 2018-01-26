@@ -1,4 +1,4 @@
-import {RECEIVE_ALL_CRAWLERS, RECEIVE_NEW_CRAWLER} from "./actionTypes";
+import {RECEIVE_ALL_CRAWLERS, RECEIVE_NEW_CRAWLER, START_RUN_CRAWLER} from "./actionTypes";
 
 const crawlersReducer = (state = {}, action) => {
   const { type } = action;

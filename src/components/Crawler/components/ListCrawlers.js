@@ -3,12 +3,13 @@ import PropTypes from 'prop-types';
 import {fetchWords} from "../../WordTree/treeActions";
 import { Table, Row,Pager, Col, Button } from 'react-bootstrap';
 import { ButtonGroup, Classes, Icon, Intent,Position, Button as BlurButton,Popover,PopoverInteractionKind } from "@blueprintjs/core";
+import Notification from "./Notification";
 
 
 class ListCrawlers extends Component {
   static propTypes = {
-    crawlers: PropTypes.array.isRequired,
-    page: PropTypes.number.isRequired,
+    crawlers: PropTypes.array,
+    page: PropTypes.number,
     fetchResultCrawler: PropTypes.func.isRequired,
     fetchCrawlers: PropTypes.func.isRequired
   };
@@ -17,7 +18,7 @@ class ListCrawlers extends Component {
 
     const { page } = this.props;
     const crawlers = this.props.crawlers || [];
-    const crawlersList = crawlers.map(crawler => <tr>
+    const crawlersList = crawlers.map(crawler => <tr key={crawler.id}>
       <td>{crawler.id}</td>
       <td>{crawler.searchCondition}</td>
       <td>{crawler.createdDate}</td>

@@ -4,8 +4,6 @@ import { Classes, ITreeNode, ButtonGroup, Icon, Intent,Position,Tree, Button,Pop
 import {Row, Col} from 'react-bootstrap';
 import SelectMenu from './components/SelectMenu'
 
-
-
 export class WordTree extends Component {
   static propTypes = {
     nodes: PropTypes.array.isRequired,

@@ -1,4 +1,4 @@
-import {RUN_CRAWLER, RECEIVE_ALL_CRAWLERS, RECEIVE_NEW_CRAWLER} from "./actionTypes";
+import {RUN_CRAWLER, RECEIVE_ALL_CRAWLERS, RECEIVE_NEW_CRAWLER, START_RUN_CRAWLER} from "./actionTypes";
 import {CRAWLER_INFO_API, EXTRACTOR_API, GRAPH_SKILL_API, RUN_CRAWLER_API} from "../../config/api.config";
 import {receiveAllNodes} from "../WordTree/treeActions";
 
@@ -13,13 +13,18 @@ export const searchCrawler = word => {
 
   };
 };*/
+export const startRunCrawler = () => {
+  return {
+    type: START_RUN_CRAWLER
+  };
+};
 
 export const receiveAllCrawlers = (page, crawlers) => {
   return {
     type: RECEIVE_ALL_CRAWLERS,
     crawlers,
     page
-  };
+  }
 };
 
 export const receiveNewCrawler = crawler => {
@@ -31,7 +36,7 @@ export const receiveNewCrawler = crawler => {
 
 export const fetchCrawlers = page => {
   return dispatch => {
-    const rote = EXTRACTOR_API + CRAWLER_INFO_API + '?page=' + page +'&size=' + 10;
+    const rote = EXTRACTOR_API + CRAWLER_INFO_API ;//+ '?page=' + page ;//+'&size=' + 5;
 
     return fetch(rote)
       .then(res => res.json())
@@ -45,7 +50,8 @@ export const runCrawler = word => {
 
     return fetch(route)
       .then(res => res.json())
-      .then(data => console.log(data));
+      .then(data => console.log(data))
+      .then(err => console.log(err.message));
   };
 };
 

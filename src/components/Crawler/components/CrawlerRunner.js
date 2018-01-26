@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Glyphicon, Row, Col, InputGroup, FormGroup, FormControl } from 'react-bootstrap';
 
+import Notification from "./Notification";
+
 class CrawlerRunner extends Component {
   static propTypes = {
     runCrawler: PropTypes.PropTypes.func.isRequired
@@ -34,6 +36,7 @@ class CrawlerRunner extends Component {
               </InputGroup.Addon>
             </InputGroup>
           </FormGroup>
+          <Notification/>
         </Col>
       </Row>
     );
@@ -43,6 +46,7 @@ class CrawlerRunner extends Component {
     const {runCrawler} = this.props;
 
     runCrawler(this.state.text);
+    //const key = Notification.show({ message: "Toasted!" });
   };
 }
 

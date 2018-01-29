@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import DevTools from '../components/DevTools/DevTools';
 import CrawlerContainer from './Crawler/';
+import MaterialContainer from './Material/';
 
 class Root extends Component {
   render() {
@@ -8,6 +9,7 @@ class Root extends Component {
         <div>
           <DevTools />
           <CrawlerContainer />
+          <MaterialContainer />
         </div>
     );
   };

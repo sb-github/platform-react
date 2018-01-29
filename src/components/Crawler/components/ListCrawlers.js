@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {fetchWords} from "../../WordTree/treeActions";
 import { Table, Row,Pager, Col, Button } from 'react-bootstrap';
-import { ButtonGroup, Classes, Icon, Intent,Position, Button as BlurButton,Popover,PopoverInteractionKind } from "@blueprintjs/core";
-import Notification from "./Notification";
+import { ButtonGroup, Classes, Position, Button as BlurButton,Popover,PopoverInteractionKind } from "@blueprintjs/core";
 
 
 class ListCrawlers extends Component {
@@ -46,28 +44,6 @@ class ListCrawlers extends Component {
              <th>Run date</th>
              <th>Status</th>
              <th>View result</th>
-             <th>
-               <Popover
-                 interactionKind={PopoverInteractionKind.CLICK}
-                 popoverClassName="pt-popover-content-sizing"
-                 position={Position.TOP_RIGHT}
-               >
-                 <ButtonGroup minimal={true}>
-                   <BlurButton className="pt-intent-primary">Run crawler</BlurButton>
-                 </ButtonGroup>
-                 <div>
-                   <label className={Classes.LABEL}>
-                     Enter search text
-
-                     <div class="pt-input-group .modifier">
-                       <span class="pt-icon pt-icon-search"></span>
-                       <input type="text" class="pt-input" placeholder="Search" />
-                     <button class="pt-button pt-minimal pt-intent-primary pt-icon-arrow-right"></button>
-                 </div>
-                   </label>
-                 </div>
-               </Popover>
-             </th>
            </tr>
          </thead>
          <tbody>

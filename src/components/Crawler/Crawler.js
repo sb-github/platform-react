@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import CrawlerRunner from "./components/CrawlerRunner";
 import ListCrawlers from "./components/ListCrawlers";
 import WordTree from "../WordTree/WordTree";
+import {  notification } from 'antd';
 
 class Crawler extends Component {
   static propTypes = {
@@ -13,6 +14,19 @@ class Crawler extends Component {
     fetchResultCrawler: PropTypes.func.isRequired,
     fetchCrawlers: PropTypes.func.isRequired
   };
+
+  componentWillUpdate(nextProps) {
+    if (nextProps.crawlersInfo.load !== this.props.crawlersInfo.load) {
+      const {load} = nextProps.crawlersInfo;
+
+      if (load.loading)
+        if (load.status || false)
+          notification[load.status || 'error']({
+            message: "Run crawler by '" + load.message + "'",
+            description: "Successfully run crawler by search word '" + load.message + "'",
+          })
+    }
+  }
 
   render() {
     const {tree, crawlersInfo, runCrawler,

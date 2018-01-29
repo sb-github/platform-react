@@ -1,5 +1,5 @@
 import {RECEIVE_ALL_NODES, DELETE_NODE} from "./actionTypes";
-import { PLATFORM_API, SKILLS_API, STOP_WORDS_API} from "../../config/api.config";
+import { PLATFORM_API, SKILLS_API} from "../../config/api.config";
 
 export const receiveAllNodes = words => {
   return {

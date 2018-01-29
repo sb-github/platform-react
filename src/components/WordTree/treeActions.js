@@ -15,7 +15,7 @@ export const deleteNode = node => {
   };
 };
 
-export const fetchNewSkill = skill => {
+export const fetchNewSkills = skills => {
   return dispatch => {
     const route = PLATFORM_API + SKILLS_API;
 
@@ -24,9 +24,9 @@ export const fetchNewSkill = skill => {
         'Content-Type': 'application/json'
       },
       method: 'post',
-      body: JSON.stringify({title: skill})
+      body: JSON.stringify({title: skills})
     }).then(res => res.json())
-      .then(data => dispatch(deleteNode(skill)));
+      .then(data => dispatch(deleteNode(skills)));
   };
 };
 

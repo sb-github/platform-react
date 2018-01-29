@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import WordTree from './WordTree';
+import {fetchNewSkills} from './treeActions';
+import {connect} from 'react-redux';
+import {bindActionCreators} from 'redux';
 
 const mapStateToProps = state => {
   const { words } = state;
@@ -11,7 +14,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    addNewSkill: bindActionCreators(fetchNewSkill, dispatch)
+    addNewSkills: bindActionCreators(fetchNewSkills, dispatch)
   };
 };
 

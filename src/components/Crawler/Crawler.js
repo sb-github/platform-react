@@ -10,7 +10,7 @@ class Crawler extends Component {
     crawlersInfo: PropTypes.object.isRequired,
     tree: PropTypes.array.isRequired,
     runCrawler: PropTypes.func.isRequired,
-    fetchNewSkill: PropTypes.func.isRequired,
+    fetchNewSkills: PropTypes.func.isRequired,
     fetchResultCrawler: PropTypes.func.isRequired,
     fetchCrawlers: PropTypes.func.isRequired
   };
@@ -40,7 +40,7 @@ class Crawler extends Component {
 
   render() {
     const {tree, crawlersInfo, runCrawler,
-      fetchNewSkill, fetchResultCrawler, fetchCrawlers} = this.props;
+      fetchNewSkills, fetchResultCrawler, fetchCrawlers} = this.props;
 
     return (
       <div>
@@ -52,7 +52,7 @@ class Crawler extends Component {
           fetchResultCrawler={fetchResultCrawler}
           fetchCrawlers={fetchCrawlers}
         />
-        <WordTree nodes={tree} addNewSkill={fetchNewSkill}/>
+        <WordTree nodes={tree} addNewSkills={fetchNewSkills}/>
       </div>
     );
   }

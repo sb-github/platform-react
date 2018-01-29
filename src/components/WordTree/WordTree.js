@@ -1,10 +1,8 @@
 import React, {Component} from "react";
 import PropTypes from 'prop-types';
-import { Classes, ITreeNode, ButtonGroup, Icon, Intent,Position,Tree, Button,Popover,PopoverInteractionKind } from "@blueprintjs/core";
+import { Classes, ITreeNode,Tree } from "@blueprintjs/core";
 import {Row, Col} from 'react-bootstrap';
 import SelectMenu from './components/SelectMenu'
-
-
 
 export class WordTree extends Component {
   static propTypes = {

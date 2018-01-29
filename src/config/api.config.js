@@ -1,5 +1,5 @@
-export const EXTRACTOR_API = 'http://192.168.128.232:8080';
-export const PLATFORM_API = 'http://192.168.128.232:8082';
+export const EXTRACTOR_API = 'http://192.168.128.232:8081'; //http://localhost:3001/api
+export const PLATFORM_API = 'http://192.168.128.232:8082'; //http://localhost:8000
 
 export const RUN_CRAWLER_API = '/extractor/rest/v1/crawler/run';
 export const CRAWLER_INFO_API = '/extractor/rest/v1/crawler/';

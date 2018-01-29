@@ -1,19 +1,22 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {fetchWords} from "../../WordTree/treeActions";
-import { Table, Row, Col, Button } from 'react-bootstrap';
-import store from "../../../store/index";
+import { Table, Row,Pager, Col, Button } from 'react-bootstrap';
+import { ButtonGroup, Classes, Position, Button as BlurButton,Popover,PopoverInteractionKind } from "@blueprintjs/core";
+
 
 class ListCrawlers extends Component {
   static propTypes = {
-    crawlers: PropTypes.array.isRequired,
-    fetchResultCrawler: PropTypes.func.isRequired
+    crawlers: PropTypes.array,
+    page: PropTypes.number,
+    fetchResultCrawler: PropTypes.func.isRequired,
+    fetchCrawlers: PropTypes.func.isRequired
   };
 
   render() {
 
-    const { crawlers } = this.props;
-    const crawlersList = crawlers.map(crawler => <tr>
+    const { page } = this.props;
+    const crawlers = this.props.crawlers || [];
+    const crawlersList = crawlers.map(crawler => <tr key={crawler.id}>
       <td>{crawler.id}</td>
       <td>{crawler.searchCondition}</td>
       <td>{crawler.createdDate}</td>
@@ -47,6 +50,19 @@ class ListCrawlers extends Component {
           { crawlersList }
          </tbody>
        </Table>
+          <Pager>
+            <Pager.Item
+              href="#"
+              disabled={page === 1}
+              onClick={() => this.handleFetchCrawlers(page-1)}>
+              Previous
+            </Pager.Item>
+            <Pager.Item
+              href="#"
+              onClick={() => this.handleFetchCrawlers(page+1)}>
+              Next
+            </Pager.Item>
+          </Pager>
         </Col>
       </Row>
     );
@@ -56,6 +72,12 @@ class ListCrawlers extends Component {
     const {fetchResultCrawler} = this.props;
 
     fetchResultCrawler(id_crawler);
+  };
+
+  handleFetchCrawlers = page => {
+    const {fetchCrawlers} = this.props;
+
+    fetchCrawlers(page);
   };
 }
 

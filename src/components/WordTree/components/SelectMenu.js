@@ -2,7 +2,6 @@ import React, {Component} from "react";
 import PropTypes from 'prop-types';
 import { ButtonGroup, Icon, Intent,Position, Button,Popover,PopoverInteractionKind } from "@blueprintjs/core";
 
-
 class SelectMenu extends Component {
   static propTypes = {
     addStopWord: PropTypes.func.isRequired,

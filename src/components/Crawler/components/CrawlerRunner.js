@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Glyphicon, Row, Col, InputGroup, FormGroup, FormControl } from 'react-bootstrap';
+import { Row, Col, InputGroup, FormGroup, FormControl } from 'react-bootstrap';
 
 class CrawlerRunner extends Component {
   static propTypes = {
@@ -28,8 +28,8 @@ class CrawlerRunner extends Component {
                 type='text' placeholder='Search'
               />
               <InputGroup.Addon>
-                <a href='#' onClick={this.handleClick}>
-                  <Glyphicon glyph="glyphicon glyphicon-play"/>
+                <a onClick={this.handleClick} bsStyle="success">
+                  Run
                 </a>
               </InputGroup.Addon>
             </InputGroup>

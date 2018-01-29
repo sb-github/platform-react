@@ -19,7 +19,7 @@ class ListCrawlers extends Component {
     const crawlersList = crawlers.map(crawler => <tr key={crawler.id}>
       <td>{crawler.id}</td>
       <td>{crawler.searchCondition}</td>
-      <td>{crawler.createdDate}</td>
+      <td>{Date(crawler.createdDate)}</td>
       <td>{crawler.status}</td>
       <td>
         <Button onClick={() => this.handleResult(crawler.id)}>

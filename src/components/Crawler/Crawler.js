@@ -16,14 +16,24 @@ class Crawler extends Component {
   };
 
   componentWillUpdate(nextProps) {
-    if (nextProps.crawlersInfo.load !== this.props.crawlersInfo.load) {
+
+    if (nextProps.crawlersInfo.load.loading !== this.props.crawlersInfo.load.loading) {
       const {load} = nextProps.crawlersInfo;
 
-      if (load.loading)
-        if (load.status || false)
-          notification[load.status || 'error']({
-            message: "Run crawler by '" + load.message + "'",
-            description: "Successfully run crawler by search word '" + load.message + "'",
+      const mess = load.status === 'success'
+        ? "Run crawler by word '" + load.message + "'"
+        : "Fail run crawler";
+
+      const desc = load.status === 'success'
+        ? "Successfully run new crawler by search word '" + load.message + "'"
+        : "Oops! An error occurred: " + load.message;
+
+      const type = load.status !== 'success' ? 'error' : 'success';
+
+      if (!load.loading)
+          notification[type]({
+            message: mess,
+            description: desc,
           })
     }
   }

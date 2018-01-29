@@ -48,7 +48,7 @@ export const receiveNewCrawler = crawler => {
 
 export const fetchCrawlers = page => {
   return dispatch => {
-    const rote = EXTRACTOR_API + CRAWLER_INFO_API ;//+ '?page=' + page ;//+'&size=' + 5;
+    const rote = EXTRACTOR_API + CRAWLER_INFO_API + '?page=' + page +'&size=' + 2;
 
     return fetch(rote)
       .then(res => res.json())

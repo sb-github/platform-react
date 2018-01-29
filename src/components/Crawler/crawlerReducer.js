@@ -1,6 +1,6 @@
 import {RECEIVE_ALL_CRAWLERS, RECEIVE_NEW_CRAWLER, END_RUN_CRAWLER, START_RUN_CRAWLER} from "./actionTypes";
 
-const crawlersReducer = (state = {load:{}}, action) => {
+const crawlersReducer = (state = {load:{loading:false}}, action) => {
   const { type } = action;
 
   switch (type) {

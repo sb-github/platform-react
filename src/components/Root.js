@@ -4,6 +4,7 @@ import CrawlerContainer from './Crawler/';
 import WordTreeContainer from "./WordTree/";
 import SKillContainer from './Skill/';
 import MaterialContainer from './Material/';
+import DirectionsContainer from './Directions/';
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 class Root extends Component {
@@ -19,6 +20,9 @@ class Root extends Component {
           </Router>
           <Router>
             <Route path="/materials" component = { MaterialContainer } />
+          </Router>
+		  <Router>
+            <Route path="/directions" component = { DirectionsContainer } />
           </Router>
         </div>
     );

@@ -13,3 +13,5 @@ export const DELETE_SKILL = '/api/v1/skills';
 export const MATERIALS_API = '/api/v1/material';
 export const ADD_MATERIAL_API = '/api/v1/material';
 export const DELETE_MATERIAL = '/api/v1/material/';
+
+export const DIRECTIONS_API = '/api/v1/directions/';

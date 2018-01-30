@@ -1,21 +1,22 @@
-import {RECEIVE_ALL_NODES, DELETE_NODE} from "./actionTypes";
+import {RECEIVE_ALL_NODES, DELETE_NODES} from "./actionTypes";
 import { PLATFORM_API, SKILLS_API} from "../../config/api.config";
 
-export const receiveAllNodes = words => {
+export const receiveAllNodes = (nodes, page) => {
   return {
     type: RECEIVE_ALL_NODES,
-    words
+    nodes,
+    page
   };
 };
 
-export const deleteNode = node => {
+export const deleteNodes = nodes => {
   return {
-    type: DELETE_NODE,
-    node
+    type: DELETE_NODES,
+    nodes
   };
 };
 
-export const fetchNewSkill = skill => {
+export const fetchNewSkills = skills => {
   return dispatch => {
     const route = PLATFORM_API + SKILLS_API;
 
@@ -24,9 +25,9 @@ export const fetchNewSkill = skill => {
         'Content-Type': 'application/json'
       },
       method: 'post',
-      body: JSON.stringify({title: skill})
+      body: JSON.stringify({title: skills})
     }).then(res => res.json())
-      .then(data => dispatch(deleteNode(skill)));
+      .then(data => dispatch(deleteNodes(skills)));
   };
 };
 

@@ -1,27 +1,24 @@
 import React, { Component } from 'react';
-import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { fetchWords } from "./actions";
+import { sendWords } from './actions';
+import Words from "./Words";
 
-class Crawler extends Component {
-  static propTypes = {
-    words: PropTypes.array.isRequired
-  };
+const mapStateToProps=(state)=>{
+    return {
+        words: state.words
+    }
+};
 
-  render() {
-    const { words } = this.props;
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchWords: bindActionCreators(fetchWords, dispatch),
+        sendWords: bindActionCreators(sendWords, dispatch)
+    };
+};
 
-    const listWords = words.map(word => <li>
-      {word}
-    </li>);
-
-    return (
-      <div>
-        <ul>
-         {listWords}
-        </ul>
-      </div>
-    );
-  }
-}
-
-export default Crawler;
-
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Words);

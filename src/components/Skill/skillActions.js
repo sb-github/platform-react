@@ -1,5 +1,5 @@
 import {ADD_SKILL, RECEIVE_ALL_SKILL} from "./actionTypes";
-import {SKILLS_API, PLATFORM_API, ADD_SKILL_API, DELETE_SKILL, EDIT_SKILL} from "../../config/api.config";
+import {SKILLS_API, PLATFORM_API, SKILL_API} from "../../config/api.config";
 
 
 export const receiveAllSkill = skills => {
@@ -11,7 +11,7 @@ export const receiveAllSkill = skills => {
 
 export const addSkill = skill => {
     return dispatch => {
-        const route = PLATFORM_API + SKILLS_API;
+        const route = PLATFORM_API + SKILL_API;
 
         return fetch(route, {
             headers: {

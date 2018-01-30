@@ -28,7 +28,7 @@ class CrawlerRunner extends Component {
                 type='text' placeholder='Search'
               />
               <InputGroup.Addon>
-                <a onClick={this.handleClick} bsStyle="success">
+                <a onClick={this.handleClick}>
                   Run
                 </a>
               </InputGroup.Addon>

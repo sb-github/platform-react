@@ -25,13 +25,12 @@ export const addSkill = skill => {
 };
 
 export const deleteSkill = skill_id => {
-    return dispatch =>  {
+    return dispatch => {
         const route = PLATFORM_API + DELETE_SKILL + '/' + skill_id;
-        return fetch(route)
-            .then(res => res.json())
-            .then(data => {
-                dispatch(fetchSkills(data));
-            });
+        return fetch(route,{
+            method: 'delete'
+        }).then(res => res.json())
+            .then(data => dispatch(fetchSkills()));
     }
 };
 

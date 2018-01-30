@@ -11,7 +11,7 @@ export const receiveAllSkill = skills => {
 
 export const addSkill = skill => {
     return dispatch => {
-        const route = PLATFORM_API + ADD_SKILL_API;
+        const route = PLATFORM_API + SKILLS_API;
 
         return fetch(route, {
             headers: {
@@ -26,7 +26,7 @@ export const addSkill = skill => {
 
 export const deleteSkill = skill_id => {
     return dispatch => {
-        const route = PLATFORM_API + DELETE_SKILL + skill_id;
+        const route = PLATFORM_API + SKILLS_API + skill_id;
         return fetch(route,{
             method: 'delete'
         }).then(res => res.json())
@@ -46,7 +46,7 @@ export const fetchSkills = () => {
 
 export const editSkill = (skill_id, skill_title) => {
     return dispatch => {
-        const route = PLATFORM_API + EDIT_SKILL + skill_id;
+        const route = PLATFORM_API + SKILLS_API + skill_id;
 
         return fetch(route, {
             headers: {

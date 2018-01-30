@@ -18,9 +18,10 @@ class Skill extends Component {
      return (
       <div>
         <br />
-        <SkillAdd addSkill={addSkill} deleteSkill={deleteSkill}/>
+        <SkillAdd addSkill={addSkill}/>
         <ListSkills
           skills={skills}
+          deleteSkill={deleteSkill}
         />
       </div>
     );

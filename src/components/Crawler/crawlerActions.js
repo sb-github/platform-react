@@ -75,10 +75,13 @@ export const runCrawler = word => {
           return res;
         throw Error(res.statusText);
       })
-      .then(data => dispatch(endRunCrawler({
+      .then(data => {
+        dispatch(endRunCrawler({
           status: 'success',
           message: word
-      })))
+        }));
+        dispatch(fetchCrawlers(1));
+      })
       .catch(err => dispatch(endRunCrawler({
         status: 'fail',
         message: err.message

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import CrawlerRunner from "./components/CrawlerRunner";
 import ListCrawlers from "./components/ListCrawlers";
-import WordTree from "../WordTree/WordTree";
+import WordTreeContainer from "../WordTree/";
 import {  notification } from 'antd';
 
 class Crawler extends Component {
@@ -55,6 +55,7 @@ class Crawler extends Component {
           fetchCrawlers={fetchCrawlers}
           setCrawler={setCrawler}
         />
+        <WordTreeContainer />
         {/*<WordTree*/}
           {/*nodes={treeInfo.nodes}*/}
           {/*addNewSkills={fetchNewSkills}*/}

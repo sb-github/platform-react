@@ -42,6 +42,7 @@ class SkillAdd extends Component {
   handleClick = () => {
     const {addSkill} = this.props;
     addSkill(this.state.text);
+    this.state.text ='';
   };
 }
 

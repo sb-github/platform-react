@@ -11,18 +11,16 @@ class Skill extends Component {
     fetchSkills: PropTypes.func.isRequired,
     addSkill: PropTypes.func.isRequired,
     deleteSkill: PropTypes.func.isRequired,
+    editSkill: PropTypes.func.isRequired
   };
 
   render() {
-    const {skills, addSkill, deleteSkill} = this.props;
+    const {skills, addSkill, deleteSkill, editSkill} = this.props;
      return (
       <div>
         <br />
         <SkillAdd addSkill={addSkill}/>
-        <ListSkills
-          skills={skills}
-          deleteSkill={deleteSkill}
-        />
+        <ListSkills skills={skills} deleteSkill={deleteSkill} editSkill={editSkill}/>
       </div>
     );
   }

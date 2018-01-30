@@ -8,3 +8,4 @@ export const GRAPH_SKILL_API = '/extractor/graphskill';
 export const SKILLS_API = '/api/v1/skills';
 export const ADD_SKILL_API = '/api/v1/skill';
 export const DELETE_SKILL = '/api/v1/skills';
+export const EDIT_SKILL = 'api/v1/skills/';

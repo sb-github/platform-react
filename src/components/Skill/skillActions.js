@@ -1,5 +1,5 @@
 import {ADD_SKILL, RECEIVE_ALL_SKILL} from "./actionTypes";
-import {SKILLS_API, PLATFORM_API, ADD_SKILL_API, DELETE_SKILL} from "../../config/api.config";
+import {SKILLS_API, PLATFORM_API, ADD_SKILL_API, DELETE_SKILL, EDIT_SKILL} from "../../config/api.config";
 
 
 export const receiveAllSkill = skills => {
@@ -26,7 +26,7 @@ export const addSkill = skill => {
 
 export const deleteSkill = skill_id => {
     return dispatch => {
-        const route = PLATFORM_API + DELETE_SKILL + '/' + skill_id;
+        const route = PLATFORM_API + DELETE_SKILL + skill_id;
         return fetch(route,{
             method: 'delete'
         }).then(res => res.json())
@@ -40,10 +40,24 @@ export const fetchSkills = () => {
 
     return fetch(rote)
       .then(res => res.json())
-      .then(data => dispatch(receiveAllSkill(data)));
+      .then(data => dispatch( receiveAllSkill(data) ));
   };
 };
 
+export const editSkill = (skill_id, skill_title) => {
+    return dispatch => {
+        const route = PLATFORM_API + EDIT_SKILL + skill_id;
+
+        return fetch(route, {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'put',
+            body: JSON.stringify({title: skill_title})
+        }).then(res => res.json())
+            .then(data => dispatch(fetchSkills()));
+    };
+};
 
 
 

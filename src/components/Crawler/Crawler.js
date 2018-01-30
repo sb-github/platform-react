@@ -8,11 +8,12 @@ import {  notification } from 'antd';
 class Crawler extends Component {
   static propTypes = {
     crawlersInfo: PropTypes.object.isRequired,
-    tree: PropTypes.array.isRequired,
+    treeInfo: PropTypes.object.isRequired,
     runCrawler: PropTypes.func.isRequired,
     fetchNewSkills: PropTypes.func.isRequired,
     fetchResultCrawler: PropTypes.func.isRequired,
-    fetchCrawlers: PropTypes.func.isRequired
+    fetchCrawlers: PropTypes.func.isRequired,
+    setCrawler: PropTypes.func.isRequired
   };
 
   componentWillUpdate(nextProps) {
@@ -39,9 +40,10 @@ class Crawler extends Component {
   }
 
   render() {
-    const {tree, crawlersInfo, runCrawler,
-      fetchNewSkills, fetchResultCrawler, fetchCrawlers} = this.props;
+    const {treeInfo, crawlersInfo, runCrawler,
+      fetchNewSkills, fetchResultCrawler, fetchCrawlers, setCrawler} = this.props;
 
+    console.log(treeInfo);
     return (
       <div>
         <br />
@@ -51,8 +53,13 @@ class Crawler extends Component {
           page={crawlersInfo.page}
           fetchResultCrawler={fetchResultCrawler}
           fetchCrawlers={fetchCrawlers}
+          setCrawler={setCrawler}
         />
-        <WordTree nodes={tree} addNewSkills={fetchNewSkills}/>
+        {/*<WordTree*/}
+          {/*nodes={treeInfo.nodes}*/}
+          {/*addNewSkills={fetchNewSkills}*/}
+          {/*fetchResultCrawler={fetchResultCrawler}*/}
+        {/*/>*/}
       </div>
     );
   }

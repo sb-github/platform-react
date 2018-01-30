@@ -9,7 +9,10 @@ import { Button } from 'antd';
 export class WordTree extends Component {
   static propTypes = {
     nodes: PropTypes.array.isRequired,
-    addNewSkills: PropTypes.func.isRequired
+    page: PropTypes.number.isRequired,
+    crawler_id: PropTypes.string.isRequired,
+    addNewSkills: PropTypes.func.isRequired,
+    fetchResultCrawler: PropTypes.func.isRequired
   };
 
   constructor(props) {
@@ -32,7 +35,8 @@ export class WordTree extends Component {
   componentDidUpdate(prevProps) {
     if(prevProps.nodes !== this.props.nodes) {
 
-      if(this.state.nodes === null){
+
+      //if(this.state.nodes === null){
         const nodes = this.props.nodes.map(item => Object.assign({},{
           skill: item.skill,
           label: <Icon iconName = 'pt-icon-circle'> {item.skill}</Icon>,
@@ -44,11 +48,12 @@ export class WordTree extends Component {
 
         this.setState({nodes: nodes});
       }
-    }
+    //}
 
   }
 
   render() {
+    const {fetchResultCrawler, page, crawler_id} = this.props;
     const description = (
       <span>
         Your search didn't match any skills.<br />Try select another crawler.
@@ -75,7 +80,7 @@ export class WordTree extends Component {
         </Col>
         <Col xs={8}>
           <br/>
-          <Button type="primary" icon={'down-circle'}>
+          <Button onClick={() => fetchResultCrawler(crawler_id, page + 1)} type="primary" icon={'down-circle'}>
             Show more
           </Button>
         </Col>

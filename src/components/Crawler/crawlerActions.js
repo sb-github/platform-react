@@ -1,6 +1,6 @@
 import {
   RECEIVE_ALL_CRAWLERS, RECEIVE_NEW_CRAWLER, START_RUN_CRAWLER,
-  END_RUN_CRAWLER
+  END_RUN_CRAWLER, SET_CRAWLER
 } from "./actionTypes";
 import {CRAWLER_INFO_API, EXTRACTOR_API, GRAPH_SKILL_API, RUN_CRAWLER_API} from "../../config/api.config";
 import {receiveAllNodes} from "../WordTree/treeActions";
@@ -56,6 +56,13 @@ export const fetchCrawlers = page => {
   };
 };
 
+export const setCrawler = crawler_id => {
+  return {
+    type: SET_CRAWLER,
+    crawler_id
+  };
+};
+
 export const runCrawler = word => {
   return dispatch => {
     const route = EXTRACTOR_API + RUN_CRAWLER_API + '?searchcondition=' + word;
@@ -79,15 +86,15 @@ export const runCrawler = word => {
   };
 };
 
-export const fetchResultCrawler = crawler_id => {
+export const fetchResultCrawler = (crawler_id, page) => {
   return dispatch => {
-    const rote = EXTRACTOR_API + GRAPH_SKILL_API + '?crawler_id=' + crawler_id;
+    const rote = EXTRACTOR_API + GRAPH_SKILL_API
+      + '?crawler_id=' + crawler_id + '&page=' + page;
 
     return fetch(rote)
       .then(res => res.json())
       .then(data => {
-
-        dispatch(receiveAllNodes(data));
+        dispatch(receiveAllNodes(data, page));
       });
   };
 };

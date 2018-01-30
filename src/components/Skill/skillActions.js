@@ -32,7 +32,7 @@ export const deleteSkill = skill_id => {
             .then(data => {
                 dispatch(fetchSkills(data));
             });
-    };
+    }
 };
 
 export const fetchSkills = () => {
@@ -41,7 +41,7 @@ export const fetchSkills = () => {
 
     return fetch(rote)
       .then(res => res.json())
-      .then(data => dispatch( receiveAllSkill(data) ));
+      .then(data => dispatch(receiveAllSkill(data)));
   };
 };
 

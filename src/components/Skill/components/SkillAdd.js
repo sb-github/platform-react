@@ -1,48 +1,64 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Glyphicon, Row, Col, InputGroup, FormGroup, FormControl } from 'react-bootstrap';
+import { Glyphicon, Row, Col, InputGroup, FormGroup, FormControl, Modal, Button, Well} from 'react-bootstrap';
+
 
 class SkillAdd extends Component {
   static propTypes = {
       addSkill: PropTypes.PropTypes.func.isRequired
   };
 
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
+
+    this.handleClose = this.handleClose.bind(this);
     this.state = {
+      show: false,
       text: ''
+      };
     };
+
+    handleClose = () => {
+        this.setState({ show: false });
+    }
+
+    handleShow = () => {
+        this.setState({show: true});
+    }
+
+    handleClick = () => {
+      const {addSkill} = this.props;
+      addSkill(this.state.text);
+      this.setState({ show: false, text: '' });
   };
 
   render() {
 
     return (
-
-      <Row>
-        <Col xs={6}>
-          <FormGroup>
-            <InputGroup>
+      <Well bsSize="small">
+        <Button onClick={() => this.handleShow()} bsStyle="success">Add</Button>
+        <Modal  show={this.state.show} onHide={this.handleClose}>
+          <Modal.Header closeButton>
+            <Modal.Title>Add skill</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <FormGroup>
+              <p>Title</p>
               <FormControl
-                  onChange={e => this.setState({text: e.target.value})}
-                  value={this.state.text}
-                  type='text' placeholder='Skill'
+                    onChange={e => this.setState({text: e.target.value})}
+                    value={this.state.text}
+                    type='text' placeholder='Skill'                    
               />
-              <InputGroup.Addon>
-                <a href='#' onClick={this.handleClick}>
-                  <Glyphicon glyph="glyphicon glyphicon-plus"/>
-                </a>
-              </InputGroup.Addon>
-            </InputGroup>
-          </FormGroup>
-        </Col>
-      </Row>
+            </FormGroup>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={this.handleClick} bsStyle="success">Add</Button>
+            <Button onClick={this.handleClose} bsStyle="info">Close</Button>
+          </Modal.Footer>
+        </Modal>
+      </Well>
     );
   }
-
-  handleClick = () => {
-    const {addSkill} = this.props;
-    addSkill(this.state.text);
-  };
 }
 
 export default SkillAdd;

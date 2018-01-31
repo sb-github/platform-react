@@ -1,9 +1,6 @@
-import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {fetchSkills, addSkill, deleteSkill} from "./skillActions";
-
-
+import {fetchSkills, addSkill, deleteSkill, editSkill} from "./skillActions";
 import Skill from "./Skill";
 
 const mapStateToProps = state => {
@@ -18,6 +15,8 @@ const mapDispatchToProps = dispatch => {
     return {
         addSkill: bindActionCreators(addSkill, dispatch),
         deleteSkill: bindActionCreators(deleteSkill, dispatch),
+        editSkill: bindActionCreators(editSkill, dispatch),
+        fetchSkills: bindActionCreators(fetchSkills, dispatch)
     };
 };
 

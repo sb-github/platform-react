@@ -1,18 +1,17 @@
-import {ADD_SKILL, RECEIVE_ALL_SKILL} from "./actionTypes";
-import {SKILLS_API, PLATFORM_API, ADD_SKILL_API, DELETE_SKILL} from "../../config/api.config";
+import {RECEIVE_ALL_SKILL} from "./actionTypes";
+import {SKILLS_API, PLATFORM_API, SKILL_API} from "../../config/api.config";
 
 
 export const receiveAllSkill = skills => {
   return {
-    type: RECEIVE_ALL_SKILL,
-    skills
+      type: RECEIVE_ALL_SKILL,
+      skills
+    };
   };
-};
 
 export const addSkill = skill => {
     return dispatch => {
-        const route = PLATFORM_API + ADD_SKILL_API;
-
+        const route = PLATFORM_API + SKILL_API;
         return fetch(route, {
             headers: {
                 'Content-Type': 'application/json'
@@ -26,7 +25,7 @@ export const addSkill = skill => {
 
 export const deleteSkill = skill_id => {
     return dispatch => {
-        const route = PLATFORM_API + DELETE_SKILL + '/' + skill_id;
+        const route = PLATFORM_API + SKILLS_API + skill_id;
         return fetch(route,{
             method: 'delete'
         }).then(res => res.json())
@@ -36,14 +35,32 @@ export const deleteSkill = skill_id => {
 
 export const fetchSkills = () => {
   return dispatch => {
-    const rote = PLATFORM_API + SKILLS_API;
+    const route = PLATFORM_API + SKILLS_API;
 
-    return fetch(rote)
+    return fetch(route)
       .then(res => res.json())
-      .then(data => dispatch(receiveAllSkill(data)));
+      .then(data => dispatch( receiveAllSkill(data) ));
   };
 };
 
+export const editSkill = skill => {
+    return dispatch => {
+            const route = PLATFORM_API + SKILLS_API + skill.id;
+
+        return fetch(route, {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'put',
+            body: JSON.stringify({title: skill.title,
+                                  dificulty: skill.dificulty,
+                                  difficulty: skill.difficulty,
+                                  description: skill.description  
+                                })
+        }).then(res => res.json())
+            .then(data => dispatch(fetchSkills()));
+    };
+};
 
 
 

@@ -1,4 +1,3 @@
-import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import {fetchSkills, addSkill, deleteSkill, editSkill} from "./skillActions";

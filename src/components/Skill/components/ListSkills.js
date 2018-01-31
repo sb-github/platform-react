@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Table, Row, Col, Button,  Glyphicon, InputGroup, FormGroup, FormControl, Modal  } from 'react-bootstrap';
-import store from "../../../store/index";
+import { Table, Row, Col, Button,  Glyphicon, InputGroup, FormGroup, FormControl, Modal, Well } from 'react-bootstrap';
 
 
 class ListSkills extends Component {
@@ -14,25 +13,45 @@ class ListSkills extends Component {
     constructor(props, context) {
         super(props, context);
 
-        //this.handleSelect = this.handleSelect.bind(this);
-        this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
 
         this.state = {
             show: false,
-            id: '',
-            title: ''
+            skill:{
+              id: null,
+              title: null,
+              image: null,
+              difficulty: null,
+              description: null  
+            } 
         };
     }
     handleClose() {
-        this.setState({ show: false });
+        this.setState({ show: false, skill:{
+              id: null,
+              title: null,
+              image: null,
+              difficulty: null,
+              description: null  
+            } });
     }
 
-    handleShow = (skill_id,skill_title) => {
-        this.setState({show: true});
-        this.setState({id: skill_id});
-        this.setState({title: skill_title});
+    handleShow = (skill) => {
+        this.setState({show: true, skill: skill});
+        console.log(skill);
     }
+
+    skillEdit = (skill) => {
+        const {editSkill} = this.props;
+        console.log(skill);
+        editSkill(skill);
+        this.setState({ show: false });
+    };
+
+    deleteSkill = skill_id => {
+        const {deleteSkill} = this.props;
+        deleteSkill(skill_id);
+    };
 
     render() {
     const { skills } = this.props;
@@ -41,7 +60,7 @@ class ListSkills extends Component {
       <td>{skill.title}</td>
       <td>{skill.created_at}</td>
       <td>{skill.updated_at}</td>
-      <td><Button onClick={() => this.handleShow(skill.id, skill.title)} bsStyle="warning">
+      <td><Button onClick={() => this.handleShow(skill)} bsStyle="warning">
         Edit
       </Button></td>
       <td><Button onClick={() => this.deleteSkill(skill.id)} bsStyle="danger">
@@ -50,10 +69,10 @@ class ListSkills extends Component {
     </tr>);
 
     return (
-        <div>
+       <Well bsSize="large">
       <Row>
         <Col xs={8}>
-       <Table responsive>
+       <Table condensed hover>
          <thead>
            <tr>
              <th>ID skill</th>
@@ -68,38 +87,33 @@ class ListSkills extends Component {
        </Table>
         </Col>
       </Row>
-          <Modal  show={this.state.show} onHide={this.handleClose}>
+            <Modal  show={this.state.show} onHide={this.handleClose}>
             <Modal.Header closeButton>
-              <Modal.Title>Skill #{this.state.id}</Modal.Title>
+            <Modal.Title>Skill #{this.state.skill.id}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              <p>Title</p>
-              <input
-                  type="text" value={this.state.title}
-                  onChange={e => this.setState({title:e.target.value})}
-                  className="form-control"
-              />
+              <FormGroup>
+                  <p>Title</p>
+                  <FormControl
+                      type="text"
+                      onChange={e => this.setState({skill:{
+                            id: this.state.skill.id,
+                            title: e.target.value
+                      }})}
+                      value={this.state.skill.title}
+                  />
+              </FormGroup>
             </Modal.Body>
             <Modal.Footer>
-              <Button onClick={() => this.skillEdit(this.state.id,this.state.title)} bsStyle="success">Save</Button>
+              <Button onClick={() => this.skillEdit(this.state.skill)} bsStyle="success">Save</Button>
               <Button onClick={this.handleClose} bsStyle="info">Close</Button>
             </Modal.Footer>
           </Modal>
-        </div>
+        </Well>
     );
   }
 
-    skillEdit = (skill_id,skill_title) => {
-        const {editSkill} = this.props;
-        editSkill(skill_id,skill_title);
-        this.setState({ show: false });
-    };
-
-    deleteSkill = skill_id => {
-      //console.log(skill_id);
-        const {deleteSkill} = this.props;
-        deleteSkill(skill_id);
-    };
+    
 }
 
 

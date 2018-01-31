@@ -36,24 +36,28 @@ export const deleteSkill = skill_id => {
 
 export const fetchSkills = () => {
   return dispatch => {
-    const rote = PLATFORM_API + SKILLS_API;
+    const route = PLATFORM_API + SKILLS_API;
 
-    return fetch(rote)
+    return fetch(route)
       .then(res => res.json())
       .then(data => dispatch( receiveAllSkill(data) ));
   };
 };
 
-export const editSkill = (skill_id, skill_title) => {
+export const editSkill = skill => {
     return dispatch => {
-        const route = PLATFORM_API + SKILLS_API + skill_id;
+            const route = PLATFORM_API + SKILLS_API + skill.id;
 
         return fetch(route, {
             headers: {
                 'Content-Type': 'application/json'
             },
             method: 'put',
-            body: JSON.stringify({title: skill_title})
+            body: JSON.stringify({title: skill.title,
+                                  dificulty: skill.dificulty,
+                                  difficulty: skill.difficulty,
+                                  description: skill.description  
+                              })
         }).then(res => res.json())
             .then(data => dispatch(fetchSkills()));
     };

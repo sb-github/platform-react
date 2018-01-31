@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import store from '../store/index';
-import Root from "./Root";
+import Page from "./AdminMenu/Page";
 
 
 class App extends Component {
   render() {
     return(
       <Provider store = { store }>
-        <Root/>
+        <Page/>
       </Provider>
     );
   };

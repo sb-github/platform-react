@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import DevTools from '../components/DevTools/DevTools';
-import CrawlerContainer from './Crawler/';
+/*import CrawlerContainer from './Crawler/';
 import WordTreeContainer from "./WordTree/";
 import SKillContainer from './Skill/';
 import MaterialContainer from './Material/';
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom';*/
+import MenuContainer from './AdminMenu/';
 
 class Root extends Component {
   render() {
     return(
-        <div>
+    	<div>
+    	  <MenuContainer />
           <DevTools />
-          <Router>
+          /*<Router>
             <Route path="/crawlers" component = { CrawlerContainer } />
           </Router>
           <Router>
@@ -19,7 +21,7 @@ class Root extends Component {
           </Router>
           <Router>
             <Route path="/materials" component = { MaterialContainer } />
-          </Router>
+          </Router>*/
         </div>
     );
   };

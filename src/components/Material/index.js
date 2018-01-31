@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {fetchMaterials, addMaterial, deleteMaterial} from "./materialActions";
+import {fetchMaterials, addMaterial, deleteMaterial, editMaterial} from "./materialActions";
 
 
 import Material from "./Material";
@@ -18,6 +18,8 @@ const mapDispatchToProps = dispatch => {
     return {
         addMaterial: bindActionCreators(addMaterial, dispatch),
         deleteMaterial: bindActionCreators(deleteMaterial, dispatch),
+        editMaterial: bindActionCreators(editMaterial, dispatch),
+
     };
 };
 

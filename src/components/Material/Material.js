@@ -12,16 +12,18 @@ class Material extends Component {
         fetchMaterials: PropTypes.func.isRequired,
         addMaterial: PropTypes.func.isRequired,
         deleteMaterial: PropTypes.func.isRequired,
+        editMaterial: PropTypes.func.isRequired,
     };
 
 
     render() {
-        const {materials, addMaterial, deleteMaterial} = this.props;
+        const {materials, addMaterial, deleteMaterial, editMaterial} = this.props;
         return (
             <div>
                 <br />
                 <ListMaterials
                     materials={materials}
+                    editMaterial={editMaterial}
                     deleteMaterial={deleteMaterial}
                 />
                 <MaterialAdd addMaterial={addMaterial}/>

@@ -1,5 +1,5 @@
 import {ADD_MATERIAL, RECEIVE_ALL_MATERIAL} from "./actionTypes";
-import {MATERIALS_API, PLATFORM_API, ADD_MATERIAL_API, DELETE_MATERIAL} from "../../config/api.config";
+import {MATERIALS_API, PLATFORM_API, ADD_MATERIAL_API, DELETE_MATERIAL, EDIT_MATERIAL} from "../../config/api.config";
 
 
 export const receiveAllMaterial = materials => {
@@ -28,9 +28,24 @@ export const deleteMaterial = material_id => {
         const route = PLATFORM_API + DELETE_MATERIAL + material_id;
         return fetch(route, {
             method: 'delete'
-         }).then(res => res.json())
-        .then(data => dispatch(fetchMaterials()));
+        }).then(res => res.json())
+            .then(data => dispatch(fetchMaterials()));
     }
+};
+
+export const editMaterial = (material) => {
+    return dispatch => {
+        const route = PLATFORM_API + EDIT_MATERIAL + material.id;
+        console.log(JSON.stringify({title: material.title, skill_id: material.skill_id, text: material.text}));
+        return fetch(route, {
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            method: 'put',
+            body: JSON.stringify({title: material.title, skill_id: material.skill_id, text: material.text})
+        }).then(res => res.json())
+            .then(data => dispatch(fetchMaterials()));
+    };
 };
 
 export const fetchMaterials = () => {

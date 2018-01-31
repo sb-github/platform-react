@@ -10,8 +10,22 @@
   color: #1890ff;
 }
 
-#components-layout-demo-custom-trigger .logo {
+#components-layout-demo-custom-trigger {
   height: 32px;
   background: rgba(255,255,255,.2);
   margin: 16px;
+}
+
+.logo {
+  height: 40px;
+  padding: 0 4px 0 4px;
+  margin: 16px;
+  color: white;
+}
+
+
+.logo-img {
+  height: 40px;
+  width: 50px;
+  padding-right:10px;
 }

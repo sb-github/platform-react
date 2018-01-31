@@ -6,7 +6,7 @@ import treeInfo from '../components/WordTree/treeReducer';
 import {fetchCrawlers} from "../components/Crawler/crawlerActions";
 import skills from '../components/Skill/skillReducer';
 import materials from '../components/Material/materialReducer';
-import {fetchMaterials, fetchSkills} from "../components/Material/materialActions";
+import {fetchMaterials} from "../components/Material/materialActions";
 
 export const reducer = combineReducers({
   crawlersInfo,
@@ -24,7 +24,7 @@ const store = createStore(
 );
 
 store.dispatch(fetchCrawlers(1));
-store.dispatch(fetchSkills());
+store.dispatch(fetchMaterials());
 
 
 export default store;

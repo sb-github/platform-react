@@ -5,6 +5,7 @@ import MaterialAdd from "./components/MaterialAdd";
 
 
 
+
 class Material extends Component {
     static propTypes = {
         materials: PropTypes.array.isRequired,
@@ -13,15 +14,17 @@ class Material extends Component {
         deleteMaterial: PropTypes.func.isRequired,
     };
 
+
     render() {
         const {materials, addMaterial, deleteMaterial} = this.props;
         return (
             <div>
                 <br />
-                <MaterialAdd addMaterial={addMaterial}/>
                 <ListMaterials
                     materials={materials}
+                    deleteMaterial={deleteMaterial}
                 />
+                <MaterialAdd addMaterial={addMaterial}/>
             </div>
         );
     }

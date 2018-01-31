@@ -16,8 +16,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        addSkill: bindActionCreators(addMaterial, dispatch),
-        deleteSkill: bindActionCreators(deleteMaterial, dispatch),
+        addMaterial: bindActionCreators(addMaterial, dispatch),
+        deleteMaterial: bindActionCreators(deleteMaterial, dispatch),
     };
 };
 

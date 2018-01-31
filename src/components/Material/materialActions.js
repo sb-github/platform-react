@@ -8,34 +8,32 @@ export const receiveAllMaterial = materials => {
         materials
     };
 };
-
-export const addMaterial = material => {
+export const addMaterial = (title, skill_id, text) => {
     return dispatch => {
         const route = PLATFORM_API + ADD_MATERIAL_API;
-
+        console.log(JSON.stringify({title: title, skill_id: skill_id, text: text}));
         return fetch(route, {
             headers: {
                 'Content-Type': 'application/json'
             },
             method: 'post',
-            body: JSON.stringify({title: material})
+            body: JSON.stringify({title: title, skill_id: skill_id, text: text})
         }).then(res => res.json())
-            .then(data => dispatch(fetchSkills()));
+            .then(data => dispatch(fetchMaterials()));
     };
 };
 
 export const deleteMaterial = material_id => {
-    return dispatch =>  {
+    return dispatch => {
         const route = PLATFORM_API + DELETE_MATERIAL + material_id;
-        return fetch(route)
-            .then(res => res.json())
-            .then(data => {
-                dispatch(fetchSkills(data));
-            });
-    };
+        return fetch(route, {
+            method: 'delete'
+         }).then(res => res.json())
+        .then(data => dispatch(fetchMaterials()));
+    }
 };
 
-export const fetchSkills = () => {
+export const fetchMaterials = () => {
     return dispatch => {
         const rote = PLATFORM_API + MATERIALS_API;
 

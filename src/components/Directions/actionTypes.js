@@ -1,0 +1,1 @@
+export const FETCH_ALL_DIR = 'FETCH_ALL_DIR';

@@ -14,10 +14,6 @@ class ListDirs extends Component {
     constructor(props, context) {
         super(props, context);
 
-        this.handleSelect = this.handleSelect.bind(this);
-        this.handleShow = this.handleShow.bind(this);
-        this.handleClose = this.handleClose.bind(this);
-
         this.state = {
             activeKey: '1',
             show: false,
@@ -30,27 +26,25 @@ class ListDirs extends Component {
         };
     }
 
-    handleSelect(activeKey) {
+    handleSelect = (activeKey) => {
         this.setState({ activeKey });
-    }
+    };
 
-    handleClose() {
+    handleClose = () => {
         this.setState({ show: false, dir: {
             id: null,
             title: null,
             image: null,
             parent: null
         }});
-    }
+    };
 
-    handleShow(dir) {
+    handleShow = (dir) => {
         this.setState({ show: true, dir: dir });
-        console.log(dir);
-    }
+    };
 
     handleEdit = (dir) => {
         const {editDirs} = this.props;
-        console.log(dir);
         editDirs(dir);
         this.setState({ show: false });
     };
@@ -77,7 +71,18 @@ class ListDirs extends Component {
                     <div className="clearfix" />
                 </div>
             </Panel.Heading>
-            <Panel.Body collapsible>test</Panel.Body>
+            <Panel.Body collapsible>
+                {dir.subdirections.map(sub =>
+                    <Panel>
+                        <Panel.Body>
+                            <div className="pull-left">{sub.title}</div>
+                            <Button bsStyle="danger" className="pull-right" onClick={() => this.handleDelete(sub.id)}>DELETE</Button>
+                            <Button bsStyle="warning" className="pull-right" onClick={() => this.handleShow(sub)}>EDIT</Button>
+                            <div className="clearfix" />
+                        </Panel.Body>
+                    </Panel>
+                )}
+            </Panel.Body>
         </Panel>);
     return (
         <Row>

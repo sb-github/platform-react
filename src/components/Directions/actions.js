@@ -10,8 +10,8 @@ export const receiveAllDirs = dirs => {
 
 export const fetchDirs = () => {
   return dispatch => {
-    const rote = PLATFORM_API + DIRECTIONS_API;
-    return fetch(rote)
+    const route = PLATFORM_API + DIRECTIONS_API + '?relationships=true';
+    return fetch(route)
       .then(res => res.json())
       .then(data => dispatch( receiveAllDirs(data) ));
   };
@@ -19,14 +19,16 @@ export const fetchDirs = () => {
 
 export const sendDirs = direction => {
   return dispatch => {
-    const  rote = PLATFORM_API + DIRECTIONS_API;
-    console.log(direction);
-    return fetch(rote, {
+    const  route = PLATFORM_API + DIRECTIONS_API;
+    return fetch(route, {
       headers: {
         'Content-Type': 'application/json'
       },
       method: 'post',
-      body: JSON.stringify({title: direction})
+      body: JSON.stringify({
+          title: direction.title,
+          parent: direction.parent || undefined
+      })
     })
         .then(res => res.json())
         .then(data => dispatch( fetchDirs() ));
@@ -35,8 +37,8 @@ export const sendDirs = direction => {
 
 export const editDirs = direction => {
     return dispatch => {
-        const  rote = PLATFORM_API + DIRECTIONS_API + direction.id;
-        return fetch(rote, {
+        const  route = PLATFORM_API + DIRECTIONS_API + direction.id;
+        return fetch(route, {
             headers: {
                 'Content-Type': 'application/json'
             },
@@ -50,9 +52,8 @@ export const editDirs = direction => {
 
 export const delDirs = direction => {
     return dispatch => {
-        const  rote = PLATFORM_API + DIRECTIONS_API + direction;
-        console.log(direction);
-        return fetch(rote, {
+        const  route = PLATFORM_API + DIRECTIONS_API + direction;
+        return fetch(route, {
             method: 'delete',
         })
             .then(res => res.json())

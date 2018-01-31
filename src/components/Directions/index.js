@@ -1,10 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchDirs } from "./actions";
-import { sendDirs } from './actions';
-import { delDirs } from './actions';
-import { editDirs } from './actions';
+import { fetchDirs, sendDirs, delDirs, editDirs } from "./actions";
 import Directions from "./Directions";
 
 const mapStateToProps=(state)=>{

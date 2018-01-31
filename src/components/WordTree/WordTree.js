@@ -1,10 +1,11 @@
 import React, {Component} from "react";
 import PropTypes from 'prop-types';
-import { Classes, Icon, ITreeNode,Tree } from "@blueprintjs/core";
+import {Colors, Classes, Icon, ITreeNode,Tree } from "@blueprintjs/core";
 import {Row, Col} from 'react-bootstrap';
 import SelectMenu from './components/SelectMenu'
 import NoResult from './components/NoResult';
 import { Button } from 'antd';
+import styles from './styles.css';
 
 export class WordTree extends Component {
   static propTypes = {
@@ -19,7 +20,7 @@ export class WordTree extends Component {
     super(props);
 
     this.state = ({
-      nodes: null,
+      nodes: [],
       selected: [],
       selectedMode: false
     });
@@ -33,23 +34,42 @@ export class WordTree extends Component {
   }
 
   componentDidUpdate(prevProps) {
+    if(prevProps.crawler_id !== this.props.crawler_id)
+      this.setState({nodes: []});
+
     if(prevProps.nodes !== this.props.nodes) {
+      if(!Object.keys(this.state.nodes).length)
+        this.setState({nodes: WordTree.renderNodes(this.props.nodes)});
 
+      if(prevProps.page !== this.props.page)
+        this.setState({nodes: [
+          ...this.state.nodes,
+          ... WordTree.renderNodes(this.props.nodes)
+        ]});
+    }
 
-      //if(this.state.nodes === null){
-        const nodes = this.props.nodes.map(item => Object.assign({},{
-          skill: item.skill,
-          label: <Icon iconName = 'pt-icon-circle'> {item.skill}</Icon>,
-          childNodes: item.connects.map(i => Object.assign({},{
+  }
+
+  static renderNodes(data) {
+    return data.map(item => {
+      const icon = item.tag === 'new' ? 'pt-icon-circle' : 'pt-icon-full-circle';
+
+      return {
+        skill: item.skill,
+        new: 4,
+        tag: item.tag,
+        label: <Icon className={item.tag} iconName={icon}> {item.skill}</Icon>,
+        childNodes: item.connects.map(i => {
+          const icon = i.tag === 'new' ? 'pt-icon-circle' : 'pt-icon-full-circle';
+
+          return {
             skill: i.subSkill,
-            label: <Icon iconName = 'pt-icon-circle'> {i.subSkill}</Icon>
-          }))
-        }));
-
-        this.setState({nodes: nodes});
-      }
-    //}
-
+            tag: i.tag,
+            label: <Icon className={i.tag} iconName={icon}> {i.subSkill}</Icon>
+          };
+        })
+      };
+    });
   }
 
   render() {
@@ -96,6 +116,8 @@ export class WordTree extends Component {
 
   // noinspection JSAnnotator
   handleNodeClick = (nodeData: ITreeNode, _nodePath, e) => {
+    if(nodeData.tag !== 'new')
+      return;
     const originallySelected = nodeData.isSelected;
 
     nodeData.isSelected = originallySelected === null ? true : !originallySelected;
@@ -109,22 +131,30 @@ export class WordTree extends Component {
       selected: selected
     });
 
-    console.log(selected);
-
     const icon = nodeData.isSelected ? 'pt-icon-tick-circle':'pt-icon-circle';
 
     nodeData.label = <Icon iconName={icon}> {nodeData.skill}</Icon>;
 
     this.forEachNode(this.state.nodes, n => {
-      n.secondaryLabel = '';
+      const newNodes = n.new || null;
+      n.secondaryLabel = newNodes === null
+        ? ''
+        : (newNodes <= 0
+            ? <Icon iconName='pt-icon-eye-on'/>
+            :'');
     });
+
+    const newNodes = nodeData.new || null;
 
     nodeData.secondaryLabel = nodeData.isSelected
       ? <SelectMenu
           addStopWord={() => this.handleRemoveWords()}
           addNewSkill={() => this.handleSaveSkills()}
         />
-      : '';
+      : (newNodes === null ? '' : (newNodes <= 0
+          ? <Icon iconName='pt-icon-eye-on'/>
+          :'')
+      );
 
     this.setState(this.state);
   };
@@ -142,22 +172,55 @@ export class WordTree extends Component {
   };
 
   handleSaveSkills = () => {
-    this.handleRemove();
+    this.handleRemove('skill');
 
     this.props.addNewSkills(this.state.selected);
   };
 
   handleRemoveWords = word => {
-    this.handleRemove();
+    this.handleRemove('stopword');
   };
 
-  handleRemove = () => {
+  handleRemove = tag => {
+    //const selCount = this.state.selected.length;
+
     this.state = ({
       ...this.state,
       nodes: this.state.nodes.map(item => {
+        let selCount = 0;
+        console.log(item.new);
         return {
           ...item,
-          childNodes: item.childNodes.filter(word => word.isSelected !== true)
+          ...(item.isSelected
+            ? {
+              tag: tag,
+              isSelected: false,
+              label: <Icon
+                className={tag}
+                iconName ='pt-icon-full-circle'>
+                {' ' + item.skill}
+              </Icon>
+            } : {}
+          ),
+          childNodes: item.childNodes.map(word => {
+            selCount = word.isSelected ? selCount + 1 : selCount;
+
+            return word.isSelected
+              ? {
+                ...word,
+                tag: tag,
+                isSelected: false,
+                label: <Icon
+                  className={tag}
+                  iconName ='pt-icon-full-circle'>
+                  {' ' + word.skill}
+                </Icon>,
+              }
+              : word
+          }),
+          new: item.new - selCount,
+          secondaryLabel: (item.new - selCount <= 0) ? <Icon iconName='pt-icon-eye-on'/> : '',
+          isExpanded: (item.new - selCount <= 0) ? false : item.isExpanded
         }
       })
     });

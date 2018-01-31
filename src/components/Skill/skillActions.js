@@ -1,18 +1,17 @@
-import {ADD_SKILL, RECEIVE_ALL_SKILL} from "./actionTypes";
+import {RECEIVE_ALL_SKILL} from "./actionTypes";
 import {SKILLS_API, PLATFORM_API, SKILL_API} from "../../config/api.config";
 
 
 export const receiveAllSkill = skills => {
   return {
-    type: RECEIVE_ALL_SKILL,
-    skills
+      type: RECEIVE_ALL_SKILL,
+      skills
+    };
   };
-};
 
 export const addSkill = skill => {
     return dispatch => {
         const route = PLATFORM_API + SKILL_API;
-
         return fetch(route, {
             headers: {
                 'Content-Type': 'application/json'
@@ -57,7 +56,7 @@ export const editSkill = skill => {
                                   dificulty: skill.dificulty,
                                   difficulty: skill.difficulty,
                                   description: skill.description  
-                              })
+                                })
         }).then(res => res.json())
             .then(data => dispatch(fetchSkills()));
     };

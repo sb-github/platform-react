@@ -6,9 +6,9 @@ import { Table, Row, Col, Button,  Glyphicon, InputGroup, FormGroup, FormControl
 class ListSkills extends Component {
   static propTypes = {
     skills: PropTypes.array.isRequired,
-    addSkill: PropTypes.func.isRequired,
     deleteSkill: PropTypes.func.isRequired,
     editSkill: PropTypes.func.isRequired,
+    fetchSkills: PropTypes.func.isRequired
   };
     constructor(props, context) {
         super(props, context);
@@ -26,7 +26,7 @@ class ListSkills extends Component {
             } 
         };
     }
-    handleClose() {
+    handleClose = () => {
         this.setState({ show: false, skill:{
               id: null,
               title: null,
@@ -36,14 +36,12 @@ class ListSkills extends Component {
             } });
     }
 
-    handleShow = (skill) => {
+    handleShow = skill => {
         this.setState({show: true, skill: skill});
-        console.log(skill);
     }
 
-    skillEdit = (skill) => {
+    skillEdit = skill => {
         const {editSkill} = this.props;
-        console.log(skill);
         editSkill(skill);
         this.setState({ show: false });
     };
@@ -70,23 +68,23 @@ class ListSkills extends Component {
 
     return (
        <Well bsSize="large">
-      <Row>
+        <Row>
         <Col xs={8}>
-       <Table condensed hover>
-         <thead>
-           <tr>
+        <Table condensed hover>
+          <thead>
+            <tr>
              <th>ID skill</th>
              <th>Name</th>
              <th>Created_at</th>
              <th>Updated_at</th>
-           </tr>
-         </thead>
-         <tbody>
+            </tr>
+          </thead>
+          <tbody>
           { skillsList }
-         </tbody>
-       </Table>
+          </tbody>
+        </Table>
         </Col>
-      </Row>
+       </Row>
             <Modal  show={this.state.show} onHide={this.handleClose}>
             <Modal.Header closeButton>
             <Modal.Title>Skill #{this.state.skill.id}</Modal.Title>
@@ -108,14 +106,11 @@ class ListSkills extends Component {
               <Button onClick={() => this.skillEdit(this.state.skill)} bsStyle="success">Save</Button>
               <Button onClick={this.handleClose} bsStyle="info">Close</Button>
             </Modal.Footer>
-          </Modal>
+            </Modal>
         </Well>
     );
-  }
-
-    
+  }   
 }
-
 
 export default ListSkills;
 

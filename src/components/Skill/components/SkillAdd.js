@@ -15,10 +15,10 @@ class SkillAdd extends Component {
     this.state = {
       show: false,
       text: ''
+      };
     };
-  };
 
-    handleClose() {
+    handleClose = () => {
         this.setState({ show: false });
     }
 
@@ -35,29 +35,28 @@ class SkillAdd extends Component {
   render() {
 
     return (
-        <Well bsSize="small">
+      <Well bsSize="small">
         <Button onClick={() => this.handleShow()} bsStyle="success">Add</Button>
         <Modal  show={this.state.show} onHide={this.handleClose}>
           <Modal.Header closeButton>
             <Modal.Title>Add skill</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-          <FormGroup>
-            <p>Title</p>
-                <FormControl
-                      onChange={e => this.setState({text: e.target.value})}
-                      value={this.state.text}
-                      type='text' placeholder='Skill'                    
-                />
-                </FormGroup>
+            <FormGroup>
+              <p>Title</p>
+              <FormControl
+                    onChange={e => this.setState({text: e.target.value})}
+                    value={this.state.text}
+                    type='text' placeholder='Skill'                    
+              />
+            </FormGroup>
           </Modal.Body>
           <Modal.Footer>
             <Button onClick={this.handleClick} bsStyle="success">Add</Button>
             <Button onClick={this.handleClose} bsStyle="info">Close</Button>
           </Modal.Footer>
-          
         </Modal>
-        </Well>
+      </Well>
     );
   }
 }

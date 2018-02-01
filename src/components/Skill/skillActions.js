@@ -17,7 +17,8 @@ export const addSkill = skill => {
                 'Content-Type': 'application/json'
             },
             method: 'post',
-            body: JSON.stringify({title: skill})
+            body: JSON.stringify({title: skill.title,
+                                  description: skill.description})
         }).then(res => res.json())
             .then(data => dispatch(fetchSkills()));
     };
@@ -53,8 +54,6 @@ export const editSkill = skill => {
             },
             method: 'put',
             body: JSON.stringify({title: skill.title,
-                                  dificulty: skill.dificulty,
-                                  difficulty: skill.difficulty,
                                   description: skill.description  
                                 })
         }).then(res => res.json())

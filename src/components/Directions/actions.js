@@ -38,7 +38,6 @@ export const sendDirs = direction => {
 export const editDirs = direction => {
     return dispatch => {
         const  route = PLATFORM_API + DIRECTIONS_API + direction.id;
-        console.log(direction);
         return fetch(route, {
             headers: {
                 'Content-Type': 'application/json'
@@ -50,10 +49,7 @@ export const editDirs = direction => {
             })
         })
             .then(res => res.json())
-            .then(data => {
-                dispatch( fetchDirs() );
-                console.log(data);
-            });
+            .then(data => dispatch( fetchDirs() ));
     };
 };
 

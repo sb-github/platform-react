@@ -56,7 +56,6 @@ class ListDirs extends Component {
 
 
   render() {
-    //let options = [];
     const dirs = this.props.dirs || [];
 
     const options = dirs.map(df =>

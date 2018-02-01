@@ -28,9 +28,9 @@ export const sendWords = listwords => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ words: listwords })
-        });
+        })
+            .then(res => dispatch(fetchWords()));
     }
-    fetchWords();
 };
 
 export const deleteWords = word_id => {

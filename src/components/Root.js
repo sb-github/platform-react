@@ -10,6 +10,7 @@ class Root extends Component {
     return(
       <Router>
         <div>
+
           {devTools}
           <AdminPanel/>
         </div>

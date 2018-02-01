@@ -20,7 +20,6 @@ export const fetchWords = () => {
 export const sendWords = listwords => {
   return dispatch => {
     const  rote = EXTRACTOR_API + STOP_WORDS_API;
-    console.log(JSON.stringify({words: [listwords]}));
     return fetch(rote, {
       headers: {
         'Content-Type': 'application/json'

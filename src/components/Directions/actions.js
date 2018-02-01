@@ -43,7 +43,10 @@ export const editDirs = direction => {
                 'Content-Type': 'application/json'
             },
             method: 'put',
-            body: JSON.stringify({title: direction.title})
+            body: JSON.stringify({
+                title: direction.title,
+                parent: direction.parent || undefined
+            })
         })
             .then(res => res.json())
             .then(data => dispatch( fetchDirs() ));

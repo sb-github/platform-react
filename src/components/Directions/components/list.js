@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Row, Col, Panel, Button, PanelGroup, Modal, FormControl } from 'react-bootstrap';
+import { Row, Col, Panel, Button, PanelGroup, Modal, FormControl, ControlLabel } from 'react-bootstrap';
 
 
 class ListDirs extends Component {
@@ -56,8 +56,14 @@ class ListDirs extends Component {
 
 
   render() {
-
     const dirs = this.props.dirs || [];
+
+    const options = dirs.map(df =>
+        (df.id == this.state.dir.parent)
+            ? <option key={df.id} value={df.id} selected>{df.title}</option>
+            : <option key={df.id} value={df.id}>{df.title}</option>
+    );
+
     const dirsList = dirs.map(dir =>
         <Panel eventKey={dir.id} key={dir.id}>
             <Panel.Heading>
@@ -73,7 +79,7 @@ class ListDirs extends Component {
             </Panel.Heading>
             <Panel.Body collapsible>
                 {dir.subdirections.map(sub =>
-                    <Panel>
+                    <Panel key={sub.id}>
                         <Panel.Body>
                             <div className="pull-left">{sub.title}</div>
                             <Button bsStyle="danger" className="pull-right" onClick={() => this.handleDelete(sub.id)}>DELETE</Button>
@@ -99,14 +105,26 @@ class ListDirs extends Component {
                       <Modal.Title>Editing</Modal.Title>
                   </Modal.Header>
                   <Modal.Body>
+                      <ControlLabel>Title:</ControlLabel>
                       <FormControl
                           type="text"
                           name="title"
                           onChange={e => this.setState({dir: {
-                              id: this.state.dir.id,
+                              ...this.state.dir,
                               title: e.target.value
                           }})}
                           value={this.state.dir.title}/>
+                      <ControlLabel>Parent:</ControlLabel>
+                      <FormControl
+                          componentClass="select"
+                          placeholder="select"
+                          onChange={e => this.setState({dir: {
+                              ...this.state.dir,
+                              parent: e.target.value
+                          }})}>
+                          <option value=''>Without Parent</option>
+                          {options}
+                      </FormControl>
                   </Modal.Body>
 
                   <Modal.Footer>

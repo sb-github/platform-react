@@ -24,7 +24,7 @@ class Directions extends Component {
     return (
       <div>
         <h2>Directions</h2>
-        <DirsSender sendDirs={sendDirs}/>
+        <DirsSender dirs={dirs} sendDirs={sendDirs}/>
         <ListDirs
           dirs={dirs}
           fetchDirs={fetchDirs}

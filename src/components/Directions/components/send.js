@@ -4,6 +4,7 @@ import { Glyphicon, Row, Col, InputGroup, FormGroup, FormControl, Button, Modal,
 
 class DirsSender extends Component {
   static propTypes = {
+    dirs: PropTypes.array,
     sendDirs: PropTypes.func.isRequired
   };
 
@@ -64,8 +65,18 @@ class DirsSender extends Component {
         this.setState({ show: false });
     };
 
+    _handleKeyPress = (e) => {
+        if (e.key === 'Enter') {
+            this.handleClick();
+        }
+    };
+
   render() {
 
+    const dirs = this.props.dirs || [];
+    const dirsSelect = dirs.map(dir =>
+        <option key={dir.id} value={dir.id}>{dir.title}</option>
+    );
     return (
 
       <Row>
@@ -76,6 +87,7 @@ class DirsSender extends Component {
                 onChange={e => this.setState({text: e.target.value})}
                 value={this.state.text}
                 type='text' placeholder='Quick add [type name of new dir]'
+                onKeyPress={this._handleKeyPress}
               />
               <InputGroup.Addon>
                 <a href='#' onClick={this.handleClick}>
@@ -105,12 +117,15 @@ class DirsSender extends Component {
                 }})}/>
               <ControlLabel>Parent:</ControlLabel>
               <FormControl
-                  type="number"
-                  name="parent"
+                  componentClass="select"
+                  placeholder="select"
                   onChange={e => this.setState({dir: {
                       ...this.state.dir,
                       parent: e.target.value
-                  }})}/>
+                  }})}>
+                  <option value=''>Without Parent</option>
+                  {dirsSelect}
+              </FormControl>
           </Modal.Body>
 
           <Modal.Footer>

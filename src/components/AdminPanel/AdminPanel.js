@@ -5,6 +5,7 @@ import CrawlerContainer from '../Crawler/';
 import SKillContainer from '../Skill/';
 import MaterialContainer from '../Material/';
 import DirectionContainer from '../Directions';
+import StopWordContainer from '../StopWord';
 import { Route, Link } from 'react-router-dom';
 import styles from './styles.css';
 
@@ -66,6 +67,12 @@ class AdminPanel extends Component {
                   <span>Materials</span>
                 </Link>
               </Menu.Item>
+              <Menu.Item key="5">
+                    <Link to={'/stopwords'}>
+                        <Icon type="file-word" />
+                        <span>Stop Words</span>
+                    </Link>
+               </Menu.Item>
             </Menu>
           </Affix>
         </Sider>
@@ -78,6 +85,7 @@ class AdminPanel extends Component {
             <Route path="/skills" component = { SKillContainer } />
             <Route path="/directions" component = { DirectionContainer } />
             <Route path="/materials" component = { MaterialContainer } />
+            <Route path="/stopwords" component = { StopWordContainer } />
           </Content>
         </Layout>
     </Layout>);

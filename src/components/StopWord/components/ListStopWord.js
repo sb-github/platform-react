@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-/*import { fetchWords } from "../../WordTree/treeActions";*/
 import { Row, Col } from 'react-bootstrap';
 import { Tag, Classes, Intent, Button } from "@blueprintjs/core";
 
@@ -38,7 +37,6 @@ class ListWords extends Component {
 deleteTag = (data) => console.log(data);
 
    delete = stopword_id => {
-    console.log(stopword_id);
     const {deleteWords} = this.props;
 
     deleteWords(stopword_id);
@@ -46,4 +44,3 @@ deleteTag = (data) => console.log(data);
 }
 
 export default ListWords;
-

@@ -5,17 +5,6 @@ import {
 import {CRAWLER_INFO_API, EXTRACTOR_API, GRAPH_SKILL_API, PLATFORM_API, RUN_CRAWLER_API} from "../../config/api.config";
 import {receiveAllNodes} from "../WordTree/treeActions";
 
-/*export const mergeCrawler = idCrawler => {
-  return {
-
-  };
-};
-
-export const searchCrawler = word => {
-  return {
-
-  };
-};*/
 export const startRunCrawler = () => {
   return {
     type: START_RUN_CRAWLER
@@ -48,9 +37,10 @@ export const receiveNewCrawler = crawler => {
 
 export const fetchCrawlers = page => {
   return dispatch => {
-    const rote = EXTRACTOR_API + CRAWLER_INFO_API + '?page=' + page +'&size=' + 2;
+    const route = process.env.REACT_APP_CRAWLER_INFO_API
+      + '?page=' + page +'&size=' + 2;
 
-    return fetch(rote)
+    return fetch(route)
       .then(res => res.json())
       .then(data => dispatch( receiveAllCrawlers(page, data) ));
   };
@@ -65,7 +55,8 @@ export const setCrawler = crawler_id => {
 
 export const runCrawler = word => {
   return dispatch => {
-    const route = EXTRACTOR_API + RUN_CRAWLER_API + '?searchcondition=' + word;
+    const route = process.env.REACT_APP_RUN_CRAWLER_API
+      + '?searchcondition=' + word;
 
     dispatch(startRunCrawler());
 
@@ -91,15 +82,12 @@ export const runCrawler = word => {
 
 export const fetchResultCrawler = (crawler_id, page) => {
   return dispatch => {
-    const rote = PLATFORM_API + GRAPH_SKILL_API
+    const rote = process.env.REACT_APP_GRAPH_SKILL_API
       + '?crawler_id=' + crawler_id + '&page=' + page;
 
     return fetch(rote)
       .then(res => res.json())
-      .then(data => {
-        console.log(data);
-        dispatch(receiveAllNodes(data, page));
-      });
+      .then(data => dispatch(receiveAllNodes(data, page)));
   };
 };
 

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Glyphicon, Row, Col, InputGroup, FormGroup, FormControl, Button } from 'react-bootstrap';
-import { Editor } from '@tinymce/tinymce-react';
+import CKEditor from "react-ckeditor-component";
 
 
 class MaterialAdd extends Component {
@@ -12,11 +12,13 @@ class MaterialAdd extends Component {
 
     constructor(props) {
         super(props);
+        this.updateContent = this.updateContent.bind(this);
         this.state = {
             title: '',
             text: '',
-            skill_id: ''
+            skill_id: '',
         };
+
     };
 
     render() {
@@ -44,19 +46,20 @@ class MaterialAdd extends Component {
                                     onChange={e => this.setState({skill_id: e.target.value})}
                                     value={this.state.skill_id}
                                     type='text' placeholder='Skill'
+                                    modules={'image'}
                                 />
                             </InputGroup>
                         </FormGroup>
                     </Col>
                 </Row>
-                <Editor
-                    initialValue=""
-                    init={{
-                        plugins: 'link image code',
-                        toolbar: 'undo redo | bold italic | alignleft aligncenter alignright | code'
+                <CKEditor
+                    activeClass="p10"
+                    content={this.state.text}
+                    events={{
+                        "blur": this.onBlur,
+                        "afterPaste": this.afterPaste,
+                        "change": this.onChange
                     }}
-                    onChange={e => this.setState({text: e.target.getContent()})}
-                    value={this.state.text}
                 />
                 <Row>
                     <Col xs={6} md={3}>
@@ -70,6 +73,19 @@ class MaterialAdd extends Component {
 
         );
     }
+
+    updateContent=(newContent)=> {
+        this.setState({
+            text: newContent
+        })
+    };
+
+    onChange=(evt)=>{
+        var newContent = evt.editor.getData();
+        this.setState({
+            text: newContent
+        })
+    };
 
     handleClick = () => {
         const {addMaterial} = this.props;

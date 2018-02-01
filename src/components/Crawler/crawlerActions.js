@@ -38,7 +38,7 @@ export const receiveNewCrawler = crawler => {
 export const fetchCrawlers = page => {
   return dispatch => {
     const route = process.env.REACT_APP_CRAWLER_INFO_API
-      + '?page=' + page +'&size=' + 2;
+      + '?page=' + page +'&size=' + 5;
 
     return fetch(route)
       .then(res => res.json())

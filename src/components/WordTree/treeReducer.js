@@ -1,4 +1,4 @@
-import { DELETE_NODES, RECEIVE_ALL_NODES} from "./actionTypes";
+import { SET_TAG_NODES, RECEIVE_ALL_NODES} from "./actionTypes";
 import {SET_CRAWLER} from "../Crawler/actionTypes";
 
 const initialState = {
@@ -15,10 +15,7 @@ const treeReducer = (state = initialState, action) => {
     case RECEIVE_ALL_NODES:
       return {
         ...state,
-        nodes: [
-          ...state.nodes,
-          ...action.nodes
-        ],
+        nodes: action.nodes,
         page: action.page
       };
 
@@ -29,15 +26,22 @@ const treeReducer = (state = initialState, action) => {
         nodes: []
       };
 
-    case DELETE_NODES:
+    case SET_TAG_NODES:
       return {
         ...state,
         nodes: state.nodes.map(skill => {
           return {
             ...skill,
-            connects: skill.connects.filter(item => !action.nodes.includes(item.subSkill))
-          }
-         })
+            tag: action.nodes.includes(skill.skill)
+              ? action.tag
+              : skill.tag,
+            connects: skill.connects.map(item =>
+              action.nodes.includes(item.subSkill)
+                ? {...item, tag: action.tag}
+                : item
+            )
+          };
+        })
       };
 
     default:

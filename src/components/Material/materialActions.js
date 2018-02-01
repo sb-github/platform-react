@@ -33,16 +33,16 @@ export const deleteMaterial = material_id => {
     }
 };
 
-export const editMaterial = (id, title, skill_id, text) => {
+export const editMaterial = (material) => {
     return dispatch => {
-        const route = PLATFORM_API + MATERIAL_API + "/" + id;
-        console.log(JSON.stringify({title: title, skill_id: skill_id, text: text}));
+        const route = PLATFORM_API + MATERIAL_API + "/" + material.id;
+        console.log(JSON.stringify({title: material.title, skill_id: material.skill_id, text: material.text}));
         return fetch(route, {
             headers: {
                 'Content-Type': 'application/json'
             },
             method: 'put',
-            body: JSON.stringify({title: title, skill_id: skill_id, text: text})
+            body: JSON.stringify({title: material.title, skill_id: material.skill_id, text: material.text})
         }).then(res => res.json())
             .then(data => dispatch(fetchMaterials()));
     };

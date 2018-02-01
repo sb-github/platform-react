@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {fetchMaterials, addMaterial, deleteMaterial} from "./materialActions";
+import {fetchMaterials, addMaterial, deleteMaterial, editMaterial} from "./materialActions";
 
 
 import Material from "./Material";
@@ -16,8 +16,10 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        addSkill: bindActionCreators(addMaterial, dispatch),
-        deleteSkill: bindActionCreators(deleteMaterial, dispatch),
+        addMaterial: bindActionCreators(addMaterial, dispatch),
+        deleteMaterial: bindActionCreators(deleteMaterial, dispatch),
+        editMaterial: bindActionCreators(editMaterial, dispatch),
+
     };
 };
 

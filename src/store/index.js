@@ -10,6 +10,7 @@ import dirs from '../components/Directions/reducer';
 import {fetchMaterials} from "../components/Material/materialActions";
 import {fetchSkills} from '../components/Skill/skillActions';
 
+
 export const reducer = combineReducers({
   crawlersInfo,
   treeInfo,
@@ -27,6 +28,6 @@ const store = createStore(
 );
 
 store.dispatch(fetchCrawlers(1));
-store.dispatch(fetchSkills());
+store.dispatch(fetchMaterials());
 
 export default store;

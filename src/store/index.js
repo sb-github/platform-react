@@ -27,7 +27,7 @@ const store = createStore(
   )
 );
 
-store.dispatch(fetchCrawlers(1));
+store.dispatch(fetchCrawlers(0));
 store.dispatch(fetchMaterials());
 
 export default store;

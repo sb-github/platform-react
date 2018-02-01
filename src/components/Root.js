@@ -5,10 +5,12 @@ import AdminPanel from './AdminPanel/AdminPanel';
 
 class Root extends Component {
   render() {
+    const devTools = process.env.NODE_ENV !== 'production' ? <DevTools /> : <span />;
+
     return(
       <Router>
         <div>
-          <DevTools />
+          {devTools}
           <AdminPanel/>
         </div>
       </Router>

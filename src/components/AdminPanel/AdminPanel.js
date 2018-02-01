@@ -4,6 +4,7 @@ import './styles.css';
 import CrawlerContainer from '../Crawler/';
 import SKillContainer from '../Skill/';
 import MaterialContainer from '../Material/';
+import DirectionContainer from '../Directions';
 import { Route, Link } from 'react-router-dom';
 import styles from './styles.css';
 
@@ -75,7 +76,7 @@ class AdminPanel extends Component {
           <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 600 }}>
             <Route path="/crawlers" component = { CrawlerContainer } />
             <Route path="/skills" component = { SKillContainer } />
-            <Route path="/materials" component = { MaterialContainer } />
+            <Route path="/directions" component = { DirectionContainer } />
             <Route path="/materials" component = { MaterialContainer } />
           </Content>
         </Layout>

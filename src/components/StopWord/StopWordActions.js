@@ -22,7 +22,6 @@ export const sendWords = listwords => {
 
         const route = EXTRACTOR_API + STOP_WORDS_API;
         listwords = listwords.split(/[ ,.!?@";'*+#$%^&:№]+/);
-        console.log(JSON.stringify({ words: listwords }));
         return fetch(route, {
             method: 'post',
             headers: {
@@ -37,9 +36,7 @@ export const sendWords = listwords => {
 export const deleteWords = word_id => {
     return dispatch => {
 
-        console.log(JSON.stringify({accept: [word_id] }));
-        const route = EXTRACTOR_API + STOP_WORDS_API + '/' + word_id + '';
-        console.log('delete');
+        const route = EXTRACTOR_API + STOP_WORDS_API + '/' + word_id;
         return fetch(route,{
             method: 'delete',
             headers: {

@@ -1,0 +1,2 @@
+export const RECEIVE_ALL_SKILL = 'RECEIVE_ALL_SKILL';
+

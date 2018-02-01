@@ -9,7 +9,8 @@ class ListCrawlers extends Component {
     crawlers: PropTypes.array,
     page: PropTypes.number,
     fetchResultCrawler: PropTypes.func.isRequired,
-    fetchCrawlers: PropTypes.func.isRequired
+    fetchCrawlers: PropTypes.func.isRequired,
+    setCrawler: PropTypes.func.isRequired
   };
 
   render() {
@@ -19,7 +20,7 @@ class ListCrawlers extends Component {
     const crawlersList = crawlers.map(crawler => <tr key={crawler.id}>
       <td>{crawler.id}</td>
       <td>{crawler.searchCondition}</td>
-      <td>{crawler.createdDate}</td>
+      <td>{Date(crawler.createdDate)}</td>
       <td>{crawler.status}</td>
       <td>
         <Button onClick={() => this.handleResult(crawler.id)}>
@@ -69,9 +70,9 @@ class ListCrawlers extends Component {
   }
 
   handleResult = id_crawler => {
-    const {fetchResultCrawler} = this.props;
-
-    fetchResultCrawler(id_crawler);
+    const {fetchResultCrawler, setCrawler} = this.props;
+    setCrawler(id_crawler);
+    fetchResultCrawler(id_crawler, 1);
   };
 
   handleFetchCrawlers = page => {

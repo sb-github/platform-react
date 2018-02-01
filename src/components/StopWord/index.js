@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchWords } from "./StopWordActions";
-import { sendWords } from './StopWordActions';
-import { deleteWords } from './StopWordActions';
+import { fetchWords, sendWords, deleteWords } from './StopWordActions';
 import Words from "./StopWords";
 
 const mapStateToProps= state =>{

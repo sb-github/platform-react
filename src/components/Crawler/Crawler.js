@@ -43,7 +43,6 @@ class Crawler extends Component {
     const {treeInfo, crawlersInfo, runCrawler,
       fetchNewSkills, fetchResultCrawler, fetchCrawlers, setCrawler} = this.props;
 
-    console.log(treeInfo);
     return (
       <div>
         <br />

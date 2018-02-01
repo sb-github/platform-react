@@ -2,7 +2,7 @@ import {
   RECEIVE_ALL_CRAWLERS, RECEIVE_NEW_CRAWLER, START_RUN_CRAWLER,
   END_RUN_CRAWLER, SET_CRAWLER
 } from "./actionTypes";
-import {CRAWLER_INFO_API, EXTRACTOR_API, GRAPH_SKILL_API, RUN_CRAWLER_API} from "../../config/api.config";
+import {CRAWLER_INFO_API, EXTRACTOR_API, GRAPH_SKILL_API, PLATFORM_API, RUN_CRAWLER_API} from "../../config/api.config";
 import {receiveAllNodes} from "../WordTree/treeActions";
 
 /*export const mergeCrawler = idCrawler => {
@@ -91,12 +91,13 @@ export const runCrawler = word => {
 
 export const fetchResultCrawler = (crawler_id, page) => {
   return dispatch => {
-    const rote = EXTRACTOR_API + GRAPH_SKILL_API
+    const rote = PLATFORM_API + GRAPH_SKILL_API
       + '?crawler_id=' + crawler_id + '&page=' + page;
 
     return fetch(rote)
       .then(res => res.json())
       .then(data => {
+        console.log(data);
         dispatch(receiveAllNodes(data, page));
       });
   };

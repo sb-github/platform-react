@@ -75,7 +75,7 @@ class DirsSender extends Component {
 
     const dirs = this.props.dirs || [];
     const dirsSelect = dirs.map(dir =>
-        <option value={dir.id}>{dir.title}</option>
+        <option key={dir.id} value={dir.id}>{dir.title}</option>
     );
     return (
 

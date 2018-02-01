@@ -38,15 +38,22 @@ export const sendDirs = direction => {
 export const editDirs = direction => {
     return dispatch => {
         const  route = PLATFORM_API + DIRECTIONS_API + direction.id;
+        console.log(direction);
         return fetch(route, {
             headers: {
                 'Content-Type': 'application/json'
             },
             method: 'put',
-            body: JSON.stringify({title: direction.title})
+            body: JSON.stringify({
+                title: direction.title,
+                parent: direction.parent || undefined
+            })
         })
             .then(res => res.json())
-            .then(data => dispatch( fetchDirs() ));
+            .then(data => {
+                dispatch( fetchDirs() );
+                console.log(data);
+            });
     };
 };
 

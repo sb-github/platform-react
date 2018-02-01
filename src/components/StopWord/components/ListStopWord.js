@@ -19,7 +19,6 @@ class ListWords extends Component {
               active={word.id}
               className={Classes.LARGE}
               intent={Intent.DEFAULT}
-              onRemove={this.deleteTag(this)}
           >
               {word.key}
               <Button onClick={() => this.delete(word.id)}>X</Button>
@@ -34,7 +33,6 @@ class ListWords extends Component {
     );
   }
 
-deleteTag = (data) => console.log(data);
 
    delete = stopword_id => {
     const {deleteWords} = this.props;

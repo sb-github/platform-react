@@ -28,7 +28,6 @@ class ListWords extends Component {
     );
   }
 
-  deleteTag = (data) => console.log(data);
 }
 
 export default ListWords;

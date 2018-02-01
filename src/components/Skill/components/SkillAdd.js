@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Glyphicon, Row, Col, InputGroup, FormGroup, FormControl, Modal, Button, Well} from 'react-bootstrap';
+import {FormGroup, FormControl, Modal, Button, Well} from 'react-bootstrap';
 
 
 class SkillAdd extends Component {
@@ -14,22 +14,37 @@ class SkillAdd extends Component {
     this.handleClose = this.handleClose.bind(this);
     this.state = {
       show: false,
-      text: ''
+        skill:{
+            id: null,
+            title: null,
+            image: null,
+            description: null
+        }
       };
     };
 
     handleClose = () => {
-        this.setState({ show: false });
-    }
+        this.setState({ show: false, skill:{
+            id: null,
+            title: null,
+            image: null,
+            description: null
+        } });
+    };
 
     handleShow = () => {
         this.setState({show: true});
-    }
+    };
 
-    handleClick = () => {
+    handleClick = skill => {
       const {addSkill} = this.props;
-      addSkill(this.state.text);
-      this.setState({ show: false, text: '' });
+      addSkill(skill);
+        this.setState({ show: false, skill:{
+            id: null,
+            title: null,
+            image: null,
+            description: null
+        } });
   };
 
   render() {
@@ -45,18 +60,33 @@ class SkillAdd extends Component {
             <FormGroup>
               <p>Title</p>
               <FormControl
-                    onChange={e => this.setState({text: e.target.value})}
-                    value={this.state.text}
-                    type='text' placeholder='Skill'                    
+                    onChange={e => this.setState({skill:{
+                          ...this.state.skill,
+                          title: e.target.value
+                    }})}
+                    value={this.state.skill.title}
+                    type='text' placeholder='Title'
+              />
+            </FormGroup>
+            <FormGroup>
+              <p>Description</p>
+              <FormControl
+                  onChange={e => this.setState({skill:{
+                      ...this.state.skill,
+                      description: e.target.value
+                  }})}
+                  value={this.state.skill.description}
+                  type='text' placeholder='Description'
               />
             </FormGroup>
           </Modal.Body>
           <Modal.Footer>
-            <Button onClick={this.handleClick} bsStyle="success">Add</Button>
+            <Button onClick={() => this.handleClick(this.state.skill)} bsStyle="success">Add</Button>
             <Button onClick={this.handleClose} bsStyle="info">Close</Button>
           </Modal.Footer>
         </Modal>
       </Well>
+
     );
   }
 }

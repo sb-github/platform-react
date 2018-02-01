@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Table, Row, Col, Button, Modal, Glyphicon, InputGroup, FormGroup, FormControl  } from 'react-bootstrap';
-import store from "../../../store/index";
 import CKEditor from "react-ckeditor-component";
 import MaterialAdd from "./MaterialAdd";
 
@@ -223,11 +222,7 @@ class ListMaterials extends Component {
 
     materialEdit = () => {
         const {editMaterial} = this.props;
-        editMaterial(
-            this.state.material.id,
-            this.state.material.title,
-            this.state.material.skill_id,
-            this.state.material.text);
+        editMaterial(this.state.material);
         this.materialEditShowClose();
     };
 

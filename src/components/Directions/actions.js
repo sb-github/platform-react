@@ -10,7 +10,9 @@ export const receiveAllDirs = dirs => {
 
 export const fetchDirs = () => {
   return dispatch => {
-    const route = PLATFORM_API + DIRECTIONS_API + '?relationships=true';
+    const route = process.env.REACT_APP_DIRECTION_API
+      + '?relationships=true';
+
     return fetch(route)
       .then(res => res.json())
       .then(data => dispatch( receiveAllDirs(data) ));
@@ -19,7 +21,8 @@ export const fetchDirs = () => {
 
 export const sendDirs = direction => {
   return dispatch => {
-    const  route = PLATFORM_API + DIRECTIONS_API;
+    const  route = process.env.REACT_APP_DIRECTION_API;
+
     return fetch(route, {
       headers: {
         'Content-Type': 'application/json'
@@ -37,7 +40,8 @@ export const sendDirs = direction => {
 
 export const editDirs = direction => {
     return dispatch => {
-        const  route = PLATFORM_API + DIRECTIONS_API + direction.id;
+        const  route = process.env.REACT_APP_DIRECTION_API + '/' + direction.id;
+
         return fetch(route, {
             headers: {
                 'Content-Type': 'application/json'
@@ -55,7 +59,7 @@ export const editDirs = direction => {
 
 export const delDirs = direction => {
     return dispatch => {
-        const  route = PLATFORM_API + DIRECTIONS_API + direction;
+        const  route = process.env.REACT_APP_DIRECTION_API + '/' + direction;
         return fetch(route, {
             method: 'delete',
         })

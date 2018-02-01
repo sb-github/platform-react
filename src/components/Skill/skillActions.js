@@ -11,7 +11,8 @@ export const receiveAllSkill = skills => {
 
 export const addSkill = skill => {
     return dispatch => {
-        const route = PLATFORM_API + SKILL_API;
+        const route =  process.env.REACT_APP_SKILL_API;
+
         return fetch(route, {
             headers: {
                 'Content-Type': 'application/json'
@@ -26,7 +27,9 @@ export const addSkill = skill => {
 
 export const deleteSkill = skill_id => {
     return dispatch => {
-        const route = PLATFORM_API + SKILLS_API + skill_id;
+        const route = process.env.REACT_APP_SKILLS_API
+          + '/' + skill_id;
+
         return fetch(route,{
             method: 'delete'
         }).then(res => res.json())
@@ -36,7 +39,7 @@ export const deleteSkill = skill_id => {
 
 export const fetchSkills = () => {
   return dispatch => {
-    const route = PLATFORM_API + SKILLS_API;
+    const route = process.env.REACT_APP_SKILLS_API;
 
     return fetch(route)
       .then(res => res.json())
@@ -46,7 +49,7 @@ export const fetchSkills = () => {
 
 export const editSkill = skill => {
     return dispatch => {
-            const route = PLATFORM_API + SKILLS_API + skill.id;
+      const route = process.env.REACT_APP_SKILLS_API + '/' + skill.id;
 
         return fetch(route, {
             headers: {

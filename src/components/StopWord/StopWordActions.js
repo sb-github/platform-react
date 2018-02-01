@@ -30,7 +30,8 @@ export const sendWords = listwords => {
             },
             body: JSON.stringify({ words: listwords })
         });
-    };
+    }
+    fetchWords();
 };
 
 export const deleteWords = word_id => {
@@ -46,6 +47,7 @@ export const deleteWords = word_id => {
                 'Accept': 'application/json',
             },
             body: JSON.stringify({accept: [word_id] })
-        })
+        });
     }
+    fetchWords();
 };

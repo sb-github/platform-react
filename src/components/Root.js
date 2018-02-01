@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import DevTools from '../components/DevTools/DevTools';
 import CrawlerContainer from './Crawler/';
-import Words from './Words/';
+import Words from './StopWord/';
 
 class Root extends Component {
   render() {
@@ -9,7 +9,7 @@ class Root extends Component {
         <div>
           <DevTools />
           <CrawlerContainer />
-		  <Words sendWords="" words="" fetchWords=""/>
+		  <Words sendWords="" words="" fetchWords="" deleteWords=""/>
         </div>
     );
   };

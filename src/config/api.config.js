@@ -1,7 +1,7 @@
 
 export const EXTRACTOR_API = 'http://192.168.128.245:8081'; //http://localhost:3001/api
 
-export const EXTRACTOR_API = 'http://localhost:3001/api'; //http://localhost:3001/api
+export const EXTRACTOR_API = 'http://192.168.128.245:8082'; //http://localhost:3001/api
 
 export const PLATFORM_API = 'http://localhost:8000'; //http://localhost:8000
 

@@ -19,17 +19,17 @@ export const fetchWords = () => {
 
 export const sendWords = listwords => {
     return dispatch => {
+
         const route = EXTRACTOR_API + STOP_WORDS_API;
-        console.log(JSON.stringify({words: [listwords]}));
+        listwords = listwords.split(/[ ,.!?@";'*+#$%^&:№]+/);
+        console.log(JSON.stringify({ words: listwords }));
         return fetch(route, {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({words: [listwords]})
-        })
-            .then(res => res.json())
-            .then(data => dispatch(fetchWords()));
+            body: JSON.stringify({ words: listwords })
+        });
     };
 };
 
@@ -47,7 +47,5 @@ export const deleteWords = word_id => {
             },
             body: JSON.stringify({accept: [word_id] })
         })
-            .then(res => res.json())
-            .then(data => dispatch(fetchWords()));
     }
 };

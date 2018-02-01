@@ -10,7 +10,7 @@ export const receiveAllWords = words => {
 
 export const fetchWords = () => {
   return dispatch => {
-    const route = EXTRACTOR_API + STOP_WORDS_API;
+    const route = process.env.REACT_APP_STOP_WORDS_API;
     return fetch(route)
       .then(res => res.json())
       .then(data => dispatch( receiveAllWords(data) ));
@@ -20,7 +20,7 @@ export const fetchWords = () => {
 export const sendWords = listwords => {
     return dispatch => {
 
-        const route = EXTRACTOR_API + STOP_WORDS_API;
+        const route = process.env.REACT_APP_STOP_WORDS_API;
         listwords = listwords.split(/[ ,.!?@";'*+#$%^&:№]+/);
         return fetch(route, {
             method: 'post',
@@ -28,15 +28,15 @@ export const sendWords = listwords => {
                 'Content-Type': 'application/json',
             },
             body: JSON.stringify({ words: listwords })
-        });
+        })
+            .then(res => dispatch(fetchWords()));
     }
-    fetchWords();
 };
 
 export const deleteWords = word_id => {
     return dispatch => {
 
-        const route = EXTRACTOR_API + STOP_WORDS_API + '/' + word_id;
+        const route = process.env.REACT_APP_STOP_WORDS_API + '/' + word_id;
         return fetch(route,{
             method: 'delete',
             headers: {

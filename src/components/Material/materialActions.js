@@ -10,7 +10,7 @@ export const receiveAllMaterial = materials => {
 };
 export const addMaterial = (title, skill_id, text) => {
     return dispatch => {
-        const route = PLATFORM_API + MATERIAL_API;
+        const route = process.env.REACT_APP_MATERIAL_API;
         console.log(JSON.stringify({title: title, skill_id: skill_id, text: text}));
         return fetch(route, {
             headers: {
@@ -25,7 +25,7 @@ export const addMaterial = (title, skill_id, text) => {
 
 export const deleteMaterial = material_id => {
     return dispatch => {
-        const route = PLATFORM_API + MATERIAL_API + "/" + material_id;
+        const route = process.env.REACT_APP_MATERIAL_API + "/" + material_id;
         return fetch(route, {
             method: 'delete'
         }).then(res => res.json())
@@ -35,7 +35,7 @@ export const deleteMaterial = material_id => {
 
 export const editMaterial = (material) => {
     return dispatch => {
-        const route = PLATFORM_API + MATERIAL_API + "/" + material.id;
+        const route = process.env.REACT_APP_MATERIAL_API + "/" + material.id;
         console.log(JSON.stringify({title: material.title, skill_id: material.skill_id, text: material.text}));
         return fetch(route, {
             headers: {
@@ -50,7 +50,7 @@ export const editMaterial = (material) => {
 
 export const fetchMaterials = () => {
     return dispatch => {
-        const rote = PLATFORM_API + MATERIAL_API;
+        const rote = process.env.REACT_APP_MATERIAL_API;
 
         return fetch(rote)
             .then(res => res.json())

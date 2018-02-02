@@ -22,7 +22,6 @@ class ListMaterials extends Component {
         this.state = {
             show: false,
             show_edit: false,
-            show_add: false,
             material:{
                 id: null,
                 title: null,
@@ -58,9 +57,7 @@ class ListMaterials extends Component {
                                 <th>Title</th>
                                 <th>ID skill</th>
                                 <th>Created_at</th>
-                                <th><Button onClick={() => this.materialAddShow()}>
-                                    Create
-                                </Button></th>
+
                             </tr>
                             </thead>
                             <tbody>
@@ -147,21 +144,6 @@ class ListMaterials extends Component {
                     </Modal.Footer>
                 </Modal>
                 {/*ADD*/}
-                <Modal show={this.state.show_add} onHide={this.materialAddClose}
-                       {...this.props}
-                       bsSize="large"
-                       aria-labelledby="contained-modal-title-lg"
-                >
-                    <Modal.Header closeButton>
-                        <Modal.Title id="contained-modal-title-lg">Material creation</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <MaterialAdd addMaterial={addMaterial}/>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button onClick={this.materialAddClose}>Close</Button>
-                    </Modal.Footer>
-                </Modal>
                 {/*ADD*/}
             </div>
 
@@ -190,14 +172,6 @@ class ListMaterials extends Component {
                 skill_id: null,
                 text: null
             }})
-    };
-
-    materialAddClose = () =>{
-        this.setState({show_add: false})
-    };
-
-    materialAddShow = () => {
-        this.setState({show_add:true});
     };
 
     materialShow = material => {

@@ -7,9 +7,6 @@ const skillReducer = (state = [], action) => {
     case RECEIVE_ALL_SKILL:
       return action.skills;
 
-      case  DELETE_SKILL:
-        return action.skills;
-
     default:
       return state;
   }

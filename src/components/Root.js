@@ -1,26 +1,20 @@
 import React, { Component } from 'react';
 import DevTools from '../components/DevTools/DevTools';
-import CrawlerContainer from './Crawler/';
-import WordTreeContainer from "./WordTree/";
-import SKillContainer from './Skill/';
-import MaterialContainer from './Material/';
-import { BrowserRouter as Router, Route } from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom';
+import AdminPanel from './AdminPanel/AdminPanel';
 
 class Root extends Component {
   render() {
+    const devTools = process.env.NODE_ENV !== 'production' ? <DevTools /> : <span />;
+
     return(
+      <Router>
         <div>
-          <DevTools />
-          <Router>
-            <Route path="/crawlers" component = { CrawlerContainer } />
-          </Router>
-          <Router>
-            <Route path="/skills" component = { SKillContainer } />
-          </Router>
-          <Router>
-            <Route path="/materials" component = { MaterialContainer } />
-          </Router>
+
+          {devTools}
+          <AdminPanel/>
         </div>
+      </Router>
     );
   };
 }

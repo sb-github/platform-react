@@ -3,32 +3,31 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@blueprintjs/core": "^2.0.0-beta.1",
-    "@blueprintjs/docs-theme": "^2.0.0-beta.1",
-    "@types/pure-render-decorator": "^0.2.28",
-    "@types/react": "^16.0.34",
-    "@types/react-addons-css-transition-group": "^15.0.3",
-    "@types/react-dom": "^16.0.3",
+    "@blueprintjs/core": "^1.35.3",
     "antd": "^3.1.4",
+    "d3-interpolate": "^1.1.6",
     "jquery": "^3.3.1",
     "prop-types": "^15.6.0",
     "react": "^16.2.0",
+    "react-addons-css-transition-group": "^15.6.2",
     "react-bootstrap": "^0.32.0",
     "react-ckeditor-component": "^1.0.7",
     "react-dom": "^16.2.0",
+    "react-graph-vis": "^1.0.2",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.0",
     "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0"
-
+    "redux-thunk": "^2.2.0",
+    "source-map-explorer": "^1.5.0"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject",
-    "server": "serve -s -p 3000 build"
+    "server": "serve -s -p 3000 build",
+    "analyze": "source-map-explorer build/static/js/main.*"
   },
   "devDependencies": {
     "redux-devtools": "^3.4.1",

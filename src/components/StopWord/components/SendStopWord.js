@@ -19,7 +19,7 @@ class WordSender extends Component {
     return (
 
       <Row>
-        <Col xs={2}>
+        <Col xs={5}>
           <FormGroup>
             <InputGroup>
               <FormControl
@@ -28,7 +28,7 @@ class WordSender extends Component {
                 type='text' placeholder='Type your words'
               />
               <InputGroup.Addon>
-                <a href='#' onClick={this.handleClick}>
+                <a onClick={this.handleClick}>
                   <Glyphicon glyph="glyphicon glyphicon-play"/>
                 </a>
               </InputGroup.Addon>

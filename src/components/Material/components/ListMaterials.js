@@ -36,7 +36,7 @@ class ListMaterials extends Component {
         const materialsList = materials.map(material => <tr>
             <td>{material.id}</td>
             <td>{material.title}</td>
-            <td>{material.skill_id}</td>
+            <td>{material.skill.title}</td>
             <td>{material.created_at}</td>
             <td><Button onClick={() => this.materialShow(material)}>
                 View
@@ -55,7 +55,7 @@ class ListMaterials extends Component {
                             <tr>
                                 <th>ID material</th>
                                 <th>Title</th>
-                                <th>ID skill</th>
+                                <th>Skill</th>
                                 <th>Created_at</th>
 
                             </tr>

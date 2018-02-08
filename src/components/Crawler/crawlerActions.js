@@ -82,7 +82,7 @@ export const runCrawler = word => {
 
 export const fetchResultCrawler = (crawler_id, page) => {
   return dispatch => {
-    const rote = process.env.REACT_APP_GRAPH_SKILL_API
+    const rote = process.env.REACT_APP_CRAWLER_GRAPH_API
       + '?crawler_id=' + crawler_id + '&page=' + page;
 
     return fetch(rote)

@@ -1,6 +1,4 @@
 import {RECEIVE_ALL_SKILL} from "./actionTypes";
-import {SKILLS_API, PLATFORM_API, SKILL_API} from "../../config/api.config";
-
 
 export const receiveAllSkill = skills => {
   return {

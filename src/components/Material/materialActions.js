@@ -1,6 +1,4 @@
 import {ADD_MATERIAL, RECEIVE_ALL_MATERIAL} from "./actionTypes";
-import {MATERIAL_API, PLATFORM_API} from "../../config/api.config";
-
 
 export const receiveAllMaterial = materials => {
     return {

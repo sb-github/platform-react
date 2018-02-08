@@ -1,5 +1,4 @@
 import {RECEIVE_ALL_NODES, SET_TAG_NODES} from "./actionTypes";
-import { PLATFORM_API, SKILLS_API} from "../../config/api.config";
 
 export const receiveAllNodes = (nodes, page) => {
   return {
@@ -19,7 +18,7 @@ export const setTagNodes = (nodes, tag) => {
 
 export const fetchNewSkills = skills => {
   return dispatch => {
-    const route = PLATFORM_API + SKILLS_API;
+    const route = process.env.REACT_APP_SKILLS_API;
 
     return fetch(route, {
       headers: {

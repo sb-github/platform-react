@@ -82,10 +82,10 @@ export const runCrawler = word => {
 
 export const fetchResultCrawler = (crawler_id, page) => {
   return dispatch => {
-    const rote = process.env.REACT_APP_CRAWLER_GRAPH_API
+    const route = process.env.REACT_APP_CRAWLER_GRAPH_API
       + '?crawler_id=' + crawler_id + '&page=' + page;
 
-    return fetch(rote)
+    return fetch(route)
       .then(res => res.json())
       .then(data => dispatch(receiveAllNodes(data, page)));
   };

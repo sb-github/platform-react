@@ -8,7 +8,8 @@ class GraphSkill extends Component {
     skills: PropTypes.array.isRequired,
     relations: PropTypes.array.isRequired,
     receiveGraph: PropTypes.func.isRequired,
-    isBalanced: PropTypes.bool
+    isBalanced: PropTypes.bool,
+    fetchGraph: PropTypes.func.isRequired
   };
 
   constructor(props){
@@ -21,7 +22,7 @@ class GraphSkill extends Component {
       options: {
         nodes: {
           borderWidth:0,
-          size:40,
+          size:50,
           color: {
             border: '#00152a',
             background: '#00152a'
@@ -63,7 +64,8 @@ class GraphSkill extends Component {
   };
 
   componentDidMount() {
-    const {skills, relations} = this.props;
+    const skills = this.props.skills || [];
+    const relations = this.props.relations || [];
 
     this.setState({
       nodes: this.renderNodes(skills, this.state.isBalanced),
@@ -88,9 +90,7 @@ class GraphSkill extends Component {
       selected: false,
       shape: 'circularImage',
       image: node.image || 'images/noimage.png',
-      value: isBalanced ? 40 : node.value
-      //value: isBalanced && skill.id !== 500 ? 40 : skill.value
-      //image: !skill.selected ? skill.skillimage : 'images/relations.png',
+      value: isBalanced ? undefined : node.value
     }));
   };
 
@@ -121,7 +121,10 @@ class GraphSkill extends Component {
 
       if(selectedNode.selected)
       {
-        //todo
+        this.props.fetchGraph({
+          name: selectedNode.label,
+          id: selectedNode.id
+        });
       }
 
       nodes = nodes.map(node =>

@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { receiveGraph } from "./actions";
+import { fetchGraph } from "./actions";
 import GraphSkill from './GraphSkill';
 
 const mapStateToProps = state => {
@@ -15,7 +15,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    receiveGraph: bindActionCreators(receiveGraph, dispatch)
+    fetchGraph: bindActionCreators(fetchGraph, dispatch)
   };
 };
 

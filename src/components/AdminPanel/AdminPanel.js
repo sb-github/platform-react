@@ -1,11 +1,6 @@
 import React, { Component } from 'react';
 import { Layout, Menu, Icon, Affix } from 'antd';
-import CrawlerContainer from '../Crawler/';
-import SKillContainer from '../Skill/';
-import MaterialContainer from '../Material/';
-import DirectionContainer from '../Directions';
-import StopWordContainer from '../StopWord';
-import GraphSkillContainer from '../GraphSkill';
+import asyncComponent from '../../hoc/AsyncComponent';
 import { Route, Link } from 'react-router-dom';
 import styles from './styles.css';
 
@@ -13,8 +8,40 @@ class AdminPanel extends Component {
   constructor(props) {
     super(props);
 
+    const GraphSkillContainer = asyncComponent(() =>
+      import('../GraphSkill').then(module => module.default)
+    );
+
+    const CrawlerContainer = asyncComponent(() =>
+      import('../Crawler').then(module => module.default)
+    );
+
+    const SKillContainer = asyncComponent(() =>
+      import('../Skill').then(module => module.default)
+    );
+
+    const DirectionContainer = asyncComponent(() =>
+      import('../Directions').then(module => module.default)
+    );
+
+    const MaterialContainer = asyncComponent(() =>
+      import('../Material').then(module => module.default)
+    );
+
+    const StopWordContainer = asyncComponent(() =>
+      import('../StopWord').then(module => module.default)
+    );
+
     this.state = {
       collapsed: false,
+      components:{
+        GraphSkillContainer,
+        CrawlerContainer,
+        SKillContainer,
+        DirectionContainer,
+        MaterialContainer,
+        StopWordContainer
+      }
     };
   }
 
@@ -86,12 +113,12 @@ class AdminPanel extends Component {
 
           </Header>
           <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 600 }}>
-            <Route path="/crawlers" component = { CrawlerContainer } />
-            <Route path="/skills" component = { SKillContainer } />
-            <Route path="/directions" component = { DirectionContainer } />
-            <Route path="/materials" component = { MaterialContainer } />
-            <Route path="/stopwords" component = { StopWordContainer } />
-            <Route path="/graph" component = { GraphSkillContainer } />
+            <Route path="/crawlers" component = { this.state.components.CrawlerContainer } />
+            <Route path="/skills" component = { this.state.components.SKillContainer } />
+            <Route path="/directions" component = { this.state.components.DirectionContainer } />
+            <Route path="/materials" component = { this.state.components.MaterialContainer } />
+            <Route path="/stopwords" component = { this.state.components.StopWordContainer } />
+            <Route path="/graph" component = { this.state.components.GraphSkillContainer } />
           </Content>
         </Layout>
     </Layout>);

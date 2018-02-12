@@ -4,6 +4,7 @@ import './styles.css';
 import CrawlerContainer from '../Crawler/';
 import SKillContainer from '../Skill/';
 import MaterialContainer from '../Material/';
+import UserMaterialContainer from '../UserMaterial/';
 import DirectionContainer from '../Directions';
 import StopWordContainer from '../StopWord';
 import { Route, Link } from 'react-router-dom';
@@ -86,6 +87,8 @@ class AdminPanel extends Component {
             <Route path="/directions" component = { DirectionContainer } />
             <Route path="/materials" component = { MaterialContainer } />
             <Route path="/stopwords" component = { StopWordContainer } />
+              <Route path="/skill/:skill_id_mat/materials" component={UserMaterialContainer} />
+
           </Content>
         </Layout>
     </Layout>);

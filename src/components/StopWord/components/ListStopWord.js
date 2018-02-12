@@ -21,7 +21,7 @@ class ListWords extends Component {
               className={Classes.LARGE}
               intent={Intent.DEFAULT}
           >
-              {word.title}
+              {word.key}
               <Button onClick={() => this.delete(page, word.id)}>X</Button>
           </Tag>);
 

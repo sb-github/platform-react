@@ -10,10 +10,8 @@ export const receiveAllWords = (page, words) => {
 
 export const fetchWords = page => {
   return dispatch => {
-    const route = process.env.REACT_APP_STOP_WORDS_API_TEST
+    const route = process.env.REACT_APP_STOP_WORDS_API
         + '?page=' + page +'&size=' + 25;
-    console.log(route);
-    console.log("----------1--------");
     return fetch(route)
       .then(res => res.json())
       .then(data => dispatch( receiveAllWords(page, data) ));
@@ -22,14 +20,14 @@ export const fetchWords = page => {
 
 export const sendWords = (page, listwords) => {
     return dispatch => {
-        const route = process.env.REACT_APP_STOP_WORDS_API_TEST;
-        listwords = listwords.split(/[ ,.!?@";'*+#$%^&:№]+/); /**/
+        const route = process.env.REACT_APP_STOP_WORDS_API;
+        listwords = listwords.split(/[ ,.!?@";'*+#$%^&:№<>()"']+/);
         return fetch(route, {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ key: listwords })
+            body: JSON.stringify({ title: listwords })
         })
             .then(res => dispatch(fetchWords(page)));
     }
@@ -38,7 +36,7 @@ export const sendWords = (page, listwords) => {
 export const deleteWords = (page, word_id) => {
     return dispatch => {
 
-        const route = process.env.REACT_APP_STOP_WORDS_API_TEST + '/' + word_id;
+        const route = process.env.REACT_APP_STOP_WORDS_API + '/' + word_id;
         return fetch(route,{
             method: 'delete',
             headers: {

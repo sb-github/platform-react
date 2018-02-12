@@ -3,7 +3,6 @@ import PropTypes from 'prop-types';
 import { Row, Col, Pager } from 'react-bootstrap';
 import { Tag, Classes, Intent, Button } from "@blueprintjs/core";
 
-
 class ListWords extends Component {
   static propTypes = {
     words: PropTypes.array,
@@ -34,7 +33,9 @@ class ListWords extends Component {
                 <Pager.Item
                     href="#"
                     disabled={page === 1}
-                    onClick={() => this.handleFetchStopWords(page-1)}>
+                    onClick={() => {
+                        this.handleFetchStopWords(page-1);
+                    }}>
                     Previous
                 </Pager.Item>
                 <Pager.Item
@@ -51,7 +52,7 @@ class ListWords extends Component {
 
    delete = (page, word_id) => {
     const {deleteWords} = this.props;
-
+    console.log(word_id);
     deleteWords(page, word_id);
    };
 

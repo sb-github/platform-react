@@ -2,30 +2,31 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ListWords from "./components/ListStopWord";
 import WordsSender from './components/SendStopWord';
+import stopwords from "./StopWordReducer";
 
 class Words extends Component {
   static propTypes = {
     sendWords: PropTypes.func.isRequired,
-    words: PropTypes.array.isRequired,
+    stopwords: PropTypes.object.isRequired,
     fetchWords: PropTypes.func.isRequired,
     deleteWords: PropTypes.func.isRequired,
   };
 
   componentDidMount() {
     const { fetchWords } = this.props;
-
-     fetchWords();
+     fetchWords(0);
   }
 
   render() {
-    const {words, fetchWords, sendWords, deleteWords} = this.props;
-
+    const {stopwords, fetchWords, sendWords, deleteWords} = this.props;
+    console.log(stopwords);
     return (
       <div>
         <h2>Stop words</h2>
         <WordsSender sendWords={sendWords} />
         <ListWords
-          words={words}
+          words={stopwords.words}
+          page={stopwords.page}
           fetchWords={fetchWords}
           deleteWords={deleteWords}
         />

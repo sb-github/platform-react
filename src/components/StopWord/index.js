@@ -4,9 +4,9 @@ import { bindActionCreators } from 'redux';
 import { fetchWords, sendWords, deleteWords } from './StopWordActions';
 import Words from "./StopWords";
 
-const mapStateToProps= state =>{
+const mapStateToProps = state =>{
     return {
-        words: state.words
+        stopwords: state.stopwords
     }
 };
 

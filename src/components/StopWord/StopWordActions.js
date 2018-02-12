@@ -1,5 +1,4 @@
 import {FETCH_ALL_WORDS} from "./actionTypes";
-import {EXTRACTOR_API, STOP_WORDS_API} from "../../config/api.config";
 
 export const receiveAllWords = (page, words) => {
   return {
@@ -13,25 +12,26 @@ export const fetchWords = page => {
   return dispatch => {
     const route = process.env.REACT_APP_STOP_WORDS_API_TEST
         + '?page=' + page +'&size=' + 25;
-
+    console.log(route);
+    console.log("----------1--------");
     return fetch(route)
       .then(res => res.json())
       .then(data => dispatch( receiveAllWords(page, data) ));
   };
 };
 
-export const sendWords = listwords => {
+export const sendWords = (page, listwords) => {
     return dispatch => {
         const route = process.env.REACT_APP_STOP_WORDS_API_TEST;
-        listwords = listwords.split(/[ ,.!?@";'*+#$%^&:№]+/);
+        listwords = listwords.split(/[ ,.!?@";'*+#$%^&:№]+/); /**/
         return fetch(route, {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ title: listwords })
+            body: JSON.stringify({ key: listwords })
         })
-            .then(res => dispatch(fetchWords()));
+            .then(res => dispatch(fetchWords(page)));
     }
 };
 

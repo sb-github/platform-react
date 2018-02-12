@@ -1,15 +1,19 @@
 import {FETCH_ALL_WORDS} from "./actionTypes";
 
-const wordsReducer = (state = [], action) => {
+const stopwordsReducer = (state = [], action) => {
   const { type } = action;
 
   switch (type) {
-    case FETCH_ALL_WORDS:
-      return action.words;
+      case FETCH_ALL_WORDS:
+      return {
+          ...state,
+          page: action.page,
+          words: action.words
+      };
       
     default:
       return state;
   }
 };
 
-export default wordsReducer;
+export default stopwordsReducer;

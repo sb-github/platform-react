@@ -4,6 +4,7 @@ import { Glyphicon, Row, Col, InputGroup, FormGroup, FormControl } from 'react-b
 
 class WordSender extends Component {
   static propTypes = {
+    page: PropTypes.number,
     sendWords: PropTypes.func.isRequired
   };
 
@@ -16,6 +17,7 @@ class WordSender extends Component {
 
   render() {
 
+    const { page } = this.props;
     return (
 
       <Row>
@@ -28,7 +30,7 @@ class WordSender extends Component {
                 type='text' placeholder='Type your words'
               />
               <InputGroup.Addon>
-                <a onClick={this.handleClick}>
+                <a onClick={() => this.handleClick(page)}>
                   <Glyphicon glyph="glyphicon glyphicon-play"/>
                 </a>
               </InputGroup.Addon>
@@ -39,10 +41,10 @@ class WordSender extends Component {
     );
   }
 
-  handleClick = () => {
+  handleClick = page => {
     const {sendWords} = this.props;
 
-    sendWords(this.state.text);
+    sendWords(page ,this.state.text);
   };
 }
 

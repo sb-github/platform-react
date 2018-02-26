@@ -32,7 +32,7 @@ class ListWords extends Component {
             <Pager>
                 <Pager.Item
                     href="#"
-                    disabled={page === 1}
+                    disabled={page === 0}
                     onClick={() => {
                         this.handleFetchStopWords(page-1);
                     }}>
@@ -52,7 +52,7 @@ class ListWords extends Component {
 
    delete = (page, word_id) => {
     const {deleteWords} = this.props;
-    console.log(word_id);
+    console.log(page, word_id);
     deleteWords(page, word_id);
    };
 

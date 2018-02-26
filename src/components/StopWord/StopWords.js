@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ListWords from "./components/ListStopWord";
 import WordsSender from './components/SendStopWord';
+import stopwords from "./StopWordReducer";
 
 class Words extends Component {
   static propTypes = {
@@ -21,7 +22,10 @@ class Words extends Component {
     return (
       <div>
         <h2>Stop words</h2>
-        <WordsSender sendWords={sendWords} />
+        <WordsSender
+            page = {stopwords.page}
+            sendWords={sendWords}
+        />
         <ListWords
           words={stopwords.words}
           page={stopwords.page}

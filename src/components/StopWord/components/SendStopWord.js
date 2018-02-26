@@ -44,7 +44,7 @@ class WordSender extends Component {
   handleClick = page => {
     const {sendWords} = this.props;
 
-    sendWords(page ,this.state.text);
+    sendWords(page, this.state.text);
   };
 }
 

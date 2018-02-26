@@ -3,8 +3,11 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@blueprintjs/core": "^1.35.3",
+    "@blueprintjs/core": "^2.0.0-rc.1",
+    "@blueprintjs/docs-theme": "^2.0.0-rc.1",
+    "@blueprintjs/select": "^2.0.0-rc.1",
     "antd": "^3.1.4",
+    "classnames": "^2.2.5",
     "d3-interpolate": "^1.1.6",
     "jquery": "^3.3.1",
     "prop-types": "^15.6.0",
@@ -17,8 +20,11 @@
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
     "react-scripts": "1.1.0",
+    "react-transition-group": "^2.2.1",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
+    "semantic-ui-css": "^2.2.14",
+    "semantic-ui-react": "^0.78.2",
     "source-map-explorer": "^1.5.0"
   },
   "scripts": {

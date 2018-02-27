@@ -5,7 +5,7 @@ import { Table, Row, Col, Button, FormGroup, FormControl, Modal, Well } from 're
 
 class ListSkills extends Component {
   static propTypes = {
-    skills: PropTypes.array.isRequired,
+    skills: PropTypes.array,
     deleteSkill: PropTypes.func.isRequired,
     editSkill: PropTypes.func.isRequired,
     fetchSkills: PropTypes.func.isRequired

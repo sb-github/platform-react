@@ -1,7 +1,7 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 import { Label, Image, Grid } from 'semantic-ui-react';
-import Search from './Search';
+import Search from './GraphSearch';
 
 const resultRenderer = ({ title, image }) => {
   return(

@@ -5,9 +5,7 @@ import {interpolateRgb} from 'd3-interpolate';
 
 class GraphSkill extends Component {
   static propTypes = {
-    skills: PropTypes.array.isRequired,
-    relations: PropTypes.array.isRequired,
-    isBalanced: PropTypes.bool,
+    graphData: PropTypes.object.isRequired,
     fetchGraph: PropTypes.func.isRequired
   };
 
@@ -63,8 +61,8 @@ class GraphSkill extends Component {
   };
 
   componentDidMount() {
-    const skills = this.props.skills || [];
-    const relations = this.props.relations || [];
+    const skills = this.props.graphData.skills || [];
+    const relations = this.props.graphData.relations || [];
 
     this.setState({
       nodes: this.renderNodes(skills, this.state.isBalanced),
@@ -73,8 +71,8 @@ class GraphSkill extends Component {
   };
 
   componentDidUpdate(prevProps) {
-    if(prevProps.skills !== this.props.skills) {
-      const {skills, relations} = this.props;
+    if(prevProps.graphData.skills !== this.props.graphData.skills) {
+      const {skills, relations} = this.props.graphData;
 
       this.setState({
         nodes: this.renderNodes(skills, this.state.isBalanced),

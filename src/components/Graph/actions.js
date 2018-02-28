@@ -1,4 +1,5 @@
-import {RECEIVE_GRAPH} from "./actionTypes";
+export const RECEIVE_GRAPH = 'RECEIVE_GRAPH';
+export const SEARCH_GRAPH_SKILL = 'SEARCH_GRAPH_SKILL';
 
 export const receiveGraph = graph => {
   return {
@@ -8,6 +9,13 @@ export const receiveGraph = graph => {
   };
 };
 
+export const searchGraph = isSearch => {
+  return {
+    type: SEARCH_GRAPH_SKILL,
+    isSearch
+  };
+};
+  
 export const fetchGraph = skill => {
   return dispatch => {
     const route = process.env.REACT_APP_GRAPH_SKILL_API

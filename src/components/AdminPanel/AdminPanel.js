@@ -5,7 +5,7 @@ import SKillContainer from '../Skill/';
 import MaterialContainer from '../Material/';
 import DirectionContainer from '../Directions';
 import StopWordContainer from '../StopWord';
-import GraphSkillContainer from '../GraphSkill';
+import GraphContainer from '../Graph';
 import { Route, Link } from 'react-router-dom';
 import styles from './styles.css';
 
@@ -91,7 +91,7 @@ class AdminPanel extends Component {
             <Route path="/directions" component = { DirectionContainer } />
             <Route path="/materials" component = { MaterialContainer } />
             <Route path="/stopwords" component = { StopWordContainer } />
-            <Route path="/graph" component = { GraphSkillContainer } />
+            <Route path="/graph" component = { GraphContainer } />
           </Content>
         </Layout>
     </Layout>);

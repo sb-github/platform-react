@@ -28,20 +28,13 @@ class GraphSearch extends Component {
     setTimeout(() => {
       if (this.state.value.length < 1) return this.resetComponent();
 
+      const re = new RegExp(this.state.value, 'i');
+
       this.setState({
         isLoading: false,
-        results: [ {
-          "title": "PHP",
-          "description": "Advanced modular support",
-          "image": "https://s3.amazonaws.com/uifaces/faces/twitter/ninjad3m0/128.jpg"
-        },
-          {
-            "title": "JS",
-            "description": "Configurable uniform matrix",
-            "image": "https://s3.amazonaws.com/uifaces/faces/twitter/sterlingrules/128.jpg"
-          }]
+        results: this.props.skills.filter(skill => re.test(skill.title))
       })
-    }, 500)
+    }, 100)
   };
 
   render() {

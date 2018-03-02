@@ -1,17 +1,18 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchGraph, searchGraph } from "./actions";
+import { fetchGraph, searchGraph, searchInGraph } from "./actions";
 import Graph from './Graph';
 
 const mapStateToProps = state => {
-  const { graphSkill } = state;
+  const { graphSkill, skills } = state;
 
   return {
     graphData: {
       skills: graphSkill.skills,
       relations: graphSkill.relations
     },
+    skills: skills,
     isSearch: graphSkill.isSearch
   };
 };

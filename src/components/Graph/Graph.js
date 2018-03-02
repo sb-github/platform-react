@@ -32,7 +32,11 @@ class Graph extends Component {
   };
 
   render() {
-    const { graphData, isSearch, fetchGraph, searchGraph} = this.props;
+    const {
+      graphData, isSearch,
+      fetchGraph, searchGraph,
+      searchInGraph
+    } = this.props;
 
     return (
       <div>
@@ -40,6 +44,7 @@ class Graph extends Component {
         <Dimmer.Dimmable dimmed={isSearch}>
           <Dimmer active={isSearch} onClickOutside={this.hideSearch}>
             <GraphSearch
+              skills={this.props.skills}
               searchGraph={searchGraph}
               fetchGraph={fetchGraph}
             />

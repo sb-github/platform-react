@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchDirs, sendDirs, delDirs, editDirs } from "./actions";
+import { fetchDirs, sendDirs, deleteDirs, editDirs } from "./actions";
 import Directions from "./Directions";
 
 const mapStateToProps=(state)=>{
@@ -13,7 +13,7 @@ const mapStateToProps=(state)=>{
 const mapDispatchToProps = dispatch => {
     return {
         fetchDirs: bindActionCreators(fetchDirs, dispatch),
-        delDirs: bindActionCreators(delDirs, dispatch),
+        deleteDirs: bindActionCreators(deleteDirs, dispatch),
         sendDirs: bindActionCreators(sendDirs, dispatch),
         editDirs: bindActionCreators(editDirs, dispatch)
     };

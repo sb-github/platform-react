@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import ListDirs from "./components/list";
-import DirsSender from './components/send';
+import EditableTable from "./components/ListDirections";
+import DirsSender from './components/AddDirection';
 
 class Directions extends Component {
   static propTypes = {
     sendDirs: PropTypes.func.isRequired,
     dirs: PropTypes.array.isRequired,
     fetchDirs: PropTypes.func.isRequired,
-    delDirs: PropTypes.func.isRequired,
+    deleteDirs: PropTypes.func.isRequired,
     editDirs: PropTypes.func.isRequired
   };
 
@@ -19,17 +19,17 @@ class Directions extends Component {
   }
 
   render() {
-    const {dirs, fetchDirs, sendDirs, delDirs, editDirs} = this.props;
+    const {dirs, fetchDirs, sendDirs, deleteDirs, editDirs} = this.props;
 
     return (
       <div>
         <h2>Directions</h2>
-        <DirsSender dirs={dirs} sendDirs={sendDirs}/>
-        <ListDirs
+        <EditableTable
           dirs={dirs}
           fetchDirs={fetchDirs}
-          delDirs={delDirs}
+          deleteDirs={deleteDirs}
           editDirs={editDirs}
+          sendDirs={sendDirs}
         />
       </div>
     );

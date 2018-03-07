@@ -13,6 +13,8 @@ export const fetchDirs = () => {
     const route = process.env.REACT_APP_DIRECTION_API
       + '?relationships=true';
 
+    console.log(route)
+
     return fetch(route)
       .then(res => res.json())
       .then(data => dispatch( receiveAllDirs(data) ));
@@ -57,7 +59,7 @@ export const editDirs = direction => {
     };
 };
 
-export const delDirs = direction => {
+export const deleteDirs = direction => {
     return dispatch => {
         const  route = process.env.REACT_APP_DIRECTION_API + '/' + direction;
         return fetch(route, {

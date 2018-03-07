@@ -2,7 +2,6 @@ import {
   RECEIVE_ALL_CRAWLERS, RECEIVE_NEW_CRAWLER, START_RUN_CRAWLER,
   END_RUN_CRAWLER, SET_CRAWLER
 } from "./actionTypes";
-import {CRAWLER_INFO_API, EXTRACTOR_API, GRAPH_SKILL_API, PLATFORM_API, RUN_CRAWLER_API} from "../../config/api.config";
 import {receiveAllNodes} from "../WordTree/treeActions";
 
 export const startRunCrawler = () => {

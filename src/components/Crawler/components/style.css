@@ -5,8 +5,8 @@
     box-shadow: 0 1px 6px rgba(0, 0, 0, .2);
 }
 
-.custom-filter-dropdown input {
-    width: 130px;
+.custom-filter-dropdown-input {
+    width: 100px;
     margin-right: 8px;
 }
 

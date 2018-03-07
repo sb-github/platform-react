@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {sortByKey} from '../../../utils/sorting';
-import { Table, Input, Button, Icon, Divider, Modal, Row, Col, Alert} from 'antd';
+import { Table, Input, Button, Icon, Divider, Modal, Row, Col, Alert, Tooltip, Progress, Timeline} from 'antd';
 import { DatePicker } from 'antd';
 import style from './style.css';
 import dateFormat from 'dateformat';
 import Runner from './Runner';
+import CrawlerStatus from './CrawlerStatus';
 const { RangePicker } = DatePicker;
 const {Column} = Table;
 
@@ -36,14 +37,27 @@ class ListCrawlers extends Component {
         type: 'modifiedDate',
         filtered: false,
         applyFilter: (array) => this.datesFilter([''], 'modifiedDate', array)
-      }],
+      }
+      ],
       visibleSearch: false,
       textSearch: '',
       filters: {
 
       },
       loading: false,
-      searchText: null
+      selectedRow: '',
+      steps: [
+        {
+          desc: 'Preparing to start crawler',
+          done: true
+        }, {
+          desc: 'Executing parser of vacancies',
+          done: true
+        }, {
+          desc: 'Making graph skills',
+          done: false
+        }
+      ]
     };
   }
 
@@ -105,6 +119,11 @@ class ListCrawlers extends Component {
     });
   };
 
+  onRow = (record) => {
+    return {
+      onMouseEnter: () => {this.setState({selectedRow: record.id})}
+    };
+  };
   setSearchFilter = () => {
     const { textSearch } = this.state;
 
@@ -183,6 +202,23 @@ class ListCrawlers extends Component {
     fetchCrawlers(params.page);
   };
 
+  renderDates = (text, record) => {
+    const date = <p>{dateFormat(text, "dd-mm-yyyy")}</p>;
+    const time = <span>{dateFormat(text, "h:MM TT")}</span>;
+
+    return (<Tooltip trigger={'hover'} title={time}>
+      {date}
+    </Tooltip>);
+  };
+  renderID = (text, record) => {
+    const len = text.length;
+    const right = (len > 6) ? `...${text.slice(len - 6, len - 1)}` : '';
+
+    return (<Tooltip trigger={'hover'} title={text}>
+      {`${text.slice(0,5)}${right}`}
+    </Tooltip>);
+  };
+
   render() {
     const filters = this.state.filters || {};
     const sorter = this.state.sorter || {};
@@ -198,12 +234,18 @@ class ListCrawlers extends Component {
           <Icon type="rocket" style={{float:'right', fontSize: 28, color: '#08c' }}></Icon>
         </Col>
       </Row>,
-      rowKey: record => (record.registered),
       pagination: this.state.pagination,
       rowKey: record => record.registered,
       loading: this.state.loading,
-      onChange: this.handleTableChange
+      onChange: this.handleTableChange,
+      onRow: this.onRow
     };
+    const suffix = textSearch
+      ? <Icon type="close-circle" onClick={() => {
+        this.searchInput.focus();
+        this.setState({ textSearch: '' });
+      }} />
+      : null;
 
     return (
       <Table {...tableProps}>
@@ -211,11 +253,7 @@ class ListCrawlers extends Component {
           title="ID crawler"
           dataIndex="id"
           key="id"
-          render={(text, record) => {
-            const len = text.length;
-            const right = (len > 6) ? `...${text.slice(len - 6, len - 1)}` : '';
-            return `${text.slice(0,5)}${right}`;
-          }}
+          render={this.renderID}
           sorter={true}
         />
         <Column
@@ -229,11 +267,12 @@ class ListCrawlers extends Component {
                 <Input
                   ref={ele => this.searchInput = ele}
                   placeholder="Search"
+                  suffix={suffix}
                   value={textSearch || ''}
                   onChange={this.handleInputChange}
                   onPressEnter={this.setSearchFilter}
+                  addonAfter={<a href onClick={this.setSearchFilter}>OK</a>}
                 />
-                <Button type="primary" onClick={this.setSearchFilter}>OK</Button>
               </div>
             </div>
           )}
@@ -251,17 +290,13 @@ class ListCrawlers extends Component {
           dataIndex="status"
           key="status"
           sorter={true}
-          render={(text, record) => <Alert
-            message={text}
-            type={text.toLowerCase() === 'done'
-              ? 'success' : (text.toLowerCase() === 'fail'
-                ? 'error' : (text.toLowerCase() === 'in progress'
-                    ? 'info'
-                    : 'warning'
-                  )
-              )}
-            showIcon
-          />}
+          render={(text, record) =>
+            <CrawlerStatus
+              crawler={record}
+              steps={this.state.steps}
+              selectedRow={this.state.selectedRow}
+            />
+          }
           filters={[
             { text: 'In progress', value: 'in progress' },
             { text: 'Done', value: 'done' },
@@ -274,7 +309,7 @@ class ListCrawlers extends Component {
         <Column
           title="Run date"
           dataIndex="createdDate"
-          render={(text, record) => dateFormat(text, "dd-mm-yyyy, h:MM TT")}
+          render={this.renderDates}
           sorter={true}
           filterDropdown={(
             <div className="custom-filter-dropdown">
@@ -295,7 +330,7 @@ class ListCrawlers extends Component {
         <Column
           title="Modified date"
           dataIndex="modifiedDate"
-          render={(text, record) => dateFormat(text, "dd-mm-yyyy, h:MM TT")}
+          render={this.renderDates}
           sorter={true}
           filterDropdown={(
             <div className="custom-filter-dropdown">
@@ -318,12 +353,31 @@ class ListCrawlers extends Component {
           key="action"
           render={(text, record) => (
             <span>
-              <a href="#"
-                 onClick={() => this.showResultCrawler(record.id)}>
-                Show results
-              </a>
-              <Divider type="vertical" />
-              <a href="#">Merge</a>
+              {
+                record.status === 'done' || record.status === 'old'
+                  ? <span>
+                      <a href="#"
+                       onClick={() => this.showResultCrawler(record.id)}>
+                        Show results
+                      </a>
+                      <Divider type="vertical" />
+                      <a href="#">Merge</a>
+                  </span> : <span>
+                    <a href="#">
+                      <Icon type="minus" />
+                      <Icon type="minus" />
+                      <Icon type="minus" />
+                      <Icon type="minus" />
+                      <Icon type="minus" />
+                    </a>
+                    <Divider type="vertical" />
+                    <a href="#">
+                      <Icon type="minus" />
+                      <Icon type="minus" />
+                      <Icon type="minus" />
+                    </a>
+                  </span>
+              }
             </span>
           )}
         />

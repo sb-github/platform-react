@@ -2,7 +2,6 @@ import {
   RECEIVE_ALL_CRAWLERS, RECEIVE_NEW_CRAWLER, START_RUN_CRAWLER,
   END_RUN_CRAWLER, SET_CRAWLER
 } from "./actionTypes";
-import {CRAWLER_INFO_API, EXTRACTOR_API, GRAPH_SKILL_API, PLATFORM_API, RUN_CRAWLER_API} from "../../config/api.config";
 import {receiveAllNodes} from "../WordTree/treeActions";
 
 export const startRunCrawler = () => {
@@ -82,10 +81,10 @@ export const runCrawler = word => {
 
 export const fetchResultCrawler = (crawler_id, page) => {
   return dispatch => {
-    const rote = process.env.REACT_APP_GRAPH_SKILL_API
+    const route = process.env.REACT_APP_CRAWLER_GRAPH_API
       + '?crawler_id=' + crawler_id + '&page=' + page;
 
-    return fetch(rote)
+    return fetch(route)
       .then(res => res.json())
       .then(data => dispatch(receiveAllNodes(data, page)));
   };

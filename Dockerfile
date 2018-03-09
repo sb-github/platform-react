@@ -1,14 +1,29 @@
-FROM node
+# ---- Base Node ----
+FROM node:carbon AS base
+
 EXPOSE 3000
+WORKDIR /app
 
-USER root
-RUN mkdir /usr/plarform
+# ---- Dependencies ----
+FROM base AS dependencies
 
-WORKDIR /usr/plarform
-ADD . .
+COPY package*.json ./
+RUN npm install ##--only=production
 
-RUN npm install \
-	&& npm install -g serve \
-	&& npm run build
+# ---- Copy sources & Build ----
+FROM dependencies AS build
 
-ENTRYPOINT npm run server
+WORKDIR /app
+COPY src ./src
+COPY .env.* ./
+COPY public ./public
+RUN npm run build
+
+# --- Release ----
+FROM node:8.9-alpine AS release
+
+WORKDIR /app
+RUN npm -g install serve
+COPY --from=build /app/build ./build
+
+ENTRYPOINT serve -s build -p 3000

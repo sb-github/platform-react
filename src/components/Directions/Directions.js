@@ -1,39 +1,38 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import EditableTable from "./components/ListDirections";
-import DirsSender from './components/AddDirection';
+import ListDirections from "./components/ListDirections";
 
 class Directions extends Component {
-  static propTypes = {
-    sendDirs: PropTypes.func.isRequired,
-    dirs: PropTypes.array.isRequired,
-    fetchDirs: PropTypes.func.isRequired,
-    deleteDirs: PropTypes.func.isRequired,
-    editDirs: PropTypes.func.isRequired
-  };
+    static propTypes = {
+        dirs: PropTypes.array.isRequired,
+        fetchDirections: PropTypes.func.isRequired,
+        sendAddedDirection: PropTypes.func.isRequired,
+        editDirection: PropTypes.func.isRequired,
+        deleteDirection: PropTypes.func.isRequired
+    };
 
-  componentDidMount() {
-    const { fetchDirs } = this.props;
+    componentDidMount() {
+        const { fetchDirections, dirs } = this.props;
+        if (!dirs.length)
+            fetchDirections();
+    }
 
-     fetchDirs();
-  }
+    render() {
+        const {dirs, fetchDirections, sendAddedDirection, deleteDirection, editDirection} = this.props;
 
-  render() {
-    const {dirs, fetchDirs, sendDirs, deleteDirs, editDirs} = this.props;
-
-    return (
-      <div>
-        <h2>Directions</h2>
-        <EditableTable
-          dirs={dirs}
-          fetchDirs={fetchDirs}
-          deleteDirs={deleteDirs}
-          editDirs={editDirs}
-          sendDirs={sendDirs}
-        />
-      </div>
-    );
-  }
+        return (
+            <div>
+                <h2>Directions</h2>
+                <ListDirections
+                    dirs={dirs}
+                    fetchDirections={fetchDirections}
+                    deleteDirection={deleteDirection}
+                    editDirection={editDirection}
+                    sendAddedDirection={sendAddedDirection}
+                />
+            </div>
+        );
+    }
 }
 
 export default Directions;

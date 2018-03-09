@@ -1,25 +1,28 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Table, Input, Popconfirm, Divider, Icon, Row, Col, Button } from 'antd';
+import { Table, Input, Popconfirm, Divider, Icon, Row, Col, Select } from 'antd';
 import dateFormat from 'dateformat';
 import AddDirection from './AddDirection';
-
+import styles from '../styles.css';
 
 const EditableCell = ({editable, value, onChange}) => (
     <div>
-        {editable
-           ? <Input style={{ margin: '-5px 0' }} value={value} onChange={e => onChange(e.target.value)} /> : value
+        {editable ?
+            <Input style={{ margin: '-5px 0' }} value={value} onChange={e => onChange(e.target.value)} /> : value
         }
     </div>
 );
 
-class EditableTable extends Component {
+
+
+
+class ListDirections extends Component {
     static propTypes = {
         dirs: PropTypes.array,
-        fetchDirs: PropTypes.func.isRequired,
-        deleteDirs: PropTypes.func.isRequired,
-        editDirs: PropTypes.func.isRequired,
-        sendDirs: PropTypes.func.isRequired
+        fetchDirections: PropTypes.func.isRequired,
+        sendAddedDirection: PropTypes.func.isRequired,
+        deleteDirection: PropTypes.func.isRequired,
+        editDirection: PropTypes.func.isRequired
     };
 
     constructor(props) {
@@ -47,12 +50,12 @@ class EditableTable extends Component {
         },{
             title: 'Created at',
             dataIndex: 'created_at',
-            width: '15%',
+            width: '12%',
             render: (text, record) => this.renderColumns(dateFormat(text, 'dd.mm.yyyy'), record, 'created_at'),
         }, {
             title: 'Updated at',
             dataIndex: 'updated_at',
-            width: '15%',
+            width: '12%',
             render: (text, record) => this.renderColumns(dateFormat(text, 'dd.mm.yyyy'), record, 'updated_at'),
         }, {
             title: 'Operation',
@@ -61,7 +64,7 @@ class EditableTable extends Component {
             render: (text, record) => {
                 const { editable } = record;
                 return (
-                    <div className="editable-row-operations">
+                    <div className={'editable-row-operations'}>
                         {
                             editable ?
                                 <span>
@@ -81,14 +84,12 @@ class EditableTable extends Component {
         }];
 
         this.state = {
-            directions: [],
-            cacheData: []
+            directions: this.props.dirs,
+            cacheData: this.props.dirs
 
         };
     }
-    componentDidMount() {
-        this.props.fetchDirs();
-    }
+
     componentDidUpdate(prevProps) {
         if(prevProps.dirs !== this.props.dirs) {
             this.setState({
@@ -129,7 +130,7 @@ class EditableTable extends Component {
             delete target.editable;
             this.setState({ directions: newData });
             this.cacheData = newData.map(item => ({ ...item }));
-            this.props.editDirs(target);
+            this.props.editDirection(target);
         }
     }
     cancel(id) {
@@ -148,7 +149,7 @@ class EditableTable extends Component {
             delete target.editable;
             this.setState({ directions: newData.filter(item => id !== item.id)});
             this.cacheData = newData.map(item => ({ ...item }));
-            this.props.deleteDirs(id);
+            this.props.deleteDirection(id);
         }
     }
 
@@ -156,10 +157,10 @@ class EditableTable extends Component {
         const tableHeader =
         <Row>
             <Col span={5}>
-                <AddDirection dirs={this.props.dirs} sendDirs={this.props.sendDirs}/>
+                <AddDirection dirs={this.props.dirs} sendAddedDirection={this.props.sendAddedDirection}/>
             </Col>
             <Col>
-                <Icon type="rocket" style={{ fontSize: 28, color: '#08c', float: 'right' }} />
+                <Icon type="appstore-o" style={{ margin: '3px', fontSize: 28, color: '#08c', float: 'right' }} />
             </Col>
         </Row>;
 
@@ -167,5 +168,5 @@ class EditableTable extends Component {
     }
 }
 
-export default EditableTable;
+export default ListDirections;
 

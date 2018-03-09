@@ -1,21 +1,21 @@
-import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchDirs, sendDirs, deleteDirs, editDirs } from "./actions";
+import { fetchDirections, sendAddedDirection, deleteDirection, editDirection } from "./directionActions";
 import Directions from "./Directions";
 
-const mapStateToProps=(state)=>{
+const mapStateToProps = state => {
+    const { dirs } = state;
     return {
-        dirs: state.dirs
+        dirs
     }
 };
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchDirs: bindActionCreators(fetchDirs, dispatch),
-        deleteDirs: bindActionCreators(deleteDirs, dispatch),
-        sendDirs: bindActionCreators(sendDirs, dispatch),
-        editDirs: bindActionCreators(editDirs, dispatch)
+        fetchDirections: bindActionCreators(fetchDirections, dispatch),
+        deleteDirection: bindActionCreators(deleteDirection, dispatch),
+        sendAddedDirection: bindActionCreators(sendAddedDirection, dispatch),
+        editDirection: bindActionCreators(editDirection, dispatch)
     };
 };
 

@@ -1,9 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ListMaterials from "./components/ListMaterials";
-import MaterialAdd from "./components/MaterialAdd";
-
-
+import MaterialAdd from "./components/AddMaterial";
 
 
 

@@ -5,8 +5,8 @@ import WordsSender from './components/SendStopWord';
 
 class Words extends Component {
     static propTypes = {
+        words: PropTypes.array.isRequired,
         sendWords: PropTypes.func.isRequired,
-        stopwords: PropTypes.object.isRequired,
         fetchWords: PropTypes.func.isRequired,
         fetchByCrawler: PropTypes.func.isRequired,
         deleteWords: PropTypes.func.isRequired,
@@ -15,11 +15,11 @@ class Words extends Component {
 
     componentDidMount() {
         const { fetchWords } = this.props;
-        fetchWords(0);
+        fetchWords();
     }
 
     render() {
-        const {stopwords, fetchWords, fetchByCrawler, sendWords, deleteWords, deleteByCrawler} = this.props;
+        const { words, fetchWords, fetchByCrawler, sendWords, deleteWords, deleteByCrawler} = this.props;
         return (
             <div>
                 <h2>Stop words</h2>
@@ -27,7 +27,7 @@ class Words extends Component {
                     sendWords={sendWords}
                 />
                 <ListWords
-                    words={stopwords.words}
+                    words={words}
                     fetchWords={fetchWords}
                     fetchByCrawler={fetchByCrawler}
                     deleteWords={deleteWords}

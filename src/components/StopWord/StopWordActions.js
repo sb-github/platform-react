@@ -2,8 +2,8 @@ import {FETCH_ALL_WORDS, FETCH_BY_CRAWLER} from "./actionTypes";
 
 export const receiveAllWords = words => {
   return {
-    type: FETCH_ALL_WORDS,
-    words
+      type: FETCH_ALL_WORDS,
+      words
   };
 };
 
@@ -22,14 +22,14 @@ export const fetchWords = () => {
     return fetch(route)
         .then(res => res.json())
         .then(data => dispatch(
-            receiveAllWords( data) )
+            receiveAllWords(data) )
         );
   };
 };
 
 export const fetchByCrawler = crawler_id => {
     return dispatch => {
-        const route = process.env.REACT_APP_CRAWLER_PLATFORM_API + '/' + crawler_id +'/stopword';
+        const route = process.env.REACT_APP_STOP_WORDS_PLATFORM_API + '/' + crawler_id +'/stopword';
         return fetch(route)
             .then(res => res.json())
             .then(data => dispatch(
@@ -65,7 +65,7 @@ export const deleteWords = (word_id) => {
             },
             body: JSON.stringify({accept: [word_id] })
         })
-            .then(res => dispatch(fetchWords()));
+            .then(data => dispatch(fetchWords()));
     }
 };
 export const deleteByCrawler = (crawler_id) => {
@@ -80,6 +80,6 @@ export const deleteByCrawler = (crawler_id) => {
             },
             body: JSON.stringify({accept: [crawler_id] })
         })
-            .then(res => dispatch(fetchWords()));
+            .then(data => dispatch(fetchWords()));
     }
 };

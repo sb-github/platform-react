@@ -5,9 +5,9 @@ const stopwordsReducer = (state = [], action) => {
 
   switch (type) {
       case FETCH_ALL_WORDS:
-          return action.stopwords;
+          return action.words;
       case FETCH_BY_CRAWLER:
-          return action.stopwords;
+          return action.words;
     default:
       return state;
   }

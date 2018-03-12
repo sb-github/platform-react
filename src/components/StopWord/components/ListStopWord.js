@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Table, Icon, Divider } from 'antd';
+
 class ListWords extends Component {
   static propTypes = {
     words: PropTypes.array,
@@ -10,7 +11,7 @@ class ListWords extends Component {
 
   render() {
 
-    const words = this.props.words || [];
+    const  words  = this.props.words || [];
     const data = words.map(word => [{
         id: word.id,
         title: word.title,
@@ -19,28 +20,28 @@ class ListWords extends Component {
     const columns = [{
         title: 'ID',
         dataIndex: 'id',
+        key: 'id',
+        sorter: (a, b) => a.id - b.id,
     },    {
         title: 'Word',
         dataIndex: 'title',
+        key: 'title',
+        sorter: (a, b) => a.title.length - b.title.length,
     }, {
         title: 'Crawler',
         dataIndex: 'crawler_id',
+        key: 'crawler_id',
+        sorter: (a, b) => a.crawler_id - b.crawler_id,
     }, {
         title: 'Action',
         key: 'action',
         render: (id) => (
             <span>
-                <a href="#">ad</a>
-                <Divider type="vertical" />
                 <a href="#" onClick={() => this.delete(id)}>Delete</a>
-                <Divider type="vertical" />
-                <a href="#" className="ant-dropdown-link">
-                    More actions <Icon type="down" />
-                </a>
             </span>
         ),
     }];
-     <Table dataSource={data}
+     return <Table dataSource={data}
             columns={columns}/>
   }
    delete = word_id => {

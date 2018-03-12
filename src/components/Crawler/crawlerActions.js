@@ -69,7 +69,6 @@ export const runCrawler = word => {
           status: 'success',
           message: word
         }));
-        console.log(data);
         dispatch(receiveNewCrawler({
           id: data.id,
           searchCondition: word,

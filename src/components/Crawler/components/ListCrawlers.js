@@ -101,13 +101,14 @@ class ListCrawlers extends Component {
     });
 
     this.setState((prevState, props) => {
-      const {crawlers} = prevState;
+      const {crawlers, ownFilters} = prevState;
       const pager = { ...prevState.pagination };
       pager.current = pagination.current;
+      const filtered = this.filter(crawlers, ownFilters);
 
       return {
         pagination: pager,
-        crawlers: sortByKey(crawlers, sorter.field, sorter.order),
+        crawlers: sortByKey(filtered, sorter.field, sorter.order),
         filters,
         sorter
       }
@@ -232,7 +233,6 @@ class ListCrawlers extends Component {
 
   render() {
     const filters = this.state.filters || {};
-    const sorter = this.state.sorter || {};
     const {textSearch, visibleSearch, ownFilters}  = this.state;
     const tableProps = {
       dataSource: this.filter(this.state.crawlers, ownFilters),
@@ -248,7 +248,7 @@ class ListCrawlers extends Component {
         </Col>
       </Row>,
       pagination: this.state.pagination,
-      rowKey: record => record.registered,
+      rowKey: record => record.id,
       loading: this.state.loading,
       onChange: this.handleTableChange,
       onRow: this.onRow
@@ -284,7 +284,7 @@ class ListCrawlers extends Component {
                   value={textSearch || ''}
                   onChange={this.handleInputChange}
                   onPressEnter={this.setSearchFilter}
-                  addonAfter={<a href onClick={this.setSearchFilter}>OK</a>}
+                  addonAfter={<a onClick={this.setSearchFilter}>OK</a>}
                 />
               </div>
             </div>

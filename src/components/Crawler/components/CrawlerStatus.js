@@ -25,15 +25,16 @@ class CrawlerStatus extends Component {
     const alertMessage = condition ? <span>
       <Progress percent={percentage} size="small" status="active" />
     </span> : text;
+
     const status = <span><Alert
-      style={{ 'min-width': '130px' }} message={alertMessage}
+      style={{ 'minWidth': '130px' }} message={alertMessage}
       type={type} showIcon={!condition}
     /></span>;
     const todoIcon = <Icon
       type="check-circle"
       style={{ fontSize: '16px' }}
     />;
-    const list = steps.filter(step => step.done).map(step => <Timeline.Item dot={todoIcon}>
+    const list = steps.filter(step => step.done).map(step => <Timeline.Item key={step.desc} dot={todoIcon}>
       {step.desc}
     </Timeline.Item>);
     const stepsList = <Timeline pending={steps.find(step => !step.done).desc}>

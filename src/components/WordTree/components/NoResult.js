@@ -6,7 +6,7 @@ class NoResult extends Component {
   static propTypes = {
     icon: PropTypes.string,
     title: PropTypes.string,
-    desc: PropTypes.string.isRequired
+    desc: PropTypes.object.isRequired
   };
 
   render() {

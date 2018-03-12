@@ -36,7 +36,7 @@ class AdminPanel extends Component {
           <Affix>
             <div className='logo'>
               <img className='logo-img' src={'images/platform.png'} width={40} height={40}/>
-              <span className='pt-navbar-heading' style={{'font-size':'20px'}}>
+              <span className='pt-navbar-heading' style={{'fontSize':'20px'}}>
                 {this.state.collapsed ? '' : 'Platform'}
               </span>
             </div>

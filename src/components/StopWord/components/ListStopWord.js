@@ -1,65 +1,54 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Row, Col, Pager } from 'react-bootstrap';
-import { Tag, Classes, Intent, Button } from "@blueprintjs/core";
+import { Table, Icon, Divider } from 'antd';
 
 
 class ListWords extends Component {
   static propTypes = {
     words: PropTypes.array,
-    page: PropTypes.number,
     fetchWords: PropTypes.func.isRequired,
     deleteWords: PropTypes.func.isRequired,
   };
 
   render() {
 
-    const { page } = this.props;
     const words = this.props.words || [];
-    const wordsList = words.map(word =>
-          <Tag
-              active={word.id}
-              className={Classes.LARGE}
-              intent={Intent.DEFAULT}
-          >
-              {word.title}
-              <Button onClick={() => this.delete(page, word.id)}>X</Button>
-          </Tag>);
-
-    return (
-        <Row>
-          <Col xs={8}>
-            {wordsList}
-            <Pager>
-                <Pager.Item
-                    href="#"
-                    disabled={page === 1}
-                    onClick={() => this.handleFetchStopWords(page-1)}>
-                    Previous
-                </Pager.Item>
-                <Pager.Item
-                    href="#"
-                    onClick={() => this.handleFetchStopWords(page+1)}>
-                    Next
-                </Pager.Item>
-            </Pager>
-          </Col>
-        </Row>
-    );
+    const data = words.map(word => [{
+        id: word.id,
+        title: word.title,
+        crawler_id: word.crawler_id,
+    }]);
+    const columns = [{
+        title: 'ID',
+        dataIndex: 'id',
+    },    {
+        title: 'Word',
+        dataIndex: 'title',
+    }, {
+        title: 'Crawler',
+        dataIndex: 'crawler_id',
+    }, {
+        title: 'Action',
+        key: 'action',
+        render: (id) => (
+            <span>
+                <a href="#">ad</a>
+                <Divider type="vertical" />
+                <a href="#" onClick={() => this.delete(id)}>Delete</a>
+                <Divider type="vertical" />
+                <a href="#" className="ant-dropdown-link">
+                    More actions <Icon type="down" />
+                </a>
+            </span>
+        ),
+    }];
+     <Table dataSource={data}
+            columns={columns}/>
   }
-
-
-   delete = (page, word_id) => {
+   delete = word_id => {
     const {deleteWords} = this.props;
-
-    deleteWords(page, word_id);
+    deleteWords(word_id);
    };
-
-    handleFetchStopWords = page => {
-      const {fetchWords} = this.props;
-
-      fetchWords(page);
-    };
 }
 
 export default ListWords;

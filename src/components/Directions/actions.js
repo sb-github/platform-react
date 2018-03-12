@@ -1,5 +1,4 @@
 import {FETCH_ALL_DIR} from "./actionTypes";
-import {PLATFORM_API, DIRECTIONS_API} from "../../config/api.config";
 
 export const receiveAllDirs = dirs => {
   return {

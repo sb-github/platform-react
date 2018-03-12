@@ -1,15 +1,17 @@
-import {FETCH_ALL_WORDS} from "./actionTypes";
+import {FETCH_ALL_WORDS, FETCH_BY_CRAWLER} from "./actionTypes";
 
-const wordsReducer = (state = [], action) => {
+const stopwordsReducer = (state = [], action) => {
   const { type } = action;
 
   switch (type) {
-    case FETCH_ALL_WORDS:
-      return action.words;
-      
+      case FETCH_ALL_WORDS:
+          return action.stopwords;
+      case FETCH_BY_CRAWLER:
+          return action.stopwords;
+
     default:
       return state;
   }
 };
 
-export default wordsReducer;
+export default stopwordsReducer;

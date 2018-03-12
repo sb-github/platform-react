@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Table, Icon, Divider } from 'antd';
-
-
 class ListWords extends Component {
   static propTypes = {
     words: PropTypes.array,

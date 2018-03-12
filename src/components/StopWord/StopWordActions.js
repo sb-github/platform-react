@@ -20,8 +20,10 @@ export const fetchWords = () => {
     const route = process.env.REACT_APP_STOP_WORDS_PLATFORM_API;
 
     return fetch(route)
-      .then(res => res.json())
-      .then(data => dispatch( receiveAllWords(data) ));
+        .then(res => res.json())
+        .then(data => dispatch(
+            receiveAllWords( data) )
+        );
   };
 };
 

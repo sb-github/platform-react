@@ -8,7 +8,6 @@ const stopwordsReducer = (state = [], action) => {
           return action.stopwords;
       case FETCH_BY_CRAWLER:
           return action.stopwords;
-
     default:
       return state;
   }

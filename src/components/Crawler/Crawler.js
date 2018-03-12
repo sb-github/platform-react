@@ -16,7 +16,8 @@ class Crawler extends Component {
   };
 
   componentDidMount() {
-    this.props.fetchCrawlers(0);
+    if (!this.props.crawlersInfo.crawlers)
+      this.props.fetchCrawlers(0);
   }
 
   componentWillUpdate(nextProps) {

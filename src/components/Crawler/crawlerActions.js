@@ -14,7 +14,6 @@ export const endRunCrawler = result => {
   return {
     type: END_RUN_CRAWLER,
     ...result,
-
   };
 };
 
@@ -62,7 +61,7 @@ export const runCrawler = word => {
     return fetch(route)
       .then(res => {
         if(res.ok)
-          return res;
+          return res.json();
         throw Error(res.statusText);
       })
       .then(data => {
@@ -70,7 +69,13 @@ export const runCrawler = word => {
           status: 'success',
           message: word
         }));
-        dispatch(fetchCrawlers(1));
+        console.log(data);
+        dispatch(receiveNewCrawler({
+          id: data.id,
+          searchCondition: word,
+          status: 'in progress',
+          createdDate: Date.now()
+        }));
       })
       .catch(err => dispatch(endRunCrawler({
         status: 'fail',

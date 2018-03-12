@@ -23,7 +23,7 @@ class ListCrawlers extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      crawlers: [],
+      crawlers: sortByKey(this.props.crawlers || [],'createdDate', 'descend'),
       pagination: {},
       ownFilters: [{
         type: 'searchCondition',
@@ -62,11 +62,16 @@ class ListCrawlers extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if(prevProps.crawlers !== this.props.crawlers)
+    if(prevProps.crawlers !== this.props.crawlers) {
+      const newCrawlers = sortByKey(
+        this.props.crawlers || [],
+        'createdDate', 'ascend'
+      );
       this.setState({
-        crawlers: this.props.crawlers,
-        filtered: this.props.crawlers
+        crawlers: newCrawlers,
+        filtered: newCrawlers
       });
+    }
   }
 
   searchFilter = (text, field, array) => {
@@ -206,13 +211,19 @@ class ListCrawlers extends Component {
     const date = <p>{dateFormat(text, "dd-mm-yyyy")}</p>;
     const time = <span>{dateFormat(text, "h:MM TT")}</span>;
 
-    return (<Tooltip trigger={'hover'} title={time}>
-      {date}
-    </Tooltip>);
+    return !text ? (<a>
+        <Icon type="minus" />
+        <Icon type="minus" />
+        <Icon type="minus" />
+        <Icon type="minus" />
+        <Icon type="minus" />
+      </a>) : (<Tooltip trigger={'hover'} title={time}>
+        {date}
+      </Tooltip>);
   };
   renderID = (text, record) => {
     const len = text.length;
-    const right = (len > 6) ? `...${text.slice(len - 6, len - 1)}` : '';
+    const right = (len > 6) ? `...${text.slice(len - 5, len)}` : '';
 
     return (<Tooltip trigger={'hover'} title={text}>
       {`${text.slice(0,5)}${right}`}
@@ -231,7 +242,9 @@ class ListCrawlers extends Component {
           <Runner runCrawler={this.props.runCrawler}/>
         </Col>
         <Col>
-          <Icon type="rocket" style={{float:'right', fontSize: 28, color: '#08c' }}></Icon>
+          <Icon
+            type="rocket"
+            style={{ margin:'3px', float:'right', fontSize: 28, color: '#08c' }} />
         </Col>
       </Row>,
       pagination: this.state.pagination,
@@ -363,7 +376,7 @@ class ListCrawlers extends Component {
                       <Divider type="vertical" />
                       <a href="#">Merge</a>
                   </span> : <span>
-                    <a href="#">
+                    <a>
                       <Icon type="minus" />
                       <Icon type="minus" />
                       <Icon type="minus" />
@@ -371,7 +384,7 @@ class ListCrawlers extends Component {
                       <Icon type="minus" />
                     </a>
                     <Divider type="vertical" />
-                    <a href="#">
+                    <a>
                       <Icon type="minus" />
                       <Icon type="minus" />
                       <Icon type="minus" />

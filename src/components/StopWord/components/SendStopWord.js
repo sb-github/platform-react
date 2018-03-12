@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Glyphicon, Row, Col, InputGroup, FormGroup, FormControl } from 'react-bootstrap';
+import { Glyphicon, Row, Col,
+    InputGroup, FormGroup, FormControl} from 'react-bootstrap';
+
 
 class WordSender extends Component {
   static propTypes = {
@@ -49,4 +51,3 @@ class WordSender extends Component {
 }
 
 export default WordSender;
-

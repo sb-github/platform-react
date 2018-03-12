@@ -1,4 +1,4 @@
-import {FETCH_ALL_WORDS} from "./actionTypes";
+import {FETCH_ALL_WORDS, FETCH_BY_CRAWLER} from "./actionTypes";
 
 export const receiveAllWords = (page, words) => {
   return {
@@ -8,27 +8,47 @@ export const receiveAllWords = (page, words) => {
   };
 };
 
+export const receiveByCrawler = (crawler_id, words) => {
+    return {
+        type: FETCH_BY_CRAWLER,
+        crawler_id,
+        words
+    };
+};
+
 export const fetchWords = page => {
   return dispatch => {
-    const route = process.env.REACT_APP_STOP_WORDS_API
-        + '?page=' + page +'&size=' + 60;
+    const route = process.env.REACT_APP_STOP_WORDS_PLATFORM_API
+        /*+ '?page=' + page +'&size=' + 60*/;
     return fetch(route)
-      .then(res => res.json())
-      .then(data => dispatch( receiveAllWords(page, data) ));
+        .then(res => res.json())
+        .then(data => dispatch(
+            receiveAllWords(page, data) )
+        );
   };
 };
 
-export const sendWords = (page, listwords) => {
+export const fetchByCrawler = crawler_id => {
     return dispatch => {
-        const route = process.env.REACT_APP_STOP_WORDS_API;
+        const route = process.env.REACT_APP_CRAWLER_PLATFORM_API + '/' + crawler_id +'/stopword';
+        return fetch(route)
+            .then(res => res.json())
+            .then(data => dispatch(
+                receiveByCrawler(crawler_id, data) )
+            );
+    };
+};
+
+export const sendWords = (page, listwords, crawler_id) => {
+    return dispatch => {
+        const route = process.env.REACT_APP_STOP_WORDS_PLATFORM_API;
         listwords = listwords.split(/[ ,.!?@";'*+#$%^&:№()<>{}]+/);
-        console.log(JSON.stringify({ words: listwords }));
         return fetch(route, {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ words: listwords })
+            body: JSON.stringify({ title: listwords, crawler_id: crawler_id })
         })
             .then(res => dispatch(fetchWords(page)));
     }
@@ -37,14 +57,30 @@ export const sendWords = (page, listwords) => {
 export const deleteWords = (page, word_id) => {
     return dispatch => {
 
-        const route = process.env.REACT_APP_STOP_WORDS_API + '/' + word_id;
+        const route = process.env.REACT_APP_STOP_WORDS_PLATFORM_API + '/' + word_id;
         return fetch(route,{
             method: 'delete',
             headers: {
                 'Content-Type': 'application/json',
                 'Accept': 'application/json',
             },
-            /*body: JSON.stringify({accept: [word_id] })*/
+            body: JSON.stringify({accept: [word_id] })
+        })
+            .then(res => dispatch(fetchWords(page)));
+    }
+};
+
+export const deleteByCrawler = (page, crawler_id) => {
+    return dispatch => {
+
+        const route = process.env.REACT_APP_CRAWLER_PLATFORM_API + '/' + crawler_id +'/stopword';
+        return fetch(route,{
+            method: 'delete',
+            headers: {
+                'Content-Type': 'application/json',
+                'Accept': 'application/json',
+            },
+            body: JSON.stringify({accept: [crawler_id] })
         })
             .then(res => dispatch(fetchWords(page)));
     }

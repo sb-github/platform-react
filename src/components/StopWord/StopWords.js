@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ListWords from "./components/ListStopWord";
 import WordsSender from './components/SendStopWord';
-import stopwords from "./StopWordReducer";
 
 class Words extends Component {
   static propTypes = {

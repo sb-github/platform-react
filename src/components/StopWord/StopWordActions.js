@@ -21,7 +21,7 @@ export const fetchWords = () => {
 
     return fetch(route)
       .then(res => res.json())
-      .then(data => dispatch( receiveAllWords(page, data) ));
+      .then(data => dispatch( receiveAllWords(data) ));
   };
 };
 

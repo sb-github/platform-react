@@ -14,8 +14,9 @@ class Words extends Component {
     };
 
     componentDidMount() {
-        const { fetchWords } = this.props;
-        fetchWords();
+        const { fetchWords, words } = this.props;
+        if(!words.length)
+            fetchWords();
     }
 
     render() {

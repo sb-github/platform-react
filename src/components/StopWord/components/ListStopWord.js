@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Table, Icon, Divider } from 'antd';
+import { Table, Input, Popconfirm } from 'antd';
 
 class ListWords extends Component {
   static propTypes = {
@@ -12,11 +12,28 @@ class ListWords extends Component {
   render() {
 
     const  words  = this.props.words || [];
-    const data = words.map(word => [{
-        id: word.id,
-        title: word.title,
-        crawler_id: word.crawler_id,
-    }]);
+    const data = [];
+    words.map(word => [
+        data.push({
+            id: word.id,
+            title: word.title,
+            crawler_id: word.crawler_id,
+        })
+    ]);
+
+     const EditableCell = ({ editable, value, onChange }) => (
+       <div>
+         {editable
+           ? <Input style={{ margin: '-5px 0' }} value={value} onChange={e => onChange(e.target.value)} />
+           : value
+         }
+       </div>
+     );
+
+    class Table extends
+
+
+
     const columns = [{
         title: 'ID',
         dataIndex: 'id',
@@ -41,12 +58,14 @@ class ListWords extends Component {
             </span>
         ),
     }];
+    console.log(data);
      return <Table dataSource={data}
             columns={columns}/>
   }
    delete = word_id => {
     const {deleteWords} = this.props;
-    deleteWords(word_id);
+    console.log(word_id);
+    //deleteWords(word_id);
    };
 }
 

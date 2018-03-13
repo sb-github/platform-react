@@ -38,16 +38,17 @@ export const fetchByCrawler = crawler_id => {
     };
 };
 
-export const sendWords = (listwords, crawler_id) => {
+export const sendWords = (words, crawler_id) => {
     return dispatch => {
-        const route = process.env.REACT_APP_STOP_WORDS_API_TEST;
-        listwords = listwords.split(/[ ,.!?@";'*+#$%^&:№]+/);
+        const route = process.env.REACT_APP_STOP_WORDS_PLATFORM_API;
+        words = words.title.split(/[ ,.!?@";'*+#$%^&:№]+/);
+        console.log(process.env.REACT_APP_STOP_WORDS_PLATFORM_API);
         return fetch(route, {
             method: 'post',
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ title: listwords, crawler_id: crawler_id })
+            body: JSON.stringify({ title: words, crawler_id: crawler_id })
         })
             .then(res => dispatch(fetchWords()));
     }

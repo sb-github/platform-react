@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import CrawlerRunner from "./components/CrawlerRunner";
 import ListCrawlers from "./components/ListCrawlers";
 import WordTreeContainer from "../WordTree/";
 import {  notification } from 'antd';
@@ -16,8 +15,12 @@ class Crawler extends Component {
     setCrawler: PropTypes.func.isRequired
   };
 
-  componentWillUpdate(nextProps) {
+  componentDidMount() {
+    if (!this.props.crawlersInfo.crawlers)
+      this.props.fetchCrawlers(0);
+  }
 
+  componentWillUpdate(nextProps) {
     if (nextProps.crawlersInfo.load.loading !== this.props.crawlersInfo.load.loading) {
       const {load} = nextProps.crawlersInfo;
 
@@ -40,26 +43,20 @@ class Crawler extends Component {
   }
 
   render() {
-    const {treeInfo, crawlersInfo, runCrawler,
-      fetchNewSkills, fetchResultCrawler, fetchCrawlers, setCrawler} = this.props;
+    const {crawlersInfo, runCrawler,
+      fetchResultCrawler, fetchCrawlers, setCrawler} = this.props;
 
     return (
       <div>
-        <br />
-        <CrawlerRunner runCrawler={runCrawler}/>
         <ListCrawlers
           crawlers={crawlersInfo.crawlers}
           page={crawlersInfo.page}
           fetchResultCrawler={fetchResultCrawler}
           fetchCrawlers={fetchCrawlers}
           setCrawler={setCrawler}
+          runCrawler={runCrawler}
         />
         <WordTreeContainer />
-        {/*<WordTree*/}
-          {/*nodes={treeInfo.nodes}*/}
-          {/*addNewSkills={fetchNewSkills}*/}
-          {/*fetchResultCrawler={fetchResultCrawler}*/}
-        {/*/>*/}
       </div>
     );
   }

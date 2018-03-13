@@ -11,7 +11,7 @@ export class WordTree extends Component {
   static propTypes = {
     nodes: PropTypes.array.isRequired,
     page: PropTypes.number.isRequired,
-    crawler_id: PropTypes.string.isRequired,
+    crawler_id: PropTypes.string,
     addNewSkills: PropTypes.func.isRequired,
     fetchResultCrawler: PropTypes.func.isRequired
   };
@@ -182,8 +182,6 @@ export class WordTree extends Component {
   };
 
   handleRemove = tag => {
-    //const selCount = this.state.selected.length;
-
     this.state = ({
       ...this.state,
       nodes: this.state.nodes.map(item => {
@@ -224,6 +222,8 @@ export class WordTree extends Component {
         }
       })
     });
+
+    console.log(this.state.nodes);
   };
 
   // noinspection JSAnnotator

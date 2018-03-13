@@ -1,11 +1,11 @@
-import { Layout, Menu, Icon, Affix } from 'antd';
 import React, { Component } from 'react';
-import './styles.css';
+import { Layout, Menu, Icon, Affix } from 'antd';
 import CrawlerContainer from '../Crawler/';
 import SKillContainer from '../Skill/';
 import MaterialContainer from '../Material/';
 import DirectionContainer from '../Directions';
 import StopWordContainer from '../StopWord';
+import GraphContainer from '../Graph';
 import { Route, Link } from 'react-router-dom';
 import styles from './styles.css';
 
@@ -32,12 +32,11 @@ class AdminPanel extends Component {
           collapsible
           collapsed={this.state.collapsed}
           onCollapse={this.onCollapse}
-          className="d-flex align-items-stretch"
         >
           <Affix>
             <div className='logo'>
-              <img className='logo-img' src={'platform.png'} width={40} height={40}/>
-              <span className='pt-navbar-heading' style={{'font-size':'20px'}}>
+              <img className='logo-img' src={'images/platform.png'} width={40} height={40}/>
+              <span className='pt-navbar-heading' style={{'fontSize':'20px'}}>
                 {this.state.collapsed ? '' : 'Platform'}
               </span>
             </div>
@@ -61,7 +60,7 @@ class AdminPanel extends Component {
                   <span>Directions</span>
                 </Link>
               </Menu.Item>
-               <Menu.Item key="4">
+              <Menu.Item key="4">
                 <Link to={'/materials'}>
                   <Icon type="file" />
                   <span>Materials</span>
@@ -73,6 +72,12 @@ class AdminPanel extends Component {
                         <span>Stop Words</span>
                     </Link>
                </Menu.Item>
+              <Menu.Item key="6">
+                <Link to={'/graph'}>
+                  <Icon type="share-alt" />
+                  <span>Graph skill</span>
+                </Link>
+              </Menu.Item>
             </Menu>
           </Affix>
         </Sider>
@@ -86,6 +91,7 @@ class AdminPanel extends Component {
             <Route path="/directions" component = { DirectionContainer } />
             <Route path="/materials" component = { MaterialContainer } />
             <Route path="/stopwords" component = { StopWordContainer } />
+            <Route path="/graph" component = { GraphContainer } />
           </Content>
         </Layout>
     </Layout>);

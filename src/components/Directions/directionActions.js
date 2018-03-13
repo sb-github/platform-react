@@ -30,7 +30,7 @@ export const deletedDirection = id => {
 
 export const fetchDirections = () => {
     return dispatch => {
-        const route = process.env.REACT_APP_DIRECTION_API;
+        const route = process.env.REACT_APP_DIRECTION_API + '?relationships=true';
 
         return fetch(route)
             .then(res => res.json())

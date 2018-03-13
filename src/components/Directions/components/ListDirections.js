@@ -13,9 +13,6 @@ const EditableCell = ({editable, value, onChange}) => (
     </div>
 );
 
-
-
-
 class ListDirections extends Component {
     static propTypes = {
         dirs: PropTypes.array,
@@ -31,32 +28,40 @@ class ListDirections extends Component {
             title: 'id',
             dataIndex: 'id',
             width: '6%',
+            sorter: (a, b) => a.id - b.id,
             render: (text, record) => this.renderColumns(text, record, 'id'),
         }, {
             title: 'Name',
             dataIndex: 'title',
-            width: '25%',
+            width: '20%',
+            sorter: (a, b) => a.title.localeCompare(b.title),
             render: (text, record) => this.renderColumns(text, record, 'title'),
         }, {
             title: 'Image',
             dataIndex: 'image',
-            width: '10%',
+            width: '11%',
 
         }, {
             title: 'Parent',
             dataIndex: 'parent',
-            width: '7%',
+            width: '9%',
+            filters: [{text: 'No parent', value: 'null'},{text: 'With parent', value: 'withParent'}],
+            onFilter: (value, record) => (record.parent ? 'withParent' : 'null') === value,
+            filterMultiple: false,
+            sorter: (a, b) => a.parent - b.parent,
             render: (text, record) => this.renderColumns(text, record, 'parent'),
         },{
             title: 'Created at',
             dataIndex: 'created_at',
-            width: '12%',
-            render: (text, record) => this.renderColumns(dateFormat(text, 'dd.mm.yyyy'), record, 'created_at'),
+            width: '11%',
+            sorter: (a, b) => a.created_at>b.created_at ? -1 : a.created_at<b.created_at ? 1 : 0,
+            render: (text, record) => this.renderColumns(dateFormat(text, 'dd-mm-yyyy'), record, 'created_at'),
         }, {
             title: 'Updated at',
             dataIndex: 'updated_at',
-            width: '12%',
-            render: (text, record) => this.renderColumns(dateFormat(text, 'dd.mm.yyyy'), record, 'updated_at'),
+            width: '11%',
+            sorter: (a, b) => a.updated_at>b.updated_at ? -1 : a.updated_at<b.updated_at ? 1 : 0,
+            render: (text, record) => this.renderColumns(dateFormat(text, 'dd-mm-yyyy'), record, 'updated_at'),
         }, {
             title: 'Operation',
             dataIndex: 'operation',
@@ -86,7 +91,6 @@ class ListDirections extends Component {
         this.state = {
             directions: this.props.dirs,
             cacheData: this.props.dirs
-
         };
     }
 
@@ -99,7 +103,7 @@ class ListDirections extends Component {
         }
     }
     renderColumns(text, record, column) {
-        return (column !== 'id' ?
+        return (column !== 'id' && column !=='created_at' && column !=='updated_at' ?
                 <EditableCell
                     editable={record.editable}
                     value={text}

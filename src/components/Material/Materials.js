@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import ListMaterials from "./components/ListMaterials";
-
-
+import MaterialAdd from "./components/AddMaterial";
 
 
 
@@ -17,10 +16,11 @@ class Material extends Component {
 
 
     render() {
-        const {materials, deleteMaterial, editMaterial} = this.props;
+        const {materials, addMaterial, deleteMaterial, editMaterial} = this.props;
         return (
             <div>
                 <br />
+                <MaterialAdd addMaterial={addMaterial}/>
                 <ListMaterials
                     materials={materials}
                     editMaterial={editMaterial}

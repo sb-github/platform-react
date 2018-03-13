@@ -1,0 +1,176 @@
+import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+import { Table, Input, Popconfirm, Divider, Icon, Row, Col, Select } from 'antd';
+import dateFormat from 'dateformat';
+import AddDirection from './AddDirection';
+import styles from '../styles.css';
+
+const EditableCell = ({editable, value, onChange}) => (
+    <div>
+        {editable ?
+            <Input style={{ margin: '-5px 0' }} value={value} onChange={e => onChange(e.target.value)} /> : value
+        }
+    </div>
+);
+
+class ListDirections extends Component {
+    static propTypes = {
+        dirs: PropTypes.array,
+        fetchDirections: PropTypes.func.isRequired,
+        sendAddedDirection: PropTypes.func.isRequired,
+        deleteDirection: PropTypes.func.isRequired,
+        editDirection: PropTypes.func.isRequired
+    };
+
+    constructor(props) {
+        super(props);
+        this.columns = [{
+            title: 'id',
+            dataIndex: 'id',
+            width: '6%',
+            sorter: (a, b) => a.id - b.id,
+            render: (text, record) => this.renderColumns(text, record, 'id'),
+        }, {
+            title: 'Name',
+            dataIndex: 'title',
+            width: '20%',
+            sorter: (a, b) => a.title.localeCompare(b.title),
+            render: (text, record) => this.renderColumns(text, record, 'title'),
+        }, {
+            title: 'Image',
+            dataIndex: 'image',
+            width: '11%',
+
+        }, {
+            title: 'Parent',
+            dataIndex: 'parent',
+            width: '9%',
+            filters: [{text: 'No parent', value: 'null'},{text: 'With parent', value: 'withParent'}],
+            onFilter: (value, record) => (record.parent ? 'withParent' : 'null') === value,
+            filterMultiple: false,
+            sorter: (a, b) => a.parent - b.parent,
+            render: (text, record) => this.renderColumns(text, record, 'parent'),
+        },{
+            title: 'Created at',
+            dataIndex: 'created_at',
+            width: '11%',
+            sorter: (a, b) => a.created_at>b.created_at ? -1 : a.created_at<b.created_at ? 1 : 0,
+            render: (text, record) => this.renderColumns(dateFormat(text, 'dd-mm-yyyy'), record, 'created_at'),
+        }, {
+            title: 'Updated at',
+            dataIndex: 'updated_at',
+            width: '11%',
+            sorter: (a, b) => a.updated_at>b.updated_at ? -1 : a.updated_at<b.updated_at ? 1 : 0,
+            render: (text, record) => this.renderColumns(dateFormat(text, 'dd-mm-yyyy'), record, 'updated_at'),
+        }, {
+            title: 'Operation',
+            dataIndex: 'operation',
+            width: '15%',
+            render: (text, record) => {
+                const { editable } = record;
+                return (
+                    <div className={'editable-row-operations'}>
+                        {
+                            editable ?
+                                <span>
+                                    <a onClick={() => this.save(record.id)}>Save</a>
+                                    <Divider type="vertical"/>
+                                     <Popconfirm title="Sure to delete?" onConfirm={() => this.delete(record.id)}>
+                                        <a>Delete</a>
+                                    </Popconfirm>
+                                    <Divider type="vertical"/>
+                                        <a onClick={() => this.cancel(record.id)}>Cancel</a>
+                                </span>
+                                : <a onClick={() => this.edit(record.id)}>Edit</a>
+                        }
+                    </div>
+                );
+            },
+        }];
+
+        this.state = {
+            directions: this.props.dirs,
+            cacheData: this.props.dirs
+        };
+    }
+
+    componentDidUpdate(prevProps) {
+        if(prevProps.dirs !== this.props.dirs) {
+            this.setState({
+                directions: this.props.dirs,
+                cacheData: this.props.dirs
+            });
+        }
+    }
+    renderColumns(text, record, column) {
+        return (column !== 'id' && column !=='created_at' && column !=='updated_at' ?
+                <EditableCell
+                    editable={record.editable}
+                    value={text}
+                    onChange={value => this.handleChange(value, record.id, column)}
+                /> : <span>{text}</span>
+        );
+    }
+    handleChange(value, id, column) {
+        const newData = [...this.state.directions];
+        const target = newData.filter(item => id === item.id)[0];
+        if (target) {
+            target[column] = value;
+            this.setState({ directions: newData });
+        }
+    }
+    edit(id) {
+        const newData = [...this.state.directions];
+        const target = newData.filter(item => id === item.id)[0];
+        if (target) {
+            target.editable = true;
+            this.setState({ directions: newData });
+        }
+    }
+    save(id) {
+        const newData = [...this.state.directions];
+        const target = newData.filter(item => id === item.id)[0];
+        if (target) {
+            delete target.editable;
+            this.setState({ directions: newData });
+            this.cacheData = newData.map(item => ({ ...item }));
+            this.props.editDirection(target);
+        }
+    }
+    cancel(id) {
+        const newData = [...this.state.directions];
+        const target = newData.filter(item => id === item.id)[0];
+        if (target) {
+            Object.assign(target, this.state.cacheData.filter(item => id === item.id)[0]);
+            delete target.editable;
+            this.setState({ directions: newData });
+        }
+    }
+    delete(id) {
+        const newData = [...this.state.directions];
+        const target = newData.filter(item => id === item.id)[0];
+        if (target) {
+            delete target.editable;
+            this.setState({ directions: newData.filter(item => id !== item.id)});
+            this.cacheData = newData.map(item => ({ ...item }));
+            this.props.deleteDirection(id);
+        }
+    }
+
+    render() {
+        const tableHeader =
+        <Row>
+            <Col span={5}>
+                <AddDirection dirs={this.props.dirs} sendAddedDirection={this.props.sendAddedDirection}/>
+            </Col>
+            <Col>
+                <Icon type="appstore-o" style={{ margin: '3px', fontSize: 28, color: '#08c', float: 'right' }} />
+            </Col>
+        </Row>;
+
+        return <Table title={() => tableHeader} bordered dataSource={this.state.directions} columns={this.columns} />;
+    }
+}
+
+export default ListDirections;
+

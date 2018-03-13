@@ -7,9 +7,10 @@ import words from '../components/StopWord/StopWordReducer';
 import {fetchCrawlers} from "../components/Crawler/crawlerActions";
 import skills from '../components/Skill/skillReducer';
 import materials from '../components/Material/materialReducer';
-import dirs from '../components/Directions/reducer';
+import dirs from '../components/Directions/directionReducer';
 import {fetchMaterials} from "../components/Material/materialActions";
 import {fetchSkills} from "../components/Skill/skillActions";
+import {fetchDirections} from "../components/Directions/directionActions";
 
 export const reducer = combineReducers({
   crawlersInfo,
@@ -28,9 +29,7 @@ const store = createStore(
   )
 );
 
-
 store.dispatch(fetchCrawlers(0));
 store.dispatch(fetchSkills());
-store.dispatch(fetchMaterials());
 
 export default store;

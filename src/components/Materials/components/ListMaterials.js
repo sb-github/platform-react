@@ -199,7 +199,7 @@ class ListMaterials extends Component {
         const tableHeader =
             <Row>
                 <Col span={5}>
-                    <AddMaterial dirs={this.props.materials} sendAddedMaterial={this.props.sendAddedMaterial}/>
+                    <AddMaterial materials={this.props.materials} sendAddedMaterial={this.props.sendAddedMaterial}/>
                 </Col>
                 <Col>
                     <Icon type="file" style={{ margin: '3px', fontSize: 28, color: '#08c', float: 'right' }} />

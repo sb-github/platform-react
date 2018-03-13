@@ -33,7 +33,6 @@ class AddMaterial extends Component {
         this.setState({
             selected: {
                 title: null,
-                image: null,
                 parent: null
             },
             visible: false

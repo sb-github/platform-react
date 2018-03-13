@@ -1,14 +1,11 @@
-import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {fetchMaterials, addMaterial, deleteMaterial, editMaterial} from "./materialActions";
+import { fetchMaterials, sendAddedMaterial, deleteMaterial, editMaterial } from "./materialActions";
+import Material from "./Materials";
 
-
-import Material from "./Material";
 
 const mapStateToProps = state => {
     const { materials } = state;
-
     return {
         materials
     };
@@ -16,7 +13,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        addMaterial: bindActionCreators(addMaterial, dispatch),
+        fetchMaterials: bindActionCreators(fetchMaterials, dispatch),
+        sendAddedMaterial: bindActionCreators(sendAddedMaterial, dispatch),
         deleteMaterial: bindActionCreators(deleteMaterial, dispatch),
         editMaterial: bindActionCreators(editMaterial, dispatch),
 

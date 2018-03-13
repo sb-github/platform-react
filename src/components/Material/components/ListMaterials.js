@@ -1,33 +1,63 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Table, Row, Col, Button, Modal, Glyphicon, InputGroup, FormGroup, FormControl  } from 'react-bootstrap';
+import { Table, Input, Popconfirm, Divider, Icon, Row, Col, Modal } from 'antd';
+import dateFormat from 'dateformat';
+import AddMaterial from './AddMaterial';
 import CKEditor from "react-ckeditor-component";
-import MaterialAdd from "./MaterialAdd";
 
+
+const EditableCell = ({editable, value, onChange}) => (
+    <div>
+        {editable
+            ? <Input style={{ margin: '-5px 0' }} value={value} onChange={e => onChange(e.target.value)} /> : value
+        }
+    </div>
+);
 
 class ListMaterials extends Component {
     static propTypes = {
-        materials: PropTypes.array.isRequired,
-        addMaterial: PropTypes.func.isRequired,
-        deleteMaterial: PropTypes.func.isRequired,
-        editMaterial: PropTypes.func.isRequired
+        materials: PropTypes.array,
+        sendAddedMaterial: PropTypes.func.isRequired,
+        editMaterial: PropTypes.func.isRequired,
+        deleteMaterial: PropTypes.func.isRequired
     };
 
-    constructor(props, context) {
-        super(props, context);
-
-        this.materialShowClose = this.materialShowClose.bind(this);
-        this.materialEditShowClose = this.materialEditShowClose.bind(this);
-
-        this.state = {
-            show: false,
-            show_edit: false,
-            material:{
-                id: null,
-                title: null,
-                skill_id: null,
-                text: null
+    constructor(props) {
+        super(props);
+        this.columns = [{
+            title: 'id',
+            dataIndex: 'id',
+            width: '6%',
+            sorter: (a, b) => a.id - b.id,
+            render: (text, record) => this.renderColumns(text, record, 'id'),
+        }, {
+            title: 'Title',
+            dataIndex: 'title',
+            width: '25%',
+            sorter: (a, b) => a.title.localeCompare(b.title),
+            render: (text, record) => this.renderColumns(text, record, 'title'),
+        }, {
+            title: 'Skill id',
+            dataIndex: 'skill_id',
+            width: '7%',
+            sorter: (a, b) => a.skill_id - b.skill_id,
+            render: (text, record) => this.renderColumns(text, record, 'skill_id'),
+        }, {
+            title: 'Text',
+            dataIndex: 'text',
+            width: '6%',
+            render: (text, record) => {
+                return (
+                    <div className={'editable-row-operations'}>
+                        {
+                                <span>
+                                    <a onClick={() => this.viewText(record.id)}>View</a>
+                                </span>
+                        }
+                    </div>
+                );
             }
+<<<<<<< Updated upstream
         };
     }
 
@@ -57,153 +87,182 @@ class ListMaterials extends Component {
                                 <th>Title</th>
                                 <th>Skill</th>
                                 <th>Created_at</th>
+=======
+        }, {
+            title: 'Created at',
+            dataIndex: 'created_at',
+            width: '11%',
+            sorter: (a, b) => a.created_at>b.created_at ? -1 : a.created_at<b.created_at ? 1 : 0,
+            render: (text, record) => this.renderColumns(dateFormat(text, 'dd.mm.yyyy'), record, 'created_at'),
+        }, {
+            title: 'Updated at',
+            dataIndex: 'updated_at',
+            width: '11%',
+            sorter: (a, b) => a.updated_at>b.updated_at ? -1 : a.updated_at<b.updated_at ? 1 : 0,
+            render: (text, record) => this.renderColumns(dateFormat(text, 'dd.mm.yyyy'), record, 'updated_at'),
+        }, {
+            title: 'Operation',
+            dataIndex: 'operation',
+            width: '15%',
+            render: (text, record) => {
+                const {editable} = record;
+                return (
+                    <div className={'editable-row-operations'}>
+                        {
+                            editable ?
+                                <span>
+                                    <a onClick={() => this.save(record.id)}>Save</a>
+                                    <Divider type="vertical"/>
+                                     <Popconfirm title="Sure to delete?" onConfirm={() => this.delete(record.id)}>
+                                        <a>Delete</a>
+                                    </Popconfirm>
+                                    <Divider type="vertical"/>
+                                        <a onClick={() => this.cancel(record.id)}>Cancel</a>
+                                </span>
+                                : <a onClick={() => this.edit(record.id)}>Edit</a>
+                        }
+                    </div>
+                );
+            },
+        }];
+>>>>>>> Stashed changes
 
-                            </tr>
-                            </thead>
-                            <tbody>
-                            { materialsList }
-                            </tbody>
-                        </Table>
-                    </Col>
-                </Row>
-                {/*VIEW*/}
-                <Modal show={this.state.show} onHide={this.materialShowClose}
-                    {...this.props}
-                    bsSize="large"
-                    aria-labelledby="contained-modal-title-lg"
-                >
-                    <Modal.Header closeButton>
-                        <Modal.Title id="contained-modal-title-lg">{this.state.material.title}</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <div dangerouslySetInnerHTML={{__html: this.state.material.text}}></div>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button onClick={() => this.materialEditShow(this.state.material)}>Edit</Button>
-                        <Button onClick={this.materialShowClose}>Close</Button>
-                    </Modal.Footer>
-                </Modal>
-                {/*VIEW*/}
-                {/*EDIT*/}
-                <Modal show={this.state.show_edit} onHide={this.materialEditShowClose}
-                       {...this.props}
-                       bsSize="large"
-                       aria-labelledby="contained-modal-title-lg"
-                >
-                    <Modal.Header closeButton>
-                        <Modal.Title id="contained-modal-title-lg">{this.state.material.title}</Modal.Title>
-                    </Modal.Header>
-                    <Modal.Body>
-                        <form>
-                            <Row>
-                                <Col xs={12} md={6}>
-                                    <FormGroup>
-                                        <InputGroup>
-                                            <FormControl
-                                                onChange={e => this.setState({material: {
-                                                        ...this.state.material,
-                                                        title: e.target.value
-                                                    }})}
-                                                value={this.state.material.title}
-                                                type='text' placeholder='Title'
-                                            />
-                                        </InputGroup>
-                                    </FormGroup>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col xs={6} md={3}>
-                                    <FormGroup>
-                                        <InputGroup>
-                                            <FormControl
-                                                onChange={e => this.setState({material: {
-                                                        ...this.state.material,
-                                                        skill_id: e.target.value
-                                                    }})}
-                                                value={this.state.material.skill_id}
-                                                type='text' placeholder='Skill'
-                                            />
-                                        </InputGroup>
-                                    </FormGroup>
-                                </Col>
-                            </Row>
-                            <CKEditor
-                                activeClass="p10"
-                                content={this.state.material.text}
-                                events={{
-                                    "blur": this.onBlur,
-                                    "afterPaste": this.afterPaste,
-                                    "change": this.onChange
-                                }}
-                            />
-                        </form>
-                    </Modal.Body>
-                    <Modal.Footer>
-                        <Button onClick={this.materialEdit}>Save</Button>
-                        <Button onClick={this.materialEditShowClose}>Close</Button>
-                    </Modal.Footer>
-                </Modal>
-                {/*ADD*/}
-                {/*ADD*/}
-            </div>
+        this.state = {
+            materials: this.props.materials,
+            cacheData: this.props.materials,
+            selected: {},
+            visible: false
+        }
+    };
 
+    componentDidUpdate(prevProps) {
+        if(prevProps.materials !== this.props.materials) {
+            this.setState({
+                materials: this.props.materials,
+                cacheData: this.props.materials
+            });
+        }
+    }
+    renderColumns(text, record, column) {
+        return (column !== 'id' && column !== 'created_at' && column !== 'updated_at' ?
+                <EditableCell
+                    editable={record.editable}
+                    value={text}
+                    onChange={value => this.handleChange(value, record.id, column)}
+                /> : <span>{text}</span>
         );
     }
-
-    updateContent=(newContent)=> {
-        this.setState({material: {
-                ...this.state.material,
-                text: newContent
-            }})
+    handleChange(value, id, column) {
+        const newData = [...this.state.materials];
+        const target = newData.filter(item => id === item.id)[0];
+        if (target) {
+            target[column] = value;
+            this.setState({ materials: newData });
+        }
+    }
+    edit(id) {
+        const newData = [...this.state.materials];
+        const target = newData.filter(item => id === item.id)[0];
+        if (target) {
+            target.editable = true;
+            this.setState({ materials: newData });
+        }
+    }
+    save(id) {
+        const newData = [...this.state.materials];
+        const target = newData.filter(item => id === item.id)[0];
+        if (target) {
+            delete target.editable;
+            this.setState({ materials: newData });
+            this.cacheData = newData.map(item => ({ ...item }));
+            this.props.editMaterial(target);
+        }
+    }
+    cancel(id) {
+        const newData = [...this.state.materials];
+        const target = newData.filter(item => id === item.id)[0];
+        if (target) {
+            Object.assign(target, this.state.cacheData.filter(item => id === item.id)[0]);
+            delete target.editable;
+            this.setState({ materials: newData });
+        }
+    }
+    delete(id) {
+        const newData = [...this.state.materials];
+        const target = newData.filter(item => id === item.id)[0];
+        if (target) {
+            delete target.editable;
+            this.setState({ materials: newData.filter(item => id !== item.id)});
+            this.cacheData = newData.map(item => ({ ...item }));
+            this.props.deleteMaterial(id);
+        }
+    }
+    handleCancel = () =>{
+        this.setState({ visible: false })
     };
-
+    handleOk = () => {
+        console.log(this.state.selected);
+        this.props.editMaterial(this.state.selected);
+        this.setState({
+            selected: {
+               text: null
+            },
+            visible: false
+        });
+    };
+    viewText(id) {
+        const newData = [...this.state.materials];
+        const target = newData.filter(item => id === item.id)[0];
+        if (target) {
+            this.setState({ selected: target, visible: true });
+        }
+    }
     onChange=(evt)=>{
         const newContent = evt.editor.getData();
-        this.setState({material: {
-                ...this.state.material,
+        this.setState({
+            selected: {
+                ...this.state.selected,
                 text: newContent
-            }})
-    };
-
-    materialShowClose() {
-        this.setState({show: false, material:{
-                id: null,
-                title: null,
-                skill_id: null,
-                text: null
-            }})
-    };
-
-    materialShow = material => {
-        this.setState({show:true, material: material});
-    };
-
-    materialEditShowClose() {
-        this.setState({show_edit: false, material:{
-                id: null,
-                title: null,
-                skill_id: null,
-                text: null
-            }})
-    };
-
-    materialEditShow = material => {
-        this.materialShowClose();
-        this.setState({show_edit:true, material: material});
+            }
+        })
     };
 
 
-
-    materialEdit = () => {
-        const {editMaterial} = this.props;
-        editMaterial(this.state.material);
-        this.materialEditShowClose();
-    };
-
-    delete = material_id => {
-        const {deleteMaterial} = this.props;
-        deleteMaterial(material_id);
-    };
+    render() {
+        const tableHeader =
+            <Row>
+                <Col span={5}>
+                    <AddMaterial dirs={this.props.materials} sendAddedMaterial={this.props.sendAddedMaterial}/>
+                </Col>
+                <Col>
+                    <Icon type="file" style={{ margin: '3px', fontSize: 28, color: '#08c', float: 'right' }} />
+                </Col>
+            </Row>;
+        const {selected} = this.state || {};
+        return (
+            <React.Fragment>
+            <Table title={() => tableHeader} bordered dataSource={this.state.materials} columns={this.columns} />
+                <Modal
+                    title="Edit material text"
+                    visible={this.state.visible}
+                    onOk={() => this.handleOk()}
+                    onCancel={this.handleCancel}
+                    width={'60%'}
+                    okText='Edit'
+                >
+                    <CKEditor
+                        activeClass="p10"
+                        content={selected.text}
+                        events={{
+                            "blur": this.onBlur,
+                            "afterPaste": this.afterPaste,
+                            "change": this.onChange
+                        }}
+                    />
+                </Modal>
+            </React.Fragment>
+        );
+    }
 }
 
 

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Modal, Button, Select, Input, Icon} from 'antd';
 
-
 class WordSender extends Component {
     static propTypes = {
         words: PropTypes.array,
@@ -12,7 +11,10 @@ class WordSender extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            selected: {},
+            selected: {
+                title: '',
+                crawler_id: null,
+            },
             stopwords: [],
             visible: false,
         };
@@ -28,10 +30,13 @@ class WordSender extends Component {
 
     handleOk = () => {
         const { sendWords } = this.props;
-        sendWords(this.state.selected);
+        const words = this.state.selected.title;
+        const crawler_id = this.state.selected.crawler_id;
+        sendWords(words, crawler_id);
         this.setState({
             selected: {
-                title: null,
+                title: '',
+                crawler_id: null
             },
             visible: false
         });
@@ -41,7 +46,7 @@ class WordSender extends Component {
         this.setState({
             selected: {
                 ...this.state.selected,
-                parent: value
+                crawler_id: value
             }
         })
     };
@@ -59,8 +64,8 @@ class WordSender extends Component {
         const stopwords = this.props.words || [];
         const Option = Select.Option;
         const {selected} = this.state || {};
-        const wordsSelect = stopwords.map(dir =>
-            <Option key={dir.id} value={dir.id}>{dir.crawler_id}</Option>
+        const wordsSelect = stopwords.map(word =>
+            <Option key={word.id} value={word.crawler_id}>{word.crawler_id}</Option>
         );
         return (
             <div>
@@ -74,7 +79,8 @@ class WordSender extends Component {
                     okText='Create'
                 >
                     <label>Title:</label><br />
-                    <Input placeholder="" style={{ width: '100%' }}
+                    <Input placeholder=""
+                           style={{ width: '100%' }}
                            onChange={this.handleInputChange}
                            value={selected.title}
                            defaultValue=''
@@ -90,19 +96,13 @@ class WordSender extends Component {
                         onChange={this.handleSelectChange}
                         filterOption={(input, option) => option.props.children.toLowerCase().indexOf(input.toLowerCase()) >= 0}
                     >
-                        <Option value="">Without crawler</Option>
+                        <Option value="0">Without crawler</Option>
                         {wordsSelect}
                     </Select>
                 </Modal>
             </div>
         );
     }
-
-    handleClick = () => {
-        const {sendWords} = this.props;
-
-        sendWords(this.state.text);
-    };
 }
 
 export default WordSender;

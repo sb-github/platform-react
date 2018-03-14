@@ -41,8 +41,7 @@ export const fetchByCrawler = crawler_id => {
 export const sendWords = (words, crawler_id) => {
     return dispatch => {
         const route = process.env.REACT_APP_STOP_WORDS_PLATFORM_API;
-        words = words.title.split(/[ ,.!?@";'*+#$%^&:№]+/);
-        console.log(process.env.REACT_APP_STOP_WORDS_PLATFORM_API);
+        words = words.split(/[ ,.!?@";'*+#$%^&:№]+/);
         return fetch(route, {
             method: 'post',
             headers: {
@@ -57,7 +56,7 @@ export const sendWords = (words, crawler_id) => {
 export const deleteWords = (word_id) => {
     return dispatch => {
 
-        const route = process.env.REACT_APP_STOP_WORDS_API_TEST + '/' + word_id;
+        const route = process.env.REACT_APP_STOP_WORDS_PLATFORM_API + '/' + word_id;
         return fetch(route,{
             method: 'delete',
             headers: {

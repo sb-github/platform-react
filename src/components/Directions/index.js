@@ -13,9 +13,9 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
     return {
         fetchDirections: bindActionCreators(fetchDirections, dispatch),
-        deleteDirection: bindActionCreators(deleteDirection, dispatch),
         sendAddedDirection: bindActionCreators(sendAddedDirection, dispatch),
-        editDirection: bindActionCreators(editDirection, dispatch)
+        editDirection: bindActionCreators(editDirection, dispatch),
+        deleteDirection: bindActionCreators(deleteDirection, dispatch)
     };
 };
 

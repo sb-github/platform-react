@@ -24,6 +24,14 @@ class ListDirections extends Component {
 
     constructor(props) {
         super(props);
+
+        this.state = {
+            directions: this.props.dirs,
+            cacheData: this.props.dirs,
+            searchText: '',
+            filtered: false
+        };
+
         this.columns = [{
             title: 'id',
             dataIndex: 'id',
@@ -87,11 +95,6 @@ class ListDirections extends Component {
                 );
             },
         }];
-
-        this.state = {
-            directions: this.props.dirs,
-            cacheData: this.props.dirs
-        };
     }
 
     componentDidUpdate(prevProps) {
@@ -159,16 +162,15 @@ class ListDirections extends Component {
 
     render() {
         const tableHeader =
-        <Row>
-            <Col span={5}>
-                <AddDirection dirs={this.props.dirs} sendAddedDirection={this.props.sendAddedDirection}/>
-            </Col>
-            <Col>
-                <Icon type="appstore-o" style={{ margin: '3px', fontSize: 28, color: '#08c', float: 'right' }} />
-            </Col>
-        </Row>;
-
-        return <Table title={() => tableHeader} bordered dataSource={this.state.directions} columns={this.columns} />;
+            <Row>
+                <Col span={5}>
+                    <AddDirection dirs={this.props.dirs} sendAddedDirection={this.props.sendAddedDirection}/>
+                </Col>
+                <Col>
+                    <Icon type="appstore-o" style={{ margin: '3px', fontSize: 28, color: '#08c', float: 'right' }} />
+                </Col>
+            </Row>;
+                    return <Table title={() => tableHeader} bordered dataSource={this.state.directions} columns={this.columns} />;
     }
 }
 

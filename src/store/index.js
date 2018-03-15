@@ -7,35 +7,32 @@ import graphSkill from '../components/Graph/reducer';
 import words from '../components/StopWord/StopWordReducer';
 import {fetchCrawlers} from "../components/Crawler/crawlerActions";
 import skills from '../components/Skill/skillReducer';
-import materials from '../components/Material/materialReducer';
+import materials from '../components/Materials/materialReducer';
 import dirs from '../components/Directions/directionReducer';
-import {fetchMaterials} from "../components/Material/materialActions";
 import {fetchSkills} from "../components/Skill/skillActions";
 import {fetchGraph, receiveGraph} from "../components/Graph/actions";
-import {fetchDirections} from "../components/Directions/directionActions";
 
 export const reducer = combineReducers({
-  crawlersInfo,
-  graphSkill,
-  treeInfo,
-  words,
-  skills,
-  materials,
-  dirs
+    crawlersInfo,
+    graphSkill,
+    treeInfo,
+    words,
+    skills,
+    materials,
+    dirs
 });
 
 const store = createStore(
-  reducer,
-  DevTools.instrument(),
-  applyMiddleware(
-    thunkMiddleware
-  )
+    reducer,
+    DevTools.instrument(),
+    applyMiddleware(
+        thunkMiddleware
+    )
 );
 
 store.dispatch(fetchGraph({
-  name:'PHP'
+    name:'PHP'
 }));
 store.dispatch(fetchCrawlers(0));
-store.dispatch(fetchSkills());
 
 export default store;

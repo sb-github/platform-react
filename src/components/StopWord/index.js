@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchWords, fetchByCrawler, sendWords, deleteWords, deleteByCrawler } from './StopWordActions';
+import { fetchWords, fetchByCrawler, sendWords, updateWord, deleteWords, deleteByCrawler } from './StopWordActions';
 import Words from "./StopWords";
 
 const mapStateToProps = state =>{
@@ -14,6 +14,7 @@ const mapDispatchToProps = dispatch => {
         fetchWords: bindActionCreators(fetchWords, dispatch),
         fetchByCrawler: bindActionCreators(fetchByCrawler, dispatch),
         sendWords: bindActionCreators(sendWords, dispatch),
+        updateWord: bindActionCreators(updateWord, dispatch),
         deleteWords: bindActionCreators(deleteWords, dispatch),
         deleteByCrawler: bindActionCreators(deleteByCrawler, dispatch),
     };

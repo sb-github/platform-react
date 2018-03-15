@@ -53,6 +53,20 @@ export const sendWords = (words, crawler_id) => {
     }
 };
 
+export const updateWord = (id, words, crawler_id) => {
+    return dispatch => {
+        const route = process.env.REACT_APP_STOP_WORDS_PLATFORM_API+'/'+id;
+        return fetch(route, {
+            method: 'put',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({accept: [id], title: words, crawler_id: crawler_id })
+        })
+            .then(res => dispatch(fetchWords()));
+    }
+};
+
 export const deleteWords = (word_id) => {
     return dispatch => {
 

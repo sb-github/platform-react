@@ -6,6 +6,7 @@ class Words extends Component {
     static propTypes = {
         words: PropTypes.array.isRequired,
         sendWords: PropTypes.func.isRequired,
+        updateWord: PropTypes.func.isRequired,
         fetchWords: PropTypes.func.isRequired,
         fetchByCrawler: PropTypes.func.isRequired,
         deleteWords: PropTypes.func.isRequired,
@@ -19,7 +20,7 @@ class Words extends Component {
     }
 
     render() {
-        const { words, fetchWords, fetchByCrawler, sendWords, deleteWords, deleteByCrawler} = this.props;
+        const { words, fetchWords, fetchByCrawler, sendWords, updateWord, deleteWords, deleteByCrawler} = this.props;
         return (
             <div>
                 <h2>Stop words</h2>
@@ -28,6 +29,7 @@ class Words extends Component {
                     fetchWords={fetchWords}
                     fetchByCrawler={fetchByCrawler}
                     sendWords={sendWords}
+                    updateWord={updateWord}
                     deleteWords={deleteWords}
                     deleteByCrawler={deleteByCrawler}
                 />

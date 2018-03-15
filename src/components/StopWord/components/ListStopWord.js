@@ -18,6 +18,7 @@ class ListWords extends Component {
         words: PropTypes.array,
         fetchWords: PropTypes.func.isRequired,
         sendWords: PropTypes.func.isRequired,
+        updateWord: PropTypes.func.isRequired,
         deleteWords: PropTypes.func.isRequired,
     };
 
@@ -120,16 +121,6 @@ class ListWords extends Component {
             this.setState({ stopwords: newData });
         }
     }
-    save(id) {
-        const newData = [...this.state.stopwords];
-        const target = newData.filter(item => id === item.id)[0];
-        if (target) {
-            delete target.editable;
-            this.setState({ stopwords: newData });
-            this.cacheData = newData.map(item => ({ ...item }));
-            this.props.sendWords(target);
-        }
-    }
     cancel(id) {
         const newData = [...this.state.stopwords];
         const target = newData.filter(item => id === item.id)[0];
@@ -137,6 +128,16 @@ class ListWords extends Component {
             Object.assign(target, this.state.cacheData.filter(item => id === item.id)[0]);
             delete target.editable;
             this.setState({ stopwords: newData });
+        }
+    }
+    save(id) {
+        const newData = [...this.state.stopwords];
+        const target = newData.filter(item => id === item.id)[0];
+        if (target) {
+            delete target.editable;
+            this.setState({ stopwords: newData });
+            this.cacheData = newData.map(item => ({ ...item })); /**/
+            this.props.updateWord(target.id, target.title, target.crawler_id);
         }
     }
     delete(id) {

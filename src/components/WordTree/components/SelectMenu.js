@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import PropTypes from 'prop-types';
-import { ButtonGroup, Icon, Intent,Position, Button,Popover,PopoverInteractionKind } from "@blueprintjs/core";
+import { ButtonGroup, Icon, Intent,Position,Popover,PopoverInteractionKind,Button } from "@blueprintjs/core";
 
 class SelectMenu extends Component {
   static propTypes = {

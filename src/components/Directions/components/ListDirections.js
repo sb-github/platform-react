@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Table, Input, Popconfirm, Divider, Icon, Row, Col, Select } from 'antd';
 import dateFormat from 'dateformat';
-import AddSkill from './AddSkill';
+import AddDirection from './AddDirection';
+import styles from '../styles.css';
 
 const EditableCell = ({editable, value, onChange}) => (
     <div>
@@ -12,16 +13,24 @@ const EditableCell = ({editable, value, onChange}) => (
     </div>
 );
 
-class ListSkills extends Component {
+class ListDirections extends Component {
     static propTypes = {
-        skills: PropTypes.array.isRequired,
-        fetchSkills: PropTypes.func.isRequired,
-        editSkill: PropTypes.func.isRequired,
-        deleteSkill: PropTypes.func.isRequired
+        dirs: PropTypes.array,
+        fetchDirections: PropTypes.func.isRequired,
+        sendAddedDirection: PropTypes.func.isRequired,
+        deleteDirection: PropTypes.func.isRequired,
+        editDirection: PropTypes.func.isRequired
     };
 
-    constructor(props, context) {
-        super(props, context);
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            directions: this.props.dirs,
+            cacheData: this.props.dirs,
+            searchText: '',
+            filtered: false
+        };
 
         this.columns = [{
             title: 'id',
@@ -41,13 +50,14 @@ class ListSkills extends Component {
             width: '11%',
 
         }, {
-            title: 'Description',
-            dataIndex: 'description',
-            width: '10%',
-            filters: [{text: 'No description', value: 'null'},{text: 'With description', value: 'withDescription'}],
-            onFilter: (value, record) => (record.description ? 'withDescription' : 'null') === value,
+            title: 'Parent',
+            dataIndex: 'parent',
+            width: '9%',
+            filters: [{text: 'No parent', value: 'null'},{text: 'With parent', value: 'withParent'}],
+            onFilter: (value, record) => (record.parent ? 'withParent' : 'null') === value,
             filterMultiple: false,
-            render: (text, record) => this.renderColumns(text, record, 'description'),
+            sorter: (a, b) => a.parent - b.parent,
+            render: (text, record) => this.renderColumns(text, record, 'parent'),
         },{
             title: 'Created at',
             dataIndex: 'created_at',
@@ -85,19 +95,14 @@ class ListSkills extends Component {
                 );
             },
         }];
-
-        this.state = {
-            skills: this.props.skills,
-            cacheData: this.props.skills
-        };
     }
 
     componentDidUpdate(prevProps) {
-        if(prevProps.skills !== this.props.skills) {
+        if(prevProps.dirs !== this.props.dirs) {
             this.setState({
-                skills: this.props.skills,
-                cacheData: this.props.skills
-            })
+                directions: this.props.dirs,
+                cacheData: this.props.dirs
+            });
         }
     }
     renderColumns(text, record, column) {
@@ -110,48 +115,48 @@ class ListSkills extends Component {
         );
     }
     handleChange(value, id, column) {
-        const newData = [...this.state.skills];
+        const newData = [...this.state.directions];
         const target = newData.filter(item => id === item.id)[0];
         if (target) {
             target[column] = value;
-            this.setState({ skills: newData });
+            this.setState({ directions: newData });
         }
     }
     edit(id) {
-        const newData = [...this.state.skills];
+        const newData = [...this.state.directions];
         const target = newData.filter(item => id === item.id)[0];
         if (target) {
             target.editable = true;
-            this.setState({ skills: newData });
+            this.setState({ directions: newData });
         }
     }
     save(id) {
-        const newData = [...this.state.skills];
+        const newData = [...this.state.directions];
         const target = newData.filter(item => id === item.id)[0];
         if (target) {
             delete target.editable;
-            this.setState({ skills: newData });
+            this.setState({ directions: newData });
             this.cacheData = newData.map(item => ({ ...item }));
-            this.props.editSkill(target);
+            this.props.editDirection(target);
         }
     }
     cancel(id) {
-        const newData = [...this.state.skills];
+        const newData = [...this.state.directions];
         const target = newData.filter(item => id === item.id)[0];
         if (target) {
             Object.assign(target, this.state.cacheData.filter(item => id === item.id)[0]);
             delete target.editable;
-            this.setState({ skills: newData });
+            this.setState({ directions: newData });
         }
     }
     delete(id) {
-        const newData = [...this.state.skills];
+        const newData = [...this.state.directions];
         const target = newData.filter(item => id === item.id)[0];
         if (target) {
             delete target.editable;
-            this.setState({skills: newData.filter(item => id !== item.id)});
-            this.cacheData = newData.map(item => ({...item}));
-            this.props.deleteSkill(id);
+            this.setState({ directions: newData.filter(item => id !== item.id)});
+            this.cacheData = newData.map(item => ({ ...item }));
+            this.props.deleteDirection(id);
         }
     }
 
@@ -159,16 +164,15 @@ class ListSkills extends Component {
         const tableHeader =
             <Row>
                 <Col span={5}>
-                    <AddSkill skills={this.props.skills} sendAddedSkill={this.props.sendAddedSkill}/>
+                    <AddDirection dirs={this.props.dirs} sendAddedDirection={this.props.sendAddedDirection}/>
                 </Col>
                 <Col>
-                    <Icon type="book" style={{margin: '3px', fontSize: 28, color: '#08c', float: 'right'}}/>
+                    <Icon type="appstore-o" style={{ margin: '3px', fontSize: 28, color: '#08c', float: 'right' }} />
                 </Col>
             </Row>;
-
-                    return <Table title={() => tableHeader} bordered dataSource={this.state.skills} columns={this.columns}/>;
+                    return <Table title={() => tableHeader} bordered dataSource={this.state.directions} columns={this.columns} />;
     }
 }
 
-export default ListSkills;
+export default ListDirections;
 

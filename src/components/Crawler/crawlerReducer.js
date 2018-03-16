@@ -12,7 +12,13 @@ const crawlersReducer = (state = {load:{loading:false}}, action) => {
       };
 
     case RECEIVE_NEW_CRAWLER:
-      return Object.assign({ }, state, action.crawler);
+      return {
+        ...state,
+        crawlers:[
+          ...state.crawlers,
+          action.crawler
+        ]
+      };
 
     case START_RUN_CRAWLER:
       return {

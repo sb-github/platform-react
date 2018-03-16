@@ -1,5 +1,4 @@
 import {FETCH_ALL_WORDS} from "./actionTypes";
-import {EXTRACTOR_API, STOP_WORDS_API} from "../../config/api.config";
 
 export const receiveAllWords = words => {
   return {

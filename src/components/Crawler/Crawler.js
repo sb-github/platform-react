@@ -7,9 +7,12 @@ import {  notification } from 'antd';
 class Crawler extends Component {
   static propTypes = {
     crawlersInfo: PropTypes.object.isRequired,
+    mergeGraph: PropTypes.func.isRequired,
     treeInfo: PropTypes.object.isRequired,
+    skills: PropTypes.array,
     runCrawler: PropTypes.func.isRequired,
     fetchNewSkills: PropTypes.func.isRequired,
+    fetchSkills: PropTypes.func.isRequired,
     fetchResultCrawler: PropTypes.func.isRequired,
     fetchCrawlers: PropTypes.func.isRequired,
     setCrawler: PropTypes.func.isRequired
@@ -44,20 +47,25 @@ class Crawler extends Component {
 
   render() {
     const {crawlersInfo, runCrawler,
-      fetchResultCrawler, fetchCrawlers, setCrawler} = this.props;
+      fetchResultCrawler, fetchCrawlers, setCrawler,
+      skills, mergeGraph, fetchSkills} = this.props;
+    const crawlersProps = {
+      crawlers: crawlersInfo.crawlers,
+      skills: skills,
+      mergeGraph: mergeGraph,
+      fetchSkills: fetchSkills,
+      page: crawlersInfo.page,
+      fetchResultCrawler: fetchResultCrawler,
+      fetchCrawlers: fetchCrawlers,
+      setCrawler: setCrawler,
+      runCrawler: runCrawler
+    };
 
     return (
-      <div>
-        <ListCrawlers
-          crawlers={crawlersInfo.crawlers}
-          page={crawlersInfo.page}
-          fetchResultCrawler={fetchResultCrawler}
-          fetchCrawlers={fetchCrawlers}
-          setCrawler={setCrawler}
-          runCrawler={runCrawler}
-        />
+      <React.Fragment>
+        <ListCrawlers {...crawlersProps} />
         <WordTreeContainer />
-      </div>
+      </React.Fragment>
     );
   }
 }

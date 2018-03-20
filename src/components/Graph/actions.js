@@ -34,10 +34,11 @@ export const searchInGraph = async skill => {
   }
 };
   
-export const fetchGraph = skill => {
+export const fetchGraph = params => {
   return dispatch => {
     const route = process.env.REACT_APP_GRAPH_SKILL_API
-      + '?skill=' + skill.name + '&skill_id=' + skill.id;
+      + '?skill=' + params.name + '&skill_id=' + params.id
+      + '&count=' + (params.count || 10) + '&page=' + (params.page || 1);
 
     return fetch(route)
       .then(res => res.json())

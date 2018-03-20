@@ -21,7 +21,7 @@ const EditableCell = ({editable, link, value, onChange, onClick, column}) => (
                       to={'/graph'}>{value}
                     </Link>
                 </span>
-                : value
+                : <span>{value}</span>
         }
     </React.Fragment>
 );

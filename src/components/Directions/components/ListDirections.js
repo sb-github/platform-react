@@ -7,12 +7,23 @@ import AddDirection from './AddDirection';
 import styles from '../styles.css';
 
 const EditableCell = ({editable, link, value, onChange, onClick, column}) => (
-    <div>
+    <React.Fragment>
         {editable
-            ? <Input style={{ margin: '-5px 0' }} value={value} onChange={e => onChange(e.target.value)} />
-            : column==='title' ? <Link onclick={onClick} to={'/graph'}>{value}</Link> : value
+            ? <Input
+                style={{ margin: '-5px 0' }}
+                value={value}
+                onChange={e => onChange(e.target.value)}
+            />
+            : column==='title'
+                ? <span onClick={onClick}>
+                    <Link
+                      onclick={onClick}
+                      to={'/graph'}>{value}
+                    </Link>
+                </span>
+                : value
         }
-    </div>
+    </React.Fragment>
 );
 
 class ListDirections extends Component {
@@ -127,7 +138,7 @@ class ListDirections extends Component {
                     value={text}
                     onChange={value => this.handleChange(value, record.id, column)}
                     onClick={() => this.props.fetchGraph({
-                        id: record.main_skill_id
+                      id: record.main_skill_id
                     })}
                     column={column}
                 /> : <span>{text}</span>

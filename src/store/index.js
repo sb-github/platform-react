@@ -31,7 +31,7 @@ const store = createStore(
 );
 
 store.dispatch(fetchGraph({
-    name:'PHP'
+  name:'PHP'
 }));
 store.dispatch(fetchCrawlers(0));
 

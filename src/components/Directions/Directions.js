@@ -8,7 +8,8 @@ class Directions extends Component {
         fetchDirections: PropTypes.func.isRequired,
         sendAddedDirection: PropTypes.func.isRequired,
         editDirection: PropTypes.func.isRequired,
-        deleteDirection: PropTypes.func.isRequired
+        deleteDirection: PropTypes.func.isRequired,
+        fetchGraph: PropTypes.func.isRequired
     };
 
     componentDidMount() {
@@ -18,7 +19,8 @@ class Directions extends Component {
     }
 
     render() {
-        const {dirs, fetchDirections, sendAddedDirection, deleteDirection, editDirection} = this.props;
+        const {dirs, fetchDirections, sendAddedDirection, deleteDirection,
+            editDirection,fetchGraph} = this.props;
 
         return (
             <div>
@@ -29,6 +31,7 @@ class Directions extends Component {
                     deleteDirection={deleteDirection}
                     editDirection={editDirection}
                     sendAddedDirection={sendAddedDirection}
+                    fetchGraph={fetchGraph}
                 />
             </div>
         );

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Layout, Menu, Icon, Affix } from 'antd';
 import CrawlerContainer from '../Crawler/';
 import SKillContainer from '../Skill/';
-import MaterialContainer from '../Material/';
+import MaterialContainer from '../Materials/';
 import DirectionContainer from '../Directions';
 import StopWordContainer from '../StopWord';
 import GraphContainer from '../Graph';
@@ -25,9 +25,9 @@ class AdminPanel extends Component {
   };
 
   render() {  
-    const { Header, Sider, Content } = Layout;
+    const { Header, Sider, Content, Footer } = Layout;
 
-    const panel = (<Layout>
+    const panel = (<Layout style={{ minHeight: '100vh' }}>
         <Sider
           collapsible
           collapsed={this.state.collapsed}
@@ -85,7 +85,7 @@ class AdminPanel extends Component {
           <Header style={{ background: '#fff', padding: 0 }}>
 
           </Header>
-          <Content style={{ margin: '24px 16px', padding: 24, background: '#fff', minHeight: 600 }}>
+          <Content style={{ margin: '24px 16px', padding: 24, background: '#fff' }}>
             <Route path="/crawlers" component = { CrawlerContainer } />
             <Route path="/skills" component = { SKillContainer } />
             <Route path="/directions" component = { DirectionContainer } />
@@ -93,6 +93,9 @@ class AdminPanel extends Component {
             <Route path="/stopwords" component = { StopWordContainer } />
             <Route path="/graph" component = { GraphContainer } />
           </Content>
+            <Footer style={{ textAlign: 'center' }}>
+                Soft Bistro ©2018 Created by SoftBistro trainees
+            </Footer>
         </Layout>
     </Layout>);
 

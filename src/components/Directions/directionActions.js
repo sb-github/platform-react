@@ -61,6 +61,7 @@ export const editDirection = direction => {
     return dispatch => {
         const  route = process.env.REACT_APP_DIRECTION_API + '/' + direction.id;
 
+        console.log(direction);
         return fetch(route, {
             headers: {
                 'Content-Type': 'application/json'
@@ -68,7 +69,8 @@ export const editDirection = direction => {
             method: 'put',
             body: JSON.stringify({
                 title: direction.title,
-                parent: direction.parent || undefined
+                parent: direction.parent || undefined,
+                main_skill_id: direction.main_skill_id || undefined
             })
         })
             .then(res => res.json())

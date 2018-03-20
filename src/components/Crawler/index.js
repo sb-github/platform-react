@@ -1,21 +1,25 @@
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { runCrawler, fetchResultCrawler, fetchCrawlers,setCrawler } from "./crawlerActions";
+import {runCrawler, fetchResultCrawler, fetchCrawlers, setCrawler, mergeGraph} from "./crawlerActions";
+import {fetchSkills} from "../Skill/skillActions";
 import { fetchNewSkills } from "../WordTree/treeActions";
 import Crawler from "./Crawler";
 
 const mapStateToProps = state => {
-  const { crawlersInfo, treeInfo } = state;
+  const { crawlersInfo, treeInfo, skills } = state;
 
   return {
     crawlersInfo,
-    treeInfo
+    treeInfo,
+    skills
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return {
     runCrawler: bindActionCreators(runCrawler, dispatch),
+    fetchSkills: bindActionCreators(fetchSkills, dispatch),
+    mergeGraph: bindActionCreators(mergeGraph, dispatch),
     fetchNewSkills: bindActionCreators(fetchNewSkills, dispatch),
     fetchResultCrawler: bindActionCreators(fetchResultCrawler, dispatch),
     fetchCrawlers: bindActionCreators(fetchCrawlers, dispatch),

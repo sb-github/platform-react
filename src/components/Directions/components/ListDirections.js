@@ -1,14 +1,16 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Table, Input, Popconfirm, Divider, Icon, Row, Col, Select } from 'antd';
+import { Table, Input, Popconfirm, Divider, Icon, Row, Col} from 'antd';
+import {Link} from 'react-router-dom';
 import dateFormat from 'dateformat';
 import AddDirection from './AddDirection';
 import styles from '../styles.css';
 
-const EditableCell = ({editable, value, onChange}) => (
+const EditableCell = ({editable, link, value, onChange, onClick, column}) => (
     <div>
-        {editable ?
-            <Input style={{ margin: '-5px 0' }} value={value} onChange={e => onChange(e.target.value)} /> : value
+        {editable
+            ? <Input style={{ margin: '-5px 0' }} value={value} onChange={e => onChange(e.target.value)} />
+            : column==='title' ? <Link onclick={onClick} to={'/graph'}>{value}</Link> : value
         }
     </div>
 );
@@ -19,7 +21,8 @@ class ListDirections extends Component {
         fetchDirections: PropTypes.func.isRequired,
         sendAddedDirection: PropTypes.func.isRequired,
         deleteDirection: PropTypes.func.isRequired,
-        editDirection: PropTypes.func.isRequired
+        editDirection: PropTypes.func.isRequired,
+        fetchGraph: PropTypes.func
     };
 
     constructor(props) {
@@ -50,6 +53,11 @@ class ListDirections extends Component {
             width: '11%',
 
         }, {
+            title: 'Main skill',
+            dataIndex: 'main_skill_id',
+            width: '9%',
+            render: (text, record) => this.renderColumns(text, record, 'main_skill_id'),
+        },{
             title: 'Parent',
             dataIndex: 'parent',
             width: '9%',
@@ -97,6 +105,13 @@ class ListDirections extends Component {
         }];
     }
 
+    sendSkillToGraph(id) {
+        const newData = [...this.state.directions];
+        const target = newData.filter(item => id === item.id)[0];
+
+    }
+
+
     componentDidUpdate(prevProps) {
         if(prevProps.dirs !== this.props.dirs) {
             this.setState({
@@ -111,6 +126,10 @@ class ListDirections extends Component {
                     editable={record.editable}
                     value={text}
                     onChange={value => this.handleChange(value, record.id, column)}
+                    onClick={() => this.props.fetchGraph({
+                        id: record.main_skill_id
+                    })}
+                    column={column}
                 /> : <span>{text}</span>
         );
     }

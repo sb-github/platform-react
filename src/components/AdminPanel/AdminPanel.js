@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Layout, Menu, Icon, Affix } from 'antd';
 import CrawlerContainer from '../Crawler/';
 import SKillContainer from '../Skill/';
-import MaterialContainer from '../Material/';
+import MaterialContainer from '../Materials/';
 import DirectionContainer from '../Directions';
 import StopWordContainer from '../StopWord';
 import GraphContainer from '../Graph';

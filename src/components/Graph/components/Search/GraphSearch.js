@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Search, Grid, Header, Segment,Icon } from 'semantic-ui-react';
+import { Search, Grid, Header ,Icon } from 'semantic-ui-react';
 
 class GraphSearch extends Component {
   static propTypes = {

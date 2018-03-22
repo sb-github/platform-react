@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import PropTypes from 'prop-types';
-import { Input, Icon, Button, Form, Popover } from 'antd';
+import { Input, Icon, Button, Popover } from 'antd';
 import { Button as ButtonS } from 'semantic-ui-react'
 import styles from './style.css';
 

@@ -1,4 +1,3 @@
-import React, { Component } from 'react';
 import WordTree from './WordTree';
 import {fetchNewSkills} from './treeActions';
 import {connect} from 'react-redux';

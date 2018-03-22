@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
 import Root from "./Root";
 import { Provider } from 'react-redux';
-import { IndexRoute, Route, Router } from 'react-router';
 // import { syncHistoryWithStore } from 'react-router-redux';
 import 'semantic-ui-css/semantic.min.css';
 import DevTools from '../components/DevTools/DevTools';
-import AdminPanel from './AdminPanel/AdminPanel';
 import store from "../store";
 
 // const history = syncHistoryWithStore(BrowserRouter, store);

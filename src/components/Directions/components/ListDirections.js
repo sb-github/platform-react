@@ -6,7 +6,7 @@ import dateFormat from 'dateformat';
 import AddDirection from './AddDirection';
 import styles from '../styles.css';
 
-const EditableCell = ({editable, link, value, onChange, onClick, column}) => (
+const EditableCell = ({editable, value, onChange, onClick, column}) => (
     <React.Fragment>
         {editable
             ? <Input

@@ -1,7 +1,6 @@
-import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { fetchGraph, searchGraph, searchInGraph } from "./actions";
+import { fetchGraph, searchGraph } from "./actions";
 import Graph from './Graph';
 
 const mapStateToProps = state => {

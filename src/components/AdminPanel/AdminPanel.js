@@ -29,13 +29,13 @@ class AdminPanel extends Component {
         >
           <Affix>
             <div className='logo'>
-              <img className='logo-img' src={'images/platform.png'} width={40} height={40}/>
+              <img className='logo-img' alt='' src={'/images/platform.png'} width={40} height={40}/>
               <span className='pt-navbar-heading' style={{'fontSize':'20px'}}>
                 {this.state.collapsed ? '' : 'Platform'}
               </span>
             </div>
 
-            <Menu theme="dark" mode="inline" defaultSelectedKeys={'1'} defaultOpenKeys={'1'} >
+            <Menu theme="dark" mode="inline" >
               <Menu.Item key="1">
                 <Link to={'/admin/crawlers'}>
                   <Icon type="rocket" />

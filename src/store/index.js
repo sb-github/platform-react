@@ -10,7 +10,7 @@ import skills from '../components/Skill/skillReducer';
 import materials from '../components/Materials/materialReducer';
 import dirs from '../components/Directions/directionReducer';
 import currentTab from '../components/AdminPanel/TabReducer';
-import {fetchGraph, receiveGraph} from "../components/Graph/actions";
+import {fetchGraph} from "../components/Graph/actions";
 
 export const reducer = combineReducers({
     crawlersInfo,

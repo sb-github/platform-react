@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-// import { Route } from 'react-router';
 import { Switch, Route } from 'react-router-dom'
-// import App from "./App";
 import CrawlerContainer from "./Crawler";
 import DirectionContainer from "./Directions";
 import SKillContainer from "./Skill";

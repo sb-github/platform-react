@@ -18,7 +18,7 @@ const EditableCell = ({editable, link, value, onChange, onClick, column}) => (
                 ? <span onClick={onClick}>
                     <Link
                       onclick={onClick}
-                      to={'/graph'}>{value}
+                      to={'/admin/graph'}>{value}
                     </Link>
                 </span>
                 : <span>{value}</span>

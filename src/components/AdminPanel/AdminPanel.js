@@ -7,8 +7,6 @@ class AdminPanel extends Component {
   constructor(props) {
     super(props);
 
-    console.log( props );
-
     this.state = {
       collapsed: false,
     };
@@ -22,7 +20,6 @@ class AdminPanel extends Component {
 
   render() {
     const { Header, Sider, Content, Footer } = Layout;
-    console.log( Content );
 
     const panel = (<Layout style={{ minHeight: '100vh' }}>
         <Sider

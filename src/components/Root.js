@@ -1,22 +1,35 @@
 import React, { Component } from 'react';
-import DevTools from '../components/DevTools/DevTools';
-import { BrowserRouter as Router } from 'react-router-dom';
-import AdminPanel from './AdminPanel/AdminPanel';
+// import { Route } from 'react-router';
+import { Switch, Route } from 'react-router-dom'
+// import App from "./App";
+import CrawlerContainer from "./Crawler";
+import DirectionContainer from "./Directions";
+import SKillContainer from "./Skill";
+import StopWordContainer from "./StopWord";
+import MaterialContainer from "./Materials";
+import GraphContainer from "./Graph";
+import AdminPanel from "./AdminPanel/AdminPanel";
 
 class Root extends Component {
-  render() {
-    const devTools = process.env.NODE_ENV !== 'production' ? <DevTools /> : <span />;
+    render() {
 
-    return(
-      <Router>
-        <div>
-
-          {devTools}
-          <AdminPanel/>
-        </div>
-      </Router>
-    );
-  };
+        return(
+            <div>
+                <Switch>
+                    <Route exact path="/" />
+                    <AdminPanel>
+                        <Route exact path="admin/" component={AdminPanel} />
+                        <Route path="/admin/crawlers" component={CrawlerContainer} />
+                        <Route path="/admin/skills" component = { SKillContainer } />
+                        <Route path="/admin/directions" component = { DirectionContainer } />
+                        <Route path="/admin/materials" component = { MaterialContainer } />
+                        <Route path="/admin/stopwords" component = { StopWordContainer } />
+                        <Route path="/admin/graph" component = { GraphContainer } />
+                    </AdminPanel>
+                </Switch>
+            </div>
+        );
+    };
 }
 
 export default Root;

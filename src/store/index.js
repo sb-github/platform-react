@@ -9,7 +9,7 @@ import {fetchCrawlers} from "../components/Crawler/crawlerActions";
 import skills from '../components/Skill/skillReducer';
 import materials from '../components/Materials/materialReducer';
 import dirs from '../components/Directions/directionReducer';
-import {fetchSkills} from "../components/Skill/skillActions";
+import currentTab from '../components/AdminPanel/TabReducer';
 import {fetchGraph, receiveGraph} from "../components/Graph/actions";
 
 export const reducer = combineReducers({
@@ -19,7 +19,8 @@ export const reducer = combineReducers({
     words,
     skills,
     materials,
-    dirs
+    dirs,
+    currentTab
 });
 
 const store = createStore(

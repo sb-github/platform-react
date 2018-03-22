@@ -1,17 +1,13 @@
 import React, { Component } from 'react';
 import { Layout, Menu, Icon, Affix } from 'antd';
-import CrawlerContainer from '../Crawler/';
-import SKillContainer from '../Skill/';
-import MaterialContainer from '../Materials/';
-import DirectionContainer from '../Directions';
-import StopWordContainer from '../StopWord';
-import GraphContainer from '../Graph';
-import { Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styles from './styles.css';
 
 class AdminPanel extends Component {
   constructor(props) {
     super(props);
+
+    console.log( props );
 
     this.state = {
       collapsed: false,
@@ -24,8 +20,9 @@ class AdminPanel extends Component {
     });
   };
 
-  render() {  
+  render() {
     const { Header, Sider, Content, Footer } = Layout;
+    console.log( Content );
 
     const panel = (<Layout style={{ minHeight: '100vh' }}>
         <Sider
@@ -41,39 +38,39 @@ class AdminPanel extends Component {
               </span>
             </div>
 
-            <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
+            <Menu theme="dark" mode="inline" defaultSelectedKeys={'1'} defaultOpenKeys={'1'} >
               <Menu.Item key="1">
-                <Link to={'/crawlers'}>
+                <Link to={'/admin/crawlers'}>
                   <Icon type="rocket" />
                   <span>Extractor</span>
                 </Link>
               </Menu.Item>
               <Menu.Item key="2">
-                <Link to={'/skills'}>
+                <Link to={'/admin/skills'}>
                   <Icon type="book" />
                   <span>Skills</span>
                 </Link>
               </Menu.Item>
               <Menu.Item key="3">
-                <Link to={'/directions'}>
+                <Link to={'/admin/directions'}>
                   <Icon type="appstore-o" />
                   <span>Directions</span>
                 </Link>
               </Menu.Item>
               <Menu.Item key="4">
-                <Link to={'/materials'}>
+                <Link to={'/admin/materials'}>
                   <Icon type="file" />
                   <span>Materials</span>
                 </Link>
               </Menu.Item>
               <Menu.Item key="5">
-                    <Link to={'/stopwords'}>
+                    <Link to={'/admin/stopwords'}>
                         <Icon type="file-word" />
                         <span>Stop Words</span>
                     </Link>
                </Menu.Item>
               <Menu.Item key="6">
-                <Link to={'/graph'}>
+                <Link to={'/admin/graph'}>
                   <Icon type="share-alt" />
                   <span>Graph skill</span>
                 </Link>
@@ -86,12 +83,7 @@ class AdminPanel extends Component {
 
           </Header>
           <Content style={{ margin: '24px 16px', padding: 24, background: '#fff' }}>
-            <Route path="/crawlers" component = { CrawlerContainer } />
-            <Route path="/skills" component = { SKillContainer } />
-            <Route path="/directions" component = { DirectionContainer } />
-            <Route path="/materials" component = { MaterialContainer } />
-            <Route path="/stopwords" component = { StopWordContainer } />
-            <Route path="/graph" component = { GraphContainer } />
+              {this.props.children}
           </Content>
             <Footer style={{ textAlign: 'center' }}>
                 Soft Bistro ©2018 Created by SoftBistro trainees

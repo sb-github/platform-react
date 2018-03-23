@@ -6,6 +6,7 @@ import { DatePicker } from 'antd';
 import style from './style.css';
 import dateFormat from 'dateformat';
 import Runner from './Runner';
+import Merge from './Merge';
 import CrawlerStatus from './CrawlerStatus';
 const { RangePicker } = DatePicker;
 const {Column} = Table;
@@ -13,9 +14,12 @@ const {Column} = Table;
 class ListCrawlers extends Component {
   static propTypes = {
     crawlers: PropTypes.array,
+    skills: PropTypes.array,
     page: PropTypes.number,
     fetchResultCrawler: PropTypes.func.isRequired,
+    mergeGraph: PropTypes.func.isRequired,
     fetchCrawlers: PropTypes.func.isRequired,
+    fetchSkills: PropTypes.func.isRequired,
     setCrawler: PropTypes.func.isRequired,
     runCrawler: PropTypes.func.isRequired
   };
@@ -369,12 +373,16 @@ class ListCrawlers extends Component {
               {
                 record.status === 'done' || record.status === 'old'
                   ? <span>
-                      <a href="#"
-                       onClick={() => this.showResultCrawler(record.id)}>
-                        Show results
-                      </a>
+                        <a
+                         onClick={() => this.showResultCrawler(record.id)}>
+                          Show results
+                        </a>
                       <Divider type="vertical" />
-                      <a href="#">Merge</a>
+                      <Merge
+                        skills={this.props.skills}
+                        mergeGraph={this.props.mergeGraph}
+                        fetchSkills={this.props.fetchSkills}
+                      />
                   </span> : <span>
                     <a>
                       <Icon type="minus" />

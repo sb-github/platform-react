@@ -94,5 +94,20 @@ export const fetchResultCrawler = (crawler_id, page) => {
   };
 };
 
+export const mergeGraph = (crawler, skill) => {
+  return dispatch => {
+    const route = process.env.REACT_APP_MERGE_API + `/${skill}`;
+    console.log(route);
+    return fetch(route, {
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      method: 'post',
+      body: JSON.stringify({crawler_id: crawler})
+    }).then(res => res.json())
+      .then(data => console.log('merged'));
+  };
+};
+
 
 

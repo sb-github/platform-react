@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Table, Input, Popconfirm, Divider, Icon, Row, Col, Select } from 'antd';
+import { Table, Input, Popconfirm, Divider, Icon, Row, Col } from 'antd';
 import dateFormat from 'dateformat';
 import AddSkill from './AddSkill';
 

@@ -49,7 +49,7 @@ class GraphSkill extends Component {
       styles: {
         'width': '100%',
         'height': '800px',
-        'background-color': '#00152a',
+        'backgroundColor': '#00152a',
         'position': 'relative',
         'overflow': 'hidden',
         'touch-action': 'pan-y',
@@ -86,7 +86,7 @@ class GraphSkill extends Component {
       ...node,
       selected: false,
       shape: 'circularImage',
-      image: node.image || 'images/noimage.png',
+      image: node.image || '/images/noimage.png',
       value: isBalanced ? undefined : node.value
     }));
   };
@@ -166,7 +166,7 @@ class GraphSkill extends Component {
         ? ({
           ...node,
           label: 'Relations ' + node.label,
-          image: 'images/relations.png'
+          image: '/images/relations.png'
         })
         : node
       ),

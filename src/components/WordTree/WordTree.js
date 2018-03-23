@@ -44,7 +44,7 @@ export class WordTree extends Component {
       if(prevProps.page !== this.props.page)
         this.setState({nodes: [
           ...this.state.nodes,
-          ... WordTree.renderNodes(this.props.nodes)
+          ...WordTree.renderNodes(this.props.nodes)
         ]});
     }
 
@@ -126,7 +126,7 @@ export class WordTree extends Component {
       ? this.state.selected.filter(i => i !== nodeData.skill)
       : [...this.state.selected, nodeData.skill];
 
-    this.state = ({
+    this.setState = ({
       ...this.state,
       selected: selected
     });
@@ -182,7 +182,7 @@ export class WordTree extends Component {
   };
 
   handleRemove = tag => {
-    this.state = ({
+    this.setState = ({
       ...this.state,
       nodes: this.state.nodes.map(item => {
         let selCount = 0;
